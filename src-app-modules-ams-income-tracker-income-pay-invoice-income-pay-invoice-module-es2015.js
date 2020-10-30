@@ -89,12 +89,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api/controllers/Accounts */ "./src/app/api/controllers/Accounts.ts");
 /* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
-/* harmony import */ var src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/constants.service */ "./src/app/shared/services/constants.service.ts");
-/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid */ "./src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts");
-
+/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid */ "./src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts");
 
 
 
@@ -104,11 +102,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
-    constructor(route, accountsService, sharedService, constantsService, sessionService) {
+    constructor(route, accountsService, sharedService, sessionService) {
         this.route = route;
         this.accountsService = accountsService;
         this.sharedService = sharedService;
-        this.constantsService = constantsService;
         this.sessionService = sessionService;
         this.isInvoiceDataLoaded = false;
         this.invoiceData = "";
@@ -253,7 +250,7 @@ let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
                 datafield: 'custInvoiceDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(this.constantsService.dateFormat) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             },
@@ -262,7 +259,7 @@ let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
                 datafield: 'dueDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(this.constantsService.dateFormat) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             }, {
@@ -304,6 +301,7 @@ let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
         });
     }
     ngOnInit() {
+        this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
         this.getCustInvoices();
         let params = {
             apartmentId: this.sessionService.apartmentId
@@ -328,8 +326,7 @@ IncomePayInvoiceComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
     { type: src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_3__["AccountsService"] },
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"] },
-    { type: src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__["ConstantsService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"] }
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"] }
 ];
 IncomePayInvoiceComponent.propDecorators = {
     datagrid: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['datagrid', { static: false },] }],
@@ -345,8 +342,7 @@ IncomePayInvoiceComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorat
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
         src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_3__["AccountsService"],
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"],
-        src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__["ConstantsService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]])
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]])
 ], IncomePayInvoiceComponent);
 
 let checkInvoiceHeaderEvent = (event, isChecked) => {
@@ -461,6 +457,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api/controllers/Lookup */ "./src/app/api/controllers/Lookup.ts");
 /* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
 /* harmony import */ var underscore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! underscore */ "./node_modules/underscore/modules/index-all.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
+/* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -520,7 +519,7 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
                 "comment2": "",
                 "active": true,
                 "insertedBy": this.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
             };
@@ -550,7 +549,7 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
                 "comment2": "",
                 "active": true,
                 "insertedBy": this.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
             };
@@ -581,7 +580,7 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
                 "comment2": "",
                 "active": true,
                 "insertedBy": this.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
             };
@@ -626,9 +625,9 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
                 "comment": "",
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": "2020-01-10T06:59:54.422Z",
-                "updatedBy": 0,
-                "updatedOn": "2020-01-10T06:59:54.422Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
             };
             custInvoiceObjArray.push(details);
         });
@@ -636,10 +635,10 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
         let collectionDetails = {
             "apartmentId": this.sessionService.apartmentId,
             "receiptNumber": 0,
-            "receiptDate": new Date().toISOString(),
+            "receiptDate": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
             "amount": parseInt(this.collection.amount),
             "instrumentTypeId": parseInt(this.collection.instrumentTypeId),
-            "postOn": this.collection.postOn || new Date().toISOString(),
+            "postOn": this.collection.postOn || moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
             "collectionAccountTypeId": 165,
             "depositSlipNumber": 0,
             "postExcessAmountTo": 0,
@@ -650,7 +649,7 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
             "comment": this.collection.comment || "",
             "isActive": true,
             "insertedBy": parseInt(this.sessionService.userId),
-            "insertedOn": new Date().toISOString(),
+            "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
             "updatedBy": null,
             "updatedOn": null,
             "invoiceId": this.invoiceIdArray[0],

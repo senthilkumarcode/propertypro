@@ -460,16 +460,15 @@
                 "apartmentId": this.sessionService.apartmentId,
                 "staffId": parseInt(this.entry.staffId),
                 "inTime": this.entry.inTime,
-                "inGateId": parseInt(this.entry.inGateId),
+                "inGateId": this.entry.inGateId,
                 "outTime": this.entry.outTime,
                 "outGateId": parseInt(this.entry.outGateId),
                 "shiftId": parseInt(this.entry.shiftId),
                 "notes": this.entryComments,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": "2019-12-04T05:43:41.299Z",
-                "updatedBy": 0,
-                "updatedOn": "2019-12-04T05:43:41.299Z"
+                "insertedOn": null,
+                "updatedOn": null
               };
               var params = {
                 attendance: details
@@ -535,6 +534,9 @@
           value: function ngOnInit() {
             var _this4 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this4.timeZone = timeZone;
+            });
             this.entry = {};
             this.entry.staffId = "";
             this.entry.inGateId = "";
@@ -738,19 +740,29 @@
       /* harmony import */
 
 
-      var src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/api/controllers/EmailSend */
       "./src/app/api/controllers/EmailSend.ts");
       /* harmony import */
 
 
-      var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ngx-intl-tel-input */
       "./node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
       /* harmony import */
 
 
-      var src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/app/api/controllers/Screen */
       "./src/app/api/controllers/Screen.ts");
 
@@ -789,12 +801,12 @@
           this.userTypeList = [];
           this.outputParams = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
           this.separateDialCode = true;
-          this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["SearchCountryField"];
-          this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"];
+          this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__["SearchCountryField"];
+          this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__["CountryISO"];
           this.phoneForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
             phone: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](undefined, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])
           });
-          this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"].UnitedStates, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"].UnitedKingdom];
+          this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__["CountryISO"].UnitedStates, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_11__["CountryISO"].UnitedKingdom];
           this.menuControlList = [];
         }
 
@@ -989,7 +1001,7 @@
                 "zipCode": "",
                 "genderId": this.staff.genderId,
                 "dob": this.staff.dob,
-                "joinedOn": new Date().toISOString(),
+                "joinedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString(),
                 "bloodGroup": this.staff.bloodGroup,
                 "phoneNumber": this.phoneForm.value.phone.number,
                 "emergencyContactNumber": "",
@@ -1024,7 +1036,7 @@
                       "lastName": _this7.staff.lastName,
                       "emailId": _this7.staff.emailId,
                       "contactNumber": _this7.phoneForm.value.phone.number,
-                      "alternateContact": _this7.staff.alternateContact.toString(),
+                      "alternateContact": _this7.staff.alternateContact == null ? "" : _this7.staff.alternateContact.toString(),
                       "staffNumber": null,
                       "staffCategoryId": parseInt(_this7.staff.staffCategoryId),
                       "staffSubCategoryId": parseInt(_this7.staff.staffSubCategoryId),
@@ -1058,7 +1070,7 @@
                       "jobTitleId": parseInt(_this7.staff.staffSubCategoryId),
                       "isActive": true,
                       "insertedBy": _this7.sessionService.userId,
-                      "insertedOn": new Date().toISOString(),
+                      "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString(),
                       "updatedBy": null,
                       "updatedOn": null,
                       "secLevelId": _this7.staff.secLevelId,
@@ -1084,7 +1096,7 @@
                         "roleId": roleId,
                         "isActive": true,
                         "insertedBy": parseInt(_this7.sessionService.userId),
-                        "insertedOn": new Date().toISOString(),
+                        "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString(),
                         "updatedBy": null,
                         "updatedOn": null,
                         "staffId": res.message
@@ -1186,7 +1198,7 @@
                     "lastName": _this7.staff.lastName,
                     "emailId": _this7.staff.emailId,
                     "contactNumber": _this7.phoneForm.value.phone.number,
-                    "alternateContact": _this7.staff.alternateContact.toString(),
+                    "alternateContact": _this7.staff.alternateContact == null ? "" : _this7.staff.alternateContact.toString(),
                     "staffNumber": null,
                     "staffCategoryId": parseInt(_this7.staff.staffCategoryId),
                     "staffSubCategoryId": parseInt(_this7.staff.staffSubCategoryId),
@@ -1301,7 +1313,7 @@
                 _this8.getStaffType(_this8.staff.staffCategoryId);
 
                 _this8.phoneForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormGroup"]({
-                  phone: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](_this8.staff.contactNumber, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])
+                  phone: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](_this8.staff.phoneNumber, [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])
                 });
               }, function (error) {});
             } else {
@@ -1382,9 +1394,9 @@
         }, {
           type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"]
         }, {
-          type: src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_9__["EmailSendService"]
+          type: src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_10__["EmailSendService"]
         }, {
-          type: src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_11__["ScreenService"]
+          type: src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_12__["ScreenService"]
         }];
       };
 
@@ -1410,7 +1422,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./add-staff.component.scss */
         "./src/app/modules/ams/staff-manager/components/add-staff/add-staff.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_4__["UserService"], src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_5__["StaffService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_7__["LookupService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__["SharedService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"], src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_9__["EmailSendService"], src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_11__["ScreenService"]])], AddStaffComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_4__["UserService"], src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_5__["StaffService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_7__["LookupService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__["SharedService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"], src_app_api_controllers_EmailSend__WEBPACK_IMPORTED_MODULE_10__["EmailSendService"], src_app_api_controllers_Screen__WEBPACK_IMPORTED_MODULE_12__["ScreenService"]])], AddStaffComponent);
       /***/
     },
 
@@ -1480,52 +1492,52 @@
       /* harmony import */
 
 
-      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/shared/services/shared.service */
+      "./src/app/shared/services/shared.service.ts");
+      /* harmony import */
+
+
+      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
       /* harmony import */
 
 
-      var underscore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var underscore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! underscore */
       "./node_modules/underscore/modules/index-all.js");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! moment */
       "./node_modules/moment/moment.js");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+      var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
       /* harmony import */
 
 
-      var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid */
       "./src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts");
-      /* harmony import */
-
-
-      var src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-      /*! src/app/shared/services/constants.service */
-      "./src/app/shared/services/constants.service.ts");
 
       var StaffAttendanceComponent = /*#__PURE__*/function () {
-        function StaffAttendanceComponent(staffService, lookupService, sessionService, constantsService, router) {
+        function StaffAttendanceComponent(staffService, lookupService, sessionService, sharedService, router) {
           _classCallCheck(this, StaffAttendanceComponent);
 
           this.staffService = staffService;
           this.lookupService = lookupService;
           this.sessionService = sessionService;
-          this.constantsService = constantsService;
+          this.sharedService = sharedService;
           this.router = router;
           this.isEntryDataLoaded = false;
           this.unitFieldType = "unitno";
@@ -1570,7 +1582,7 @@
         }, {
           key: "onSelectChange",
           value: function onSelectChange(event, type, name) {
-            if (!underscore__WEBPACK_IMPORTED_MODULE_6__["isEmpty"](event)) {
+            if (!underscore__WEBPACK_IMPORTED_MODULE_7__["isEmpty"](event)) {
               this.selectedInput = type;
               this.columnField[type] = event[name];
             } else {
@@ -1703,6 +1715,10 @@
           value: function ngOnInit() {
             var _this11 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this11.timeZone = timeZone;
+            });
+
             var cellsrenderer = function cellsrenderer(row, column, value) {
               return '<div class="jqx-custom-inner-cell">' + value + '</div>';
             };
@@ -1728,7 +1744,7 @@
               datafield: 'inTime',
               minwidth: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(_this11.constantsService.dateFormat) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_8__(value).format(_this11.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -1736,7 +1752,7 @@
               datafield: 'outTime',
               minwidth: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(_this11.constantsService.dateFormat) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_8__(value).format(_this11.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -1780,7 +1796,7 @@
               _this11.entryListData = res.filter(function (data) {
                 return data.isActive;
               });
-              underscore__WEBPACK_IMPORTED_MODULE_6__["each"](_this11.entryListData, function (item) {
+              underscore__WEBPACK_IMPORTED_MODULE_7__["each"](_this11.entryListData, function (item) {
                 _this11.staffService.getStaffByStaffId(item.staffId).subscribe(function (staff) {
                   _this11.staffDetails.push(staff[0]);
                 });
@@ -1840,11 +1856,11 @@
         }, {
           type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_3__["LookupService"]
         }, {
-          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]
+          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]
         }, {
-          type: src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_9__["ConstantsService"]
+          type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]
         }];
       };
 
@@ -1868,7 +1884,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./staff-attendance.component.scss */
         "./src/app/modules/ams/staff-manager/components/staff-attendance/staff-attendance.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_2__["StaffService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_3__["LookupService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"], src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_9__["ConstantsService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])], StaffAttendanceComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_2__["StaffService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_3__["LookupService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])], StaffAttendanceComponent);
 
       function editAttendenceStaff(row) {
         var event = new CustomEvent('onEditAttendenceStaff', {
@@ -1964,6 +1980,16 @@
       var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var StaffGatesComponent = /*#__PURE__*/function () {
         function StaffGatesComponent(injector, dialog, staffService, sharedService, sessionService) {
@@ -2019,9 +2045,9 @@
                 "comments": this.gate.comments,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
-                "updatedBy": 0,
-                "updatedOn": new Date().toISOString()
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 gate: details
@@ -2042,10 +2068,10 @@
                 "gateName": this.gate.gateName,
                 "comments": this.gate.comments,
                 "isActive": this.gate.isActive,
-                "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
+                "insertedBy": this.gate.insertedBy,
+                "insertedOn": this.gate.insertedOn,
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": new Date().toISOString()
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString()
               };
               var _params3 = {
                 gate: _details2
@@ -3367,6 +3393,16 @@
       var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/material/sidenav */
       "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/sidenav.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var AssociateStaffComponent = /*#__PURE__*/function () {
         function AssociateStaffComponent(lookupService, sessionService, injector, sharedService) {
@@ -3389,6 +3425,9 @@
           value: function ngOnInit() {
             var _this22 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this22.timeZone = timeZone;
+            });
             this.getAssociateStaff();
             this.sharedService.unitlistdeleteindexcast.subscribe(function (lookupValueId) {
               if (lookupValueId != null) {
@@ -3457,9 +3496,9 @@
                 "description": this.staffCategory,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": "2019-11-16T14:50:08.217Z",
-                "updatedBy": 0,
-                "updatedOn": "2019-11-16T14:50:08.217Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 lookupvalue: details
@@ -3618,6 +3657,16 @@
       var _angular_material_sidenav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/material/sidenav */
       "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/sidenav.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var PersonalStaffComponent = /*#__PURE__*/function () {
         function PersonalStaffComponent(lookupService, sessionService, injector, sharedService) {
@@ -3640,6 +3689,9 @@
           value: function ngOnInit() {
             var _this25 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this25.timeZone = timeZone;
+            });
             this.getAssociateStaff();
             this.sharedService.unitlistdeleteindexcast.subscribe(function (lookupValueId) {
               if (lookupValueId != null) {
@@ -3708,9 +3760,9 @@
                 "description": this.staffCategory,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": "2019-11-16T14:50:08.217Z",
-                "updatedBy": 0,
-                "updatedOn": "2019-11-16T14:50:08.217Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 lookupvalue: details
@@ -3733,9 +3785,9 @@
                 "description": this.staffCategory,
                 "isActive": true,
                 "insertedBy": 0,
-                "insertedOn": "2019-11-16T14:50:08.217Z",
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": "2019-11-16T14:50:08.217Z"
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString()
               };
               var _params5 = {
                 lookupvalue: _details4
@@ -3975,7 +4027,17 @@
       /* harmony import */
 
 
-      var underscore__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var underscore__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! underscore */
       "./node_modules/underscore/modules/index-all.js");
 
@@ -4013,7 +4075,7 @@
         }, {
           key: "getShiftType",
           value: function getShiftType(id) {
-            var data = underscore__WEBPACK_IMPORTED_MODULE_9__["filter"](this.shiftTypeList, function (item) {
+            var data = underscore__WEBPACK_IMPORTED_MODULE_10__["filter"](this.shiftTypeList, function (item) {
               if (item.lookupValueId === id) return item;
             });
 
@@ -4059,9 +4121,9 @@
                 "totalHours": this.shiftTotalHrs,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
-                "updatedBy": 0,
-                "updatedOn": "2019-12-03T06:11:51.972Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 shift: details
@@ -4084,9 +4146,9 @@
                 "totalHours": this.shiftTotalHrs,
                 "isActive": true,
                 "insertedBy": 0,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString(),
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": new Date().toISOString()
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_9___default()().toISOString()
               };
               var _params6 = {
                 shift: _details5

@@ -62,7 +62,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n<div class=\"vendors-view-wrapper\">\n        <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n\t\t\t\t<mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t\t\t<div class=\"helpdesk-filter-drawer p-5\">\n\t\t\t\t\t\t<div class=\"title row\">\n\t\t\t\t\t\t\t<h4> Filter By </h4>\n\t\t\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<condo-card>\n\t\t\t\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\n\t\t\t\t\t\t\t\t<form>\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\n\t\t\t\t\t\t\t\t\t\t <condo-select [fieldModel]=\"blockId\" labelText=\"Tower No\" fieldPlaceholder=\"Select Tower\" fieldId=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\t\t\t [fieldRequired]=\"'required'\" [fieldList]=\"unitBlocksData\" [isDisabled]=\"false\"  fieldValue=\"apartmentBlockNumber\" (fieldParams)=\"getSelectedType($event)\"></condo-select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<!-- <div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label>Start Date<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t\t\t\t\t<input class=\"form-control\" name=\"startDate\" [owlDateTime]=\"startDate\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"startDate\" placeholder=\"Date Time\" [(ngModel)]=\"start_date\"\n\t\t\t\t\t\t\t\t\t\t\t\t\trequired>\n\t\t\t\t\t\t\t\t\t\t\t\t<owl-date-time #startDate></owl-date-time>\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"startDate\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label>End Date<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t\t\t\t\t<input class=\"form-control\" name=\"endDate\" [owlDateTime]=\"endDate\"\n\t\t\t\t\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"endDate\" placeholder=\"Date\" [(ngModel)]=\"end_date\" required>\n\t\t\t\t\t\t\t\t\t\t\t\t<owl-date-time #endDate></owl-date-time>\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"endDate\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div> -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Cancel</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</condo-card>\n\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</mat-drawer>\n\t\t\t\t<mat-drawer-content>\n        <div class=\"main\">\n    \n        <app-loader *ngIf=\"!isVendorLoaded\"></app-loader>\n    \n        <condo-card *ngIf=\"isVendorLoaded\">\n            <div CondoCardHeader>\n                <div class=\"d-flex\">\n                    <div>\n                        <h4>{{selected_report_type}} Vendors </h4>\n                        <p>{{totalItems}} results</p>\n                    </div>\n                    <div class=\"ml-auto my-auto\">\n\t\t\t\t\t\t\t<app-table-search [input]=\"vendorData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"mr-3 my-auto ml-3\">\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams)=\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mr-3 my-auto ml-3\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'accent'\" (click)=\"filter.toggle()\" class=\"d-none d-md-block\">\n\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<button class=\"d-block d-md-none table-add-btn\" mat-button (click)=\"filter.toggle()\">\n\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'heroicons_outline:filter'\"></mat-icon>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n                  \n                </div>\n            </div>\n            <div CondoCardBody>\n                <jqxGrid [theme]=\"'material'\" [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\" [pageable]=\"true\"\n                    [filterable]=\"true\" [sortable]=\"true\" [source]=\"vendorTableList\" [columns]=\"columnData\"\n                    [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n                </jqxGrid>\n            </div>\n        </condo-card>\n        <ng-template #viewVendorRef let-vendor>\n            <div class=\"user-info\">\n                <div class=\"close-icon\" mat-dialog-close>\n                    <i-feather class=\"icon del\" name=\"x\" width=\"20\"></i-feather>\n                </div>\n                <div class=\"title\">\n                    <h5>Vendor Info</h5>\n                </div>\n    \n                <div class=\"card\">\n                    <div class=\"card-header\">\n                        <div class=\"media\">\n                            <div class=\"icon mr-4\"><img src=\"assets/images/user-icon.svg\" width=\"36\" /></div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mt-0\">{{vendor.vendorName}}</h5>\n                                <p class=\"grey\">{{vendor.email}}</p>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"card-body lists\">\n                        <ul class=\"list-group\">\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Vendor ID</h6>\n                                <p>{{vendor.vendorId}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Contact Person</h6>\n                                <p>{{vendor.contactPerson}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Phone No</h6>\n                                <p>{{vendor.phone1}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">VAT No</h6>\n                                <p>{{vendor.vatorTin}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax1 No</h6>\n                                <p>{{vendor.tax1}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax2 No</h6>\n                                <p>{{vendor.tax2}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax3 No</h6>\n                                <p>{{vendor.tax3}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax4 No</h6>\n                                <p>{{vendor.tax4}}</p>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n    \n        </ng-template>\n    </div>\n\n</mat-drawer-content>\n</mat-drawer-container>\n    </div>";
+      __webpack_exports__["default"] = "\n<div class=\"vendors-view-wrapper\">\n        <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n\t\t\t\t<mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t\t\t<div class=\"helpdesk-filter-drawer p-5\">\n\t\t\t\t\t\t<div class=\"title row\">\n\t\t\t\t\t\t\t<h4> Filter By </h4>\n\t\t\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<condo-card>\n\t\t\t\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\n\t\t\t\t\t\t\t\t<form>\n                \n                                    \t<div class=\"filter-box cleafix\">\n                                                <div class=\"d-flex align-items-center mb-4\">\n                                                    \n                                            \n                                                        <button mat-flat-button class=\"mr-3\" [ngClass]=\"filterSelected == 'all' ? 'mat-primary' : 'mat-lined'\" (click)=\"getAllBlockData('all')\">All\n                                                            Towers</button>\n                                                        <button mat-flat-button [ngClass]=\"filterSelected != 'all' ? 'mat-primary' : 'mat-lined'\" [matMenuTriggerFor]=\"singleBlockActions\">{{singleBlock}}</button>\n                                                        <mat-menu class=\"mat-actions-menu\" [xPosition]=\"'before'\" #singleBlockActions=\"matMenu\">\n                                                            <ng-container *ngFor=\"let block of unitBlocksData\">\n                                                                <button mat-menu-item (click)=\"getSingleBlock(block)\">\n                                                                    {{block.apartmentBlockNumber}}\n                                                                </button>\n                                                            </ng-container>\n                                                        </mat-menu>\n                                            \n                                                    \n                                                    \n                                                </div>\n                                            </div>\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t<!-- <div class=\"row\">\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\n\t\t\t\t\t\t\t\t\t\t <condo-select [fieldModel]=\"blockId\" labelText=\"Tower No\" fieldPlaceholder=\"Select Tower\" fieldId=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\t\t\t [fieldRequired]=\"'required'\" [fieldList]=\"unitBlocksData\" [isDisabled]=\"false\"  fieldValue=\"apartmentBlockNumber\" (fieldParams)=\"getSelectedType($event)\"></condo-select>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Cancel</button>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</div> -->\n\t\t\t\t\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</condo-card>\n\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</mat-drawer>\n\t\t\t\t<mat-drawer-content>\n        <div class=\"main\">\n    \n        <app-loader *ngIf=\"!isVendorLoaded\"></app-loader>\n    \n        <condo-card *ngIf=\"isVendorLoaded\">\n            <div CondoCardHeader>\n                \t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"float-right\">\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t<a href=\"javascript:void(0)\" routerLink=\"/ams/vendor/reports\" \n\t\t\t\t\t\t\t\t\t\trouterLinkActive=\"active\"\n\t\t\t\t\t\t\t\t\t\t[routerLinkActiveOptions] = \"{exact:true}\">\n\t\t\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:ticket\"></mat-icon>All Reports\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n                <div class=\"d-flex\">\n                    <div>\n                        <h4>{{selected_report_type}} Vendors </h4>\n                        <p>{{totalItems}} results</p>\n                    </div>\n                    <div class=\"ml-auto my-auto\">\n\t\t\t\t\t\t\t<app-table-search [input]=\"vendorData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"mr-3 my-auto ml-3\">\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams)=\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- <div class=\"mr-3 my-auto ml-3\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'accent'\" (click)=\"filter.toggle()\" class=\"d-none d-md-block\">\n\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<button class=\"d-block d-md-none table-add-btn\" mat-button (click)=\"filter.toggle()\">\n\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'heroicons_outline:filter'\"></mat-icon>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div> -->\n                  \n                </div>\n            </div>\n            <div CondoCardBody>\n                <jqxGrid [theme]=\"'material'\" [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\" [pageable]=\"true\"\n                    [filterable]=\"true\" [sortable]=\"true\" [source]=\"vendorTableList\" [columns]=\"columnData\"\n                    [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n                </jqxGrid>\n            </div>\n        </condo-card>\n        <ng-template #viewVendorRef let-vendor>\n            <div class=\"user-info\">\n                <div class=\"close-icon\" mat-dialog-close>\n                    <i-feather class=\"icon del\" name=\"x\" width=\"20\"></i-feather>\n                </div>\n                <div class=\"title\">\n                    <h5>Vendor Info</h5>\n                </div>\n    \n                <div class=\"card\">\n                    <div class=\"card-header\">\n                        <div class=\"media\">\n                            <div class=\"icon mr-4\"><img src=\"assets/images/user-icon.svg\" width=\"36\" /></div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mt-0\">{{vendor.vendorName}}</h5>\n                                <p class=\"grey\">{{vendor.email}}</p>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"card-body lists\">\n                        <ul class=\"list-group\">\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Vendor ID</h6>\n                                <p>{{vendor.vendorId}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Contact Person</h6>\n                                <p>{{vendor.contactPerson}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Phone No</h6>\n                                <p>{{vendor.phone1}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">VAT No</h6>\n                                <p>{{vendor.vatorTin}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax1 No</h6>\n                                <p>{{vendor.tax1}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax2 No</h6>\n                                <p>{{vendor.tax2}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax3 No</h6>\n                                <p>{{vendor.tax3}}</p>\n                            </li>\n                            <li class=\"list-inline-item\">\n                                <h6 class=\"mt-0\">Tax4 No</h6>\n                                <p>{{vendor.tax4}}</p>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n    \n        </ng-template>\n    </div>\n\n</mat-drawer-content>\n</mat-drawer-container>\n    </div>";
       /***/
     },
 
@@ -822,6 +822,16 @@
       var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_10__);
 
       var CreateVendorComponent = /*#__PURE__*/function () {
         function CreateVendorComponent(router, route, injector, accountsService, vendorService, bankAccountService, lookupService, sharedService, sessionService) {
@@ -880,10 +890,10 @@
                 "ifsc": this.vendor.bankCode,
                 "isPrimary": true,
                 "isActive": true,
-                "insertedBy": 0,
-                "insertedOn": new Date().toISOString(),
-                "updatedBy": 0,
-                "updatedOn": new Date().toISOString()
+                "insertedBy": parseInt(this.sessionService.userId),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 bankAccountDetails: bank_details
@@ -920,9 +930,9 @@
                 "bankAccountDetailsId": null,
                 "isActive": this.vendorStatus,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString(),
                 "updatedBy": null,
-                "updatedOn": new Date().toISOString()
+                "updatedOn": null
               };
               var vendorParams = {
                 vendor: details
@@ -954,10 +964,10 @@
                 "ifsc": this.vendor.bankCode,
                 "isPrimary": true,
                 "isActive": true,
-                "insertedBy": 0,
-                "insertedOn": new Date().toISOString(),
-                "updatedBy": 0,
-                "updatedOn": new Date().toISOString()
+                "insertedBy": this.vendor.insertedBy,
+                "insertedOn": this.vendor.insertedOn,
+                "updatedBy": parseInt(this.sessionService.userId),
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString()
               };
               var bankAccParams = {
                 bankAccountDetails: _bank_details
@@ -994,9 +1004,9 @@
                 "bankAccountDetailsId": null,
                 "isActive": this.vendorStatus,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString(),
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": new Date().toISOString()
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString()
               }; // this.vendorService.updateVendor(vendorParams).subscribe((res:any) => {
               //   if(res.message) {
               //     this.isVendorSubmitted = false;
@@ -1264,6 +1274,8 @@
           this.blockNo = "";
           this.end_date = null;
           this.start_date = null;
+          this.filterSelected = "all";
+          this.singleBlock = "Select Tower";
         }
 
         _createClass(VendorReportDataComponent, [{
@@ -1350,9 +1362,40 @@
             }
           }
         }, {
+          key: "getAllBlockData",
+          value: function getAllBlockData() {
+            this.filterSelected = 'all';
+            this.singleBlock = "Select Tower";
+            this.blockId = "";
+            this.datagrid.clearfilters();
+          }
+        }, {
+          key: "getSingleBlock",
+          value: function getSingleBlock(block) {
+            var _this5 = this;
+
+            this.filterSelected = 'single';
+            this.singleBlock = block.apartmentBlockNumber;
+            this.blockId = block.apartmentBlockId;
+            var filtergroup = new jqx.filter();
+            var filter_or_operator = 1;
+            var filtervalue = this.singleBlock;
+            var filtercondition = 'contains';
+            var filterData = filtergroup.createfilter('stringfilter', filtervalue, filtercondition);
+            filtergroup.operator = 'or';
+            filtergroup.addfilter(filter_or_operator, filterData);
+            this.datagrid.showfiltercolumnbackground(false);
+            this.columnData.forEach(function (item) {
+              if (item.datafield != 'Actions') {
+                _this5.datagrid.addfilter(item.datafield, filtergroup, true);
+              }
+            });
+            this.datagrid.applyfilters();
+          }
+        }, {
           key: "onGlSearchFilter",
           value: function onGlSearchFilter(event) {
-            var _this5 = this;
+            var _this6 = this;
 
             if (event != "") {
               var filtergroup = new jqx.filter();
@@ -1365,7 +1408,7 @@
               this.datagrid.showfiltercolumnbackground(false);
               this.columnData.forEach(function (item) {
                 if (item.datafield != 'Actions') {
-                  _this5.datagrid.addfilter(item.datafield, filtergroup, true);
+                  _this6.datagrid.addfilter(item.datafield, filtergroup, true);
                 }
               });
               this.datagrid.applyfilters();
@@ -1386,7 +1429,7 @@
         }, {
           key: "filterApply",
           value: function filterApply() {
-            var _this6 = this;
+            var _this7 = this;
 
             this.goBack();
             var filtergroup = new jqx.filter();
@@ -1399,7 +1442,7 @@
             this.datagrid.showfiltercolumnbackground(false);
             this.columnData.forEach(function (item) {
               if (item.datafield != 'Actions') {
-                _this6.datagrid.addfilter(item.datafield, filtergroup, true);
+                _this7.datagrid.addfilter(item.datafield, filtergroup, true);
               }
             });
             this.datagrid.applyfilters();
@@ -1432,7 +1475,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this7 = this;
+            var _this8 = this;
 
             this.pageName = this.route.params['value'].name;
             this.selected_report_type = this.pageName;
@@ -1440,7 +1483,7 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.apartmentService.getApartmentBlockByApartmentId(unitBlockParams).subscribe(function (res) {
-              _this7.unitBlocksData = res;
+              _this8.unitBlocksData = res;
             });
 
             var cellsrenderer = function cellsrenderer(row, column, value) {
@@ -1505,16 +1548,16 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.vendorService.getVendorByApartmentId(params).subscribe(function (res) {
-              _this7.allVendorListData = res;
-              _this7.isVendorLoaded = true;
+              _this8.allVendorListData = res;
+              _this8.isVendorLoaded = true;
 
-              _this7.selectReport(_this7.pageName);
+              _this8.selectReport(_this8.pageName);
             }, function (error) {});
             var vendorParams = {
               LookupTypeId: 57
             };
             this.lookupService.getLookupValueByLookupTypeId(vendorParams).subscribe(function (res) {
-              _this7.vendorCategoryData = res.filter(function (item) {
+              _this8.vendorCategoryData = res.filter(function (item) {
                 return item.isActive;
               });
             });
@@ -1793,7 +1836,7 @@
         }, {
           key: "onGlSearchFilter",
           value: function onGlSearchFilter() {
-            var _this8 = this;
+            var _this9 = this;
 
             if (this.vendorData != "") {
               var filtergroup = new jqx.filter();
@@ -1806,7 +1849,7 @@
               this.datagrid.showfiltercolumnbackground(false);
               this.columnData.forEach(function (item) {
                 if (item.datafield != 'Actions') {
-                  _this8.datagrid.addfilter(item.datafield, filtergroup, true);
+                  _this9.datagrid.addfilter(item.datafield, filtergroup, true);
                 }
               });
               this.datagrid.applyfilters();
@@ -1837,7 +1880,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            var _this10 = this;
 
             var cellsrenderer = function cellsrenderer(row, column, value) {
               return '<div class="jqx-custom-inner-cell">' + value + '</div>';
@@ -1908,14 +1951,14 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.vendorService.getVendorByApartmentId(params).subscribe(function (res) {
-              _this9.allVendorListData = res;
-              _this9.isVendorLoaded = true;
+              _this10.allVendorListData = res;
+              _this10.isVendorLoaded = true;
             }, function (error) {});
             var vendorParams = {
               LookupTypeId: 57
             };
             this.lookupService.getLookupValueByLookupTypeId(vendorParams).subscribe(function (res) {
-              _this9.vendorCategoryData = res.filter(function (item) {
+              _this10.vendorCategoryData = res.filter(function (item) {
                 return item.isActive;
               });
             });
@@ -2059,6 +2102,16 @@
       var src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/shared/services/modal.service */
       "./src/app/shared/services/modal.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var VendorSetupComponent = /*#__PURE__*/function () {
         function VendorSetupComponent(injector, vendorService, lookupService, sharedService, sessionService) {
@@ -2098,7 +2151,7 @@
         }, {
           key: "deleteVendorCategory",
           value: function deleteVendorCategory(item) {
-            var _this10 = this;
+            var _this11 = this;
 
             this.isVendorCategoryLoaded = false;
             var params = {
@@ -2107,7 +2160,7 @@
             };
             this.lookupService.deleteLookupvalue(params).subscribe(function (res) {
               //this.vendorCategoryData.splice(index, 1);
-              _this10.loadVendorCategory();
+              _this11.loadVendorCategory();
             });
           }
         }, {
@@ -2147,7 +2200,7 @@
         }, {
           key: "submitVendorCategoryForm",
           value: function submitVendorCategoryForm(form) {
-            var _this11 = this;
+            var _this12 = this;
 
             this.isVendorCategorySubmitted = false;
             this.isError = false;
@@ -2159,9 +2212,9 @@
                 "description": this.VendorCategory,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": "2019-11-20T16:51:24.105Z",
-                "updatedBy": 0,
-                "updatedOn": "2019-11-20T16:51:24.105Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var params = {
                 lookupvalue: details
@@ -2172,22 +2225,22 @@
                     LookupTypeId: 57
                   };
 
-                  _this11.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
-                    _this11.isVendorCategorySubmitted = true;
+                  _this12.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
+                    _this12.isVendorCategorySubmitted = true;
 
-                    _this11.sharedService.setAlertMessage("Category added Successfully!");
+                    _this12.sharedService.setAlertMessage("Category added Successfully!");
 
-                    _this11.vendorCategoryData = res.filter(function (item) {
+                    _this12.vendorCategoryData = res.filter(function (item) {
                       return item.isActive;
                     });
                   });
                 } else {
-                  _this11.isVendorCategorySubmitted = true;
-                  _this11.isError = true;
-                  _this11.alertMessage = res.errorMessage;
+                  _this12.isVendorCategorySubmitted = true;
+                  _this12.isError = true;
+                  _this12.alertMessage = res.errorMessage;
 
-                  if (_this11.alertMessage === "addLookupValue Not Added as it already exist.") {
-                    _this11.alertMessage = "Invalid action. " + details.lookupValueName + " vendor category already exist.";
+                  if (_this12.alertMessage === "addLookupValue Not Added as it already exist.") {
+                    _this12.alertMessage = "Invalid action. " + details.lookupValueName + " vendor category already exist.";
                   }
                 }
               });
@@ -2201,7 +2254,7 @@
                 "insertedBy": 0,
                 "insertedOn": "2019-11-20T16:51:24.105Z",
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": "2019-11-20T16:51:24.105Z"
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString()
               };
               var _params = {
                 lookupvalue: _details2
@@ -2212,19 +2265,19 @@
                     LookupTypeId: 57
                   };
 
-                  _this11.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
-                    _this11.isVendorCategorySubmitted = true;
+                  _this12.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
+                    _this12.isVendorCategorySubmitted = true;
 
-                    _this11.sharedService.setAlertMessage("Category updated Successfully!");
+                    _this12.sharedService.setAlertMessage("Category updated Successfully!");
 
-                    _this11.vendorCategoryData = res.filter(function (item) {
+                    _this12.vendorCategoryData = res.filter(function (item) {
                       return item.isActive;
                     });
                   });
                 } else {
-                  _this11.isVendorCategorySubmitted = true;
-                  _this11.isError = true;
-                  _this11.alertMessage = res.errorMessage;
+                  _this12.isVendorCategorySubmitted = true;
+                  _this12.isError = true;
+                  _this12.alertMessage = res.errorMessage;
                 }
               });
             }
@@ -2234,39 +2287,39 @@
         }, {
           key: "loadVendorCategory",
           value: function loadVendorCategory() {
-            var _this12 = this;
+            var _this13 = this;
 
             var categoryParams = {
               LookupTypeId: 57
             };
             this.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
-              _this12.vendorCategoryData = res.filter(function (item) {
+              _this13.vendorCategoryData = res.filter(function (item) {
                 return item.isActive;
               });
               var vendorListParams = {
-                apartmentId: _this12.sessionService.apartmentId
+                apartmentId: _this13.sessionService.apartmentId
               };
 
-              _this12.vendorService.getVendorByApartmentId(vendorListParams).subscribe(function (res) {
-                _this12.vendorListData = res;
-                _this12.isVendorCategoryLoaded = true;
+              _this13.vendorService.getVendorByApartmentId(vendorListParams).subscribe(function (res) {
+                _this13.vendorListData = res;
+                _this13.isVendorCategoryLoaded = true;
               }, function (error) {});
             });
           }
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this13 = this;
+            var _this14 = this;
 
             this.loadVendorCategory();
             this.sharedService.newcategoryadd.subscribe(function (is_category_form) {
               if (is_category_form) {
-                _this13.submitVendorCategoryForm(is_category_form);
+                _this14.submitVendorCategoryForm(is_category_form);
               }
             });
             this.sharedService.unitlistdeleteindexcast.subscribe(function (item_id) {
               if (item_id) {
-                _this13.deleteVendorCategory(item_id);
+                _this14.deleteVendorCategory(item_id);
               }
             }); //vendor category
           }

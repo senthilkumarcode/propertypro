@@ -187,6 +187,16 @@
       var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/shared/services/shared.service */
       "./src/app/shared/services/shared.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var AddRoleComponent = /*#__PURE__*/function () {
         function AddRoleComponent(userService, router, activatedRoute, sessionService, sharedService, screenService) {
@@ -257,7 +267,7 @@
               "description": this.description,
               "isActive": true,
               "insertedBy": this.sessionService.userId,
-              "insertedOn": new Date().toISOString(),
+              "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
               "updatedBy": this.sessionService.userId,
               "updatedOn": "2020-08-09T06:22:21.539Z",
               "roleTypeId": this.roleTypeId
@@ -381,6 +391,16 @@
       var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_6__);
 
       var ConfigureRolesComponent = /*#__PURE__*/function () {
         function ConfigureRolesComponent(userService, router, activatedRoute, sessionService, screenService) {
@@ -449,7 +469,7 @@
               "name": this.roleName,
               "isActive": true,
               "insertedBy": this.sessionService.userId,
-              "insertedOn": new Date().toISOString(),
+              "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString(),
               "updatedBy": this.sessionService.userId,
               "updatedOn": "2020-08-09T06:22:21.539Z"
             };
@@ -465,7 +485,7 @@
                   "secLevelId": resp.message,
                   "isActive": true,
                   "insertedBy": _this6.sessionService.userId,
-                  "insertedOn": new Date().toISOString(),
+                  "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString(),
                   "updatedBy": _this6.sessionService.userId,
                   "updatedOn": "2020-08-09T06:22:21.539Z"
                 };
@@ -490,9 +510,9 @@
               "name": this.roleName,
               "isActive": true,
               "insertedBy": 0,
-              "insertedOn": new Date().toISOString(),
+              "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString(),
               "updatedBy": this.sessionService.userId,
-              "updatedOn": new Date().toISOString()
+              "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString()
             };
             var updateRoleParam = {
               menuSecLevel: updataParam
@@ -658,12 +678,14 @@
               text: 'role name',
               datafield: 'roleName',
               cellsrenderer: cellsrenderer,
-              renderer: columnrenderer
+              renderer: columnrenderer,
+              minwidth: 120
             }, {
               text: 'description',
               datafield: 'description',
               cellsrenderer: cellsrenderer,
-              renderer: columnrenderer
+              renderer: columnrenderer,
+              minwidth: 120
             }, {
               text: 'action',
               cellsalign: 'center',
@@ -922,12 +944,14 @@
               text: 'role name',
               datafield: 'roleName',
               cellsrenderer: cellsrenderer,
-              renderer: columnrenderer
+              renderer: columnrenderer,
+              minwidth: 120
             }, {
               text: 'menu security name',
               datafield: 'secLevelName',
               cellsrenderer: cellsrenderer,
-              renderer: columnrenderer
+              renderer: columnrenderer,
+              minwidth: 120
             }, {
               text: 'set permission',
               cellsalign: 'center',
@@ -1427,7 +1451,7 @@
               secLevelId: parseInt(this.secLevelId)
             };
             this.screenService.getMenuFunctionByRoleIdMultiFilter(queryParamBase).subscribe(function (resp) {
-              _this14.menuList = resp;
+              _this14.menuList = resp.responseData.value;
 
               if (_this14.menuList && _this14.menuList.length) {
                 _this14.selectedMenuName = _this14.menuList[0].menuName;

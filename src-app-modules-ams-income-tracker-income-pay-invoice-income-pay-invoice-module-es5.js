@@ -184,40 +184,33 @@
       /* harmony import */
 
 
-      var src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! src/app/shared/services/constants.service */
-      "./src/app/shared/services/constants.service.ts");
-      /* harmony import */
-
-
-      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! moment */
       "./node_modules/moment/moment.js");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+      var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
       /* harmony import */
 
 
-      var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_shared_jqwidgets_scripts_jqwidgets_ts_angular_jqxgrid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid */
       "./src/app/shared/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts");
 
       var IncomePayInvoiceComponent = /*#__PURE__*/function () {
-        function IncomePayInvoiceComponent(route, accountsService, sharedService, constantsService, sessionService) {
+        function IncomePayInvoiceComponent(route, accountsService, sharedService, sessionService) {
           _classCallCheck(this, IncomePayInvoiceComponent);
 
           this.route = route;
           this.accountsService = accountsService;
           this.sharedService = sharedService;
-          this.constantsService = constantsService;
           this.sessionService = sessionService;
           this.isInvoiceDataLoaded = false;
           this.invoiceData = "";
@@ -374,7 +367,7 @@
               datafield: 'custInvoiceDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(_this4.constantsService.dateFormat) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -382,7 +375,7 @@
               datafield: 'dueDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_7__(value).format(_this4.constantsService.dateFormat) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -431,6 +424,9 @@
           value: function ngOnInit() {
             var _this6 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this6.timeZone = timeZone;
+            });
             this.getCustInvoices();
             var params = {
               apartmentId: this.sessionService.apartmentId
@@ -463,9 +459,7 @@
         }, {
           type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"]
         }, {
-          type: src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__["ConstantsService"]
-        }, {
-          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]
+          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]
         }];
       };
 
@@ -493,7 +487,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./income-pay-invoice.component.scss */
         "./src/app/modules/ams/income-tracker/income-pay-invoice/income-pay-invoice.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_3__["AccountsService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"], src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_5__["ConstantsService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]])], IncomePayInvoiceComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_3__["AccountsService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_4__["SharedService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]])], IncomePayInvoiceComponent);
 
       var checkInvoiceHeaderEvent = function checkInvoiceHeaderEvent(event, isChecked) {
         event.stopPropagation();
@@ -706,6 +700,16 @@
       var underscore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! underscore */
       "./node_modules/underscore/modules/index-all.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_8__);
 
       var IncomePostCollectionComponent = /*#__PURE__*/function () {
         function IncomePostCollectionComponent(_activatedRoute, _router, accountsService, lookupService, sharedService, sessionService) {
@@ -777,7 +781,7 @@
                 "comment2": "",
                 "active": true,
                 "insertedBy": _this7.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
               };
@@ -811,7 +815,7 @@
                 "comment2": "",
                 "active": true,
                 "insertedBy": _this8.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
               };
@@ -846,7 +850,7 @@
                 "comment2": "",
                 "active": true,
                 "insertedBy": _this9.sessionService.userId,
-                "insertedOn": new Date().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
               };
@@ -898,9 +902,9 @@
                 "comment": "",
                 "isActive": true,
                 "insertedBy": parseInt(_this10.sessionService.userId),
-                "insertedOn": "2020-01-10T06:59:54.422Z",
-                "updatedBy": 0,
-                "updatedOn": "2020-01-10T06:59:54.422Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               custInvoiceObjArray.push(details);
             });
@@ -908,10 +912,10 @@
             var collectionDetails = {
               "apartmentId": this.sessionService.apartmentId,
               "receiptNumber": 0,
-              "receiptDate": new Date().toISOString(),
+              "receiptDate": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
               "amount": parseInt(this.collection.amount),
               "instrumentTypeId": parseInt(this.collection.instrumentTypeId),
-              "postOn": this.collection.postOn || new Date().toISOString(),
+              "postOn": this.collection.postOn || moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
               "collectionAccountTypeId": 165,
               "depositSlipNumber": 0,
               "postExcessAmountTo": 0,
@@ -922,7 +926,7 @@
               "comment": this.collection.comment || "",
               "isActive": true,
               "insertedBy": parseInt(this.sessionService.userId),
-              "insertedOn": new Date().toISOString(),
+              "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
               "updatedBy": null,
               "updatedOn": null,
               "invoiceId": this.invoiceIdArray[0],

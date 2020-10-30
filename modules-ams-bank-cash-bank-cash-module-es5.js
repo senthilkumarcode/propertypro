@@ -359,6 +359,16 @@
       var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_8__);
 
       var BankSettingsComponent = /*#__PURE__*/function () {
         function BankSettingsComponent(injector, dialog, bankAccountService, lookupService, sharedService, sessionService) {
@@ -427,9 +437,9 @@
                 "isPrimary": this.bank.isPrimary,
                 "isActive": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
-                "updatedBy": 0,
-                "updatedOn": "2020-03-13T09:38:46.772Z"
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
+                "updatedBy": null,
+                "updatedOn": null
               };
               var bankAccountDetails = {
                 bankAccountDetails: details
@@ -465,10 +475,10 @@
                 "ifsc": this.bank.ifsc,
                 "isPrimary": this.bank.isPrimary,
                 "isActive": this.bank.isActive,
-                "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": new Date().toISOString(),
+                "insertedBy": this.bank.insertedBy,
+                "insertedOn": this.bank.insertedOn,
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": new Date().toISOString()
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString()
               };
               var _bankAccountDetails = {
                 bankAccountDetails: _details

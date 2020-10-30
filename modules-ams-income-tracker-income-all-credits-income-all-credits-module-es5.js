@@ -153,6 +153,16 @@
       var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! moment-timezone */
+      "./node_modules/moment-timezone/index.js");
+      /* harmony import */
+
+
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_8__);
 
       var IncomeAddCreditComponent = /*#__PURE__*/function () {
         function IncomeAddCreditComponent(_activatedRoute, _router, el, _changeDetectorRef, _incomeCreditListComponent, accountsService, apartmentService, sharedService, sessionService) {
@@ -286,7 +296,7 @@
                   "comment2": this.credit.comment,
                   "active": true,
                   "insertedBy": this.sessionService.userId,
-                  "insertedOn": new Date().toISOString(),
+                  "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString(),
                   "updatedBy": null,
                   "updatedOn": null
                 };
@@ -328,7 +338,7 @@
                   "insertedBy": this.credit.insertedBy,
                   "insertedOn": this.credit.insertedOn,
                   "updatedBy": this.sessionService.userId,
-                  "updatedOn": new Date().toISOString()
+                  "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_8___default()().toISOString()
                 };
                 var _params = {
                   custCreditNote: _details
@@ -1086,8 +1096,8 @@
           key: "submitIncomeCreditFilterForm",
           value: function submitIncomeCreditFilterForm() {
             this.isCreditNoteFilterTableLoaded = false;
-            var fromDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.fromDate).format('YYYY-MM-DD');
-            var toDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.toDate).format('YYYY-MM-DD');
+            var fromDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.fromDate).format(this.timeZone.date);
+            var toDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.toDate).format(this.timeZone.date);
             this.getCreditNotesData(fromDate, toDate); //Mark for check
 
             this._changeDetectorRef.markForCheck();
@@ -1096,8 +1106,8 @@
           key: "isCreditAdded",
           value: function isCreditAdded() {
             this.isCreditNoteFilterTableLoaded = false;
-            var fromDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.fromDate).format('YYYY-MM-DD');
-            var toDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.toDate).format('YYYY-MM-DD');
+            var fromDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.fromDate).format(this.timeZone.date);
+            var toDate = moment__WEBPACK_IMPORTED_MODULE_8__(this.toDate).format(this.timeZone.date);
             this.getCreditNotesData(fromDate, toDate); //Mark for check
 
             this._changeDetectorRef.markForCheck();
@@ -1142,9 +1152,12 @@
           value: function ngOnInit() {
             var _this9 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this9.timeZone = timeZone;
+            });
             this.credit = {};
-            this.fromDate = moment__WEBPACK_IMPORTED_MODULE_8__().subtract(3, 'months').endOf('month').format('YYYY-MM-DD');
-            this.toDate = moment__WEBPACK_IMPORTED_MODULE_8__().format('YYYY-MM-DD');
+            this.fromDate = moment__WEBPACK_IMPORTED_MODULE_8__().subtract(3, 'months').endOf('month').format(this.timeZone.time);
+            this.toDate = moment__WEBPACK_IMPORTED_MODULE_8__().format(this.timeZone.time);
 
             var cellsrenderer = function cellsrenderer(row, column, value) {
               return '<div class="jqx-custom-inner-cell">' + value + '</div>';
