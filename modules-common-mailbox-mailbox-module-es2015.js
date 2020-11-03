@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header primary\">\n    <div class=\"title\">New Message</div>\n    <button class=\"close-button\" mat-icon-button (click)=\"saveAndClose()\" [tabIndex]=\"-1\">\n        <mat-icon [svgIcon]=\"'close'\"></mat-icon>\n    </button>\n</div>\n\n<form [formGroup]=\"composeForm\">\n    <!-- To -->\n    <mat-form-field>\n        <mat-label>To</mat-label>\n        <mat-chip-list #receiptList>\n            <mat-chip [color]=\"'primary'\"  *ngFor=\"let user of selectedUsers\" [selectable]=\"selectable\" [removable]=\"removable\"\n                (removed)=\"remove(user)\">  \n                {{ user.userName}} ( {{ user.roleName }}, {{ user.apartmentBlockNumber }} - {{ user.apartmentBlockUnitNumber  }} )\n                <mat-icon [color]=\"'warn'\" matChipRemove *ngIf=\"removable\">cancel</mat-icon>\n            </mat-chip>\n            <input class=\"bg-none\" [formControlName]=\"'to'\" (change)=\"searchUser()\" #receiptInput placeholder=\"Enter First 3 Characters of User Name or Unit Number\" [matAutocomplete]=\"receipt\"\n                [matChipInputFor]=\"receiptList\">\n        </mat-chip-list>\n        <mat-autocomplete #receipt=\"matAutocomplete\"  (optionSelected)=\"selected($event)\">\n            <mat-option *ngFor=\"let user of allUsers\" [value]=\"user\">\n                {{ user.userName}} ( {{ user.roleName }}, {{ user.apartmentBlockNumber }} - {{ user.apartmentBlockUnitNumber  }} )\n            </mat-option>\n        </mat-autocomplete>\n        <!-- <input matInput [formControl]=\"myControl\" [matAutocomplete]=\"receipt\" [formControlName]=\"'to'\"> -->\n        <!-- <div class=\"copy-fields-toggles\"\n             matSuffix>\n            <span class=\"cc-toggle\"\n                  *ngIf=\"!copyFields.cc\"\n                  (click)=\"showCopyField('cc')\">\n                Cc\n            </span>\n            <span class=\"bcc-toggle\"\n                  *ngIf=\"!copyFields.bcc\"\n                  (click)=\"showCopyField('bcc')\">\n                Bcc\n            </span>\n        </div> -->\n    </mat-form-field>\n\n    <!-- Cc -->\n    <!-- <mat-form-field class=\"cc\"\n                    *ngIf=\"copyFields.cc\">\n        <mat-label>Cc</mat-label>\n        <input matInput\n               [formControlName]=\"'cc'\">\n    </mat-form-field> -->\n\n    <!-- Bcc -->\n    <!-- <mat-form-field class=\"bcc\"\n                    *ngIf=\"copyFields.bcc\">\n        <mat-label>Bcc</mat-label>\n        <input matInput\n               [formControlName]=\"'bcc'\">\n    </mat-form-field> -->\n\n    <!-- Subject -->\n    <mat-form-field class=\"subject\">\n        <mat-label>Subject</mat-label>\n        <input matInput [formControlName]=\"'subject'\"  required >\n    </mat-form-field>\n\n    <!-- Body -->\n    <quill-editor [modules]=\"quillModules\" [formControlName]=\"'body'\" required></quill-editor>\n\n    <div class=\"actions\">\n\n        <div class=\"formatting\">\n\n            <!-- Attach file -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'attach_file'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert link -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'link'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert emoji -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'insert_emoticon'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert image -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'image'\"></mat-icon>\n            </button> -->\n\n        </div>\n\n        <div class=\"buttons\">\n\n            <!-- Discard -->\n            <button class=\"discard-button\" mat-button (click)=\"discard()\">\n                <mat-icon [svgIcon]=\"'delete'\"></mat-icon>\n                <span>Discard</span>\n            </button>\n\n            <!-- Save as draft -->\n            <!-- <button class=\"save-button\"\n                    mat-button\n                    (click)=\"saveAsDraft()\">\n                <mat-icon [svgIcon]=\"'save'\"></mat-icon>\n                <span>Save as draft</span>\n            </button> -->\n\n            <!-- Send -->\n            <button class=\"send-button\" mat-flat-button [color]=\"'primary'\" (click)=\"send()\" [disabled]=\"composeMail.invalid\">\n                <span>Send</span>\n            </button>\n\n        </div>\n\n    </div>\n\n</form>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"header primary\">\n    <div class=\"title\">New Message</div>\n    <button class=\"close-button\" mat-icon-button (click)=\"saveAndClose()\" [tabIndex]=\"-1\">\n        <mat-icon [svgIcon]=\"'close'\"></mat-icon>\n    </button>\n</div>\n\n<form [formGroup]=\"composeForm\">\n    <!-- To -->\n    <mat-form-field>\n        <mat-label>To</mat-label>\n        <mat-chip-list #receiptList>\n            <mat-chip [color]=\"'primary'\"  *ngFor=\"let user of selectedUsers\" [selectable]=\"selectable\" [removable]=\"removable\"\n                (removed)=\"remove(user)\">  \n                {{ user.userName}} ( {{ user.roleName }}, {{ user.apartmentBlockNumber }} - {{ user.apartmentBlockUnitNumber  }} )\n                <mat-icon [color]=\"'warn'\" matChipRemove *ngIf=\"removable\">cancel</mat-icon>\n            </mat-chip>\n            <input class=\"bg-none\" [formControlName]=\"'to'\" (change)=\"searchUser()\" #receiptInput placeholder=\"Enter First 3 Characters of User Name or Unit Number\" [matAutocomplete]=\"receipt\"\n                [matChipInputFor]=\"receiptList\">\n        </mat-chip-list>\n        <mat-autocomplete #receipt=\"matAutocomplete\"  (optionSelected)=\"selected($event)\">\n            <mat-option *ngFor=\"let user of allUsers\" [value]=\"user\">\n                {{ user.userName}} ( {{ user.roleName }}, {{ user.apartmentBlockNumber }} - {{ user.apartmentBlockUnitNumber  }} )\n            </mat-option>\n        </mat-autocomplete>\n        <!-- <input matInput [formControl]=\"myControl\" [matAutocomplete]=\"receipt\" [formControlName]=\"'to'\"> -->\n        <!-- <div class=\"copy-fields-toggles\"\n             matSuffix>\n            <span class=\"cc-toggle\"\n                  *ngIf=\"!copyFields.cc\"\n                  (click)=\"showCopyField('cc')\">\n                Cc\n            </span>\n            <span class=\"bcc-toggle\"\n                  *ngIf=\"!copyFields.bcc\"\n                  (click)=\"showCopyField('bcc')\">\n                Bcc\n            </span>\n        </div> -->\n    </mat-form-field>\n\n    <!-- Cc -->\n    <!-- <mat-form-field class=\"cc\"\n                    *ngIf=\"copyFields.cc\">\n        <mat-label>Cc</mat-label>\n        <input matInput\n               [formControlName]=\"'cc'\">\n    </mat-form-field> -->\n\n    <!-- Bcc -->\n    <!-- <mat-form-field class=\"bcc\"\n                    *ngIf=\"copyFields.bcc\">\n        <mat-label>Bcc</mat-label>\n        <input matInput\n               [formControlName]=\"'bcc'\">\n    </mat-form-field> -->\n\n    <!-- Subject -->\n    <mat-form-field class=\"subject\">\n        <mat-label>Subject</mat-label>\n        <input matInput [formControlName]=\"'subject'\"  required >\n        <help-tooltip title=\"addComposeSubject\"></help-tooltip>\n    </mat-form-field>\n\n    <!-- Body -->\n    <quill-editor [modules]=\"quillModules\" [formControlName]=\"'body'\" required></quill-editor>\n\n    <div class=\"actions\">\n\n        <div class=\"formatting\">\n\n            <!-- Attach file -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'attach_file'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert link -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'link'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert emoji -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'insert_emoticon'\"></mat-icon>\n            </button> -->\n\n            <!-- Insert image -->\n            <!-- <button mat-icon-button>\n                <mat-icon [svgIcon]=\"'image'\"></mat-icon>\n            </button> -->\n\n        </div>\n\n        <div class=\"buttons\">\n\n            <!-- Discard -->\n            <button class=\"discard-button\" mat-button (click)=\"discard()\">\n                <mat-icon [svgIcon]=\"'delete'\"></mat-icon>\n                <span>Discard</span>\n            </button>\n\n            <!-- Save as draft -->\n            <!-- <button class=\"save-button\"\n                    mat-button\n                    (click)=\"saveAsDraft()\">\n                <mat-icon [svgIcon]=\"'save'\"></mat-icon>\n                <span>Save as draft</span>\n            </button> -->\n\n            <!-- Send -->\n            <button class=\"send-button\" mat-flat-button [color]=\"'primary'\" (click)=\"send()\" [disabled]=\"composeMail.invalid\">\n                <span>Send</span>\n            </button>\n\n        </div>\n\n    </div>\n\n</form>");
 
 /***/ }),
 
@@ -929,9 +929,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/modules/common/mailbox/mailbox.service */ "./src/app/modules/common/mailbox/mailbox.service.ts");
 /* harmony import */ var src_app_modules_common_mailbox_mailbox_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/modules/common/mailbox/mailbox.component */ "./src/app/modules/common/mailbox/mailbox.component.ts");
-/* harmony import */ var src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api/controllers/MessageInbox */ "./src/app/api/controllers/MessageInbox.ts");
-/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
-/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+/* harmony import */ var src_app_layout_regulars_navigation_navigation_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/layout/regulars/navigation/navigation.service */ "./src/app/layout/regulars/navigation/navigation.service.ts");
+/* harmony import */ var src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/api/controllers/MessageInbox */ "./src/app/api/controllers/MessageInbox.ts");
+/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
+/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+
 
 
 
@@ -949,8 +951,9 @@ let MailboxListComponent = class MailboxListComponent {
      * @param {MailboxComponent} mailboxComponent
      * @param {MailboxService} _mailboxService
      */
-    constructor(mailboxComponent, _mailboxService, messageInbox, sessionService, sharedService) {
+    constructor(mailboxComponent, _condoNavigationService, _mailboxService, messageInbox, sessionService, sharedService) {
         this.mailboxComponent = mailboxComponent;
+        this._condoNavigationService = _condoNavigationService;
         this._mailboxService = _mailboxService;
         this.messageInbox = messageInbox;
         this.sessionService = sessionService;
@@ -999,6 +1002,7 @@ let MailboxListComponent = class MailboxListComponent {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
             .subscribe((mail) => {
             this.selectedMail = mail;
+            console.log(this.selectedMail);
         });
     }
     /**
@@ -1019,11 +1023,40 @@ let MailboxListComponent = class MailboxListComponent {
      */
     onMailSelected(mail) {
         // If the mail is unread...
-        if (mail.unread) {
-            // Update the mail object
-            mail.unread = false;
-            // Update the mail on the server
-            this._mailboxService.updateMail(mail.messageId, { unread: false }).subscribe();
+        if (!mail.isRead) {
+            let params = {
+                userId: this.sessionService.userId,
+                messageId: mail.messageId,
+                deletedBy: this.sessionService.userId
+            };
+            this.messageInbox.updateReadMessage(params).subscribe((res) => {
+                if (res.message) {
+                    // Update the mail object
+                    mail.isRead = true;
+                    //get mailbox unread messages
+                    this._mailboxService.getUnreadMessages().subscribe((res) => {
+                        var count = res[0].totalUnreadMessage;
+                        // Get the component -> navigation data -> item
+                        const mainNavigationComponent = this._condoNavigationService.getComponent('mainNavigation');
+                        // If the main navigation component exists...
+                        if (mainNavigationComponent) {
+                            var menuItemId;
+                            if (this.sessionService.isAdmin()) {
+                                menuItemId = 'Admin_Main_inbox';
+                            }
+                            else {
+                                menuItemId = 'Mail Box';
+                            }
+                            const mainNavigation = mainNavigationComponent.navigation;
+                            const menuItem = this._condoNavigationService.getItem(menuItemId, mainNavigation);
+                            // Update the badge title of the item
+                            menuItem.badge.title = count + '';
+                            // Refresh the navigation
+                            mainNavigationComponent.refresh();
+                        }
+                    });
+                }
+            });
         }
         // Execute the mailSelected observable
         this._mailboxService.selectedMailChanged.next(mail);
@@ -1093,10 +1126,11 @@ let MailboxListComponent = class MailboxListComponent {
 };
 MailboxListComponent.ctorParameters = () => [
     { type: src_app_modules_common_mailbox_mailbox_component__WEBPACK_IMPORTED_MODULE_6__["MailboxComponent"] },
+    { type: src_app_layout_regulars_navigation_navigation_service__WEBPACK_IMPORTED_MODULE_7__["CondoNavigationService"] },
     { type: src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_5__["MailboxService"] },
-    { type: src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__["MessageInboxService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"] },
-    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"] }
+    { type: src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_8__["MessageInboxService"] },
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__["SessionService"] },
+    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_10__["SharedService"] }
 ];
 MailboxListComponent.propDecorators = {
     mailList: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['mailList',] }]
@@ -1109,10 +1143,11 @@ MailboxListComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./list.component.scss */ "./src/app/modules/common/mailbox/list/list.component.scss")).default]
     }),
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_modules_common_mailbox_mailbox_component__WEBPACK_IMPORTED_MODULE_6__["MailboxComponent"],
+        src_app_layout_regulars_navigation_navigation_service__WEBPACK_IMPORTED_MODULE_7__["CondoNavigationService"],
         src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_5__["MailboxService"],
-        src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__["MessageInboxService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"],
-        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"]])
+        src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_8__["MessageInboxService"],
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__["SessionService"],
+        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_10__["SharedService"]])
 ], MailboxListComponent);
 
 
@@ -1392,6 +1427,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_modules_common_mailbox_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/modules/common/mailbox/sidebar/sidebar.component */ "./src/app/modules/common/mailbox/sidebar/sidebar.component.ts");
 /* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/chips.js");
 /* harmony import */ var ngx_quill__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-quill */ "./node_modules/ngx-quill/__ivy_ngcc__/fesm2015/ngx-quill.js");
+/* harmony import */ var src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/modules/ui/help-tooltip/help-tooltip.module */ "./src/app/modules/ui/help-tooltip/help-tooltip.module.ts");
+
 
 
 
@@ -1429,7 +1466,8 @@ MailboxModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             src_app_layout_regulars_regulars_module__WEBPACK_IMPORTED_MODULE_7__["RegularsModule"],
             _angular_material_chips__WEBPACK_IMPORTED_MODULE_15__["MatChipsModule"],
             src_condo_directives_scrollbar__WEBPACK_IMPORTED_MODULE_8__["CondoScrollbarModule"],
-            ngx_quill__WEBPACK_IMPORTED_MODULE_16__["QuillModule"]
+            ngx_quill__WEBPACK_IMPORTED_MODULE_16__["QuillModule"],
+            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_17__["HelpTooltipModule"]
         ],
         bootstrap: [
             _mailbox_component__WEBPACK_IMPORTED_MODULE_9__["MailboxComponent"]
