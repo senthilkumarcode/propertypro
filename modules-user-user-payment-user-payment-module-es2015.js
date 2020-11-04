@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"payment-dues-wrapper\">\n\t\n\t<div class=\"main\">\n\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t\t<div class=\"legends-wrapper d-flex align-items-center\" *ngIf=\"paymentDataList.length != 0\">\n\t\t\t\t<div class=\"checker\">\n\t\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" [(ngModel)]=\"selectAllDues\" id=\"allDue\" name=\"allDue\" (change) = selectAllDue()>\n\t\t\t\t\t\t<label class=\"form-check-label\" for=\"allDue\">Select All</label>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<div class=\"pay-btn accent mt-2\" [ngClass]=\"isMutipleDueSelected() ? '' : 'disabled'\" (click)=\"addMultiplePay()\">Pay Mutiple</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t\t\n\t\t\t<div class=\"bg-card shadow p-0 mb-4\" *ngFor=\" let due of paymentDataList | slice:ItemStartIndex:ItemEndIndex; let i = index\"> \n\n\t\t\t\t<div class=\"dues d-flex align-items-center\">\n\t\t\t\t\t<div class=\"checker mr-5 float-left\">\n\t\t\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t\t\t<input type=\"checkbox\" [(ngModel)]=\"due.checked\"  class=\"form-check-input\" [id]=\"due.custInvoiceID\" [name]=\"due.custInvoiceID\" (change) = selectDue(due)>\n\t\t\t\t\t\t\t<label class=\"form-check-label\" [for]=\"due.custInvoiceID\"></label>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"details\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill No</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{due.custInvoiceID}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Due Date</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{ getDate(due.custInvoiceDate) }}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill Amount</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{due.billAmount}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill Date</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{ getDate(due.dueDate) }}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"amount\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"text\">{{due.remainingAmount}}</div>\n\t\t\t\t\t\t\t\t<div class=\"pay-btn font-medium mt-2\" (click)=\"addPay(due)\">Pay</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\n\n\t\t\t<div class=\"bg-card shadow\" *ngIf=\"paymentDataList.length == 0\">\n\t\t\t\t<h6 class=\"text-secondary\">No Records Found</h6>\n\t\t\t</div>\n\n\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"paymentDataList.length != 0\">\n\t\t\t\t<app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n\t\t\t\t[ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n\t\t\t\t</app-pagination>\n\t\t\t</div>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"payment-dues-wrapper\">\n\t\n\t<div class=\"main\">\n\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t\t<div class=\"legends-wrapper d-flex align-items-center\" *ngIf=\"paymentDataList.length != 0\">\n\t\t\t\t<div class=\"checker\">\n\t\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" [(ngModel)]=\"selectAllDues\" id=\"allDue\" name=\"allDue\" (change) = selectAllDue()>\n\t\t\t\t\t\t<label class=\"form-check-label\" for=\"allDue\">Select All</label>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<div class=\"pay-btn accent mt-2\" [ngClass]=\"isMutipleDueSelected() ? '' : 'disabled'\" (click)=\"addMultiplePay()\">Pay Mutiple</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t\t\n\t\t\t<div class=\"bg-card shadow p-0 mb-4\" *ngFor=\" let due of paymentDataList | slice:ItemStartIndex:ItemEndIndex; let i = index\"> \n\n\t\t\t\t<div class=\"dues d-flex align-items-center\">\n\t\t\t\t\t<div class=\"checker mr-5 float-left\">\n\t\t\t\t\t\t<div class=\"form-check\">\n\t\t\t\t\t\t\t<input type=\"checkbox\" [(ngModel)]=\"due.checked\"  class=\"form-check-input\" [id]=\"due.custInvoiceID\" [name]=\"due.custInvoiceID\" (change) = selectDue(due)>\n\t\t\t\t\t\t\t<label class=\"form-check-label\" [for]=\"due.custInvoiceID\"></label>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"details\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill No</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{due.custInvoiceID}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Due Date</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{ getDate(due.custInvoiceDate) }}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill Amount</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{due.billAmount}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12 col-md-3 column\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Bill Date</p>\n\t\t\t\t\t\t\t\t<p class=\"text-secondary\">{{ getDate(due.dueDate) }}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"amount\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"text\">{{due.remainingAmount}}</div>\n\t\t\t\t\t\t\t\t<div class=\"pay-btn font-medium mt-2\" (click)=\"addPay(due)\">Pay</div>\n\t\t\t\t\t\t\t\t<div class=\"pay-btn font-medium mt-3\" (click)=\"payWithRazor(due)\">Razor Pay</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\n\n\t\t\t<div class=\"bg-card shadow\" *ngIf=\"paymentDataList.length == 0\">\n\t\t\t\t<h6 class=\"text-secondary\">No Records Found</h6>\n\t\t\t</div>\n\n\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"paymentDataList.length != 0\">\n\t\t\t\t<app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n\t\t\t\t[ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n\t\t\t\t</app-pagination>\n\t\t\t</div>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>");
 
 /***/ }),
 
@@ -247,7 +247,7 @@ let PaymentDuesComponent = class PaymentDuesComponent {
         let details = {
             invoiceIds: invoiceIdsList,
             apartmentId: this.sessionService.apartmentId,
-            mobile: "9916085255",
+            mobile: "9940558028",
             email: this.user.emailId,
             name: this.user.firstName + " " + this.user.lastName,
             amount: billAmount.toString(),
@@ -266,23 +266,19 @@ let PaymentDuesComponent = class PaymentDuesComponent {
             if (res.message) {
                 this.sharedService.setUserPaymentDuesId({ paymentId: res.message.payment_id, Id: res.message.id });
                 this._router.navigate(['/externalRedirect', { externalUrl: res.message.url }]);
-                //this.payWithRazor(res.message.payment_id, billAmount);
-                //this.modalWindow = this.winRef.nativeWindow;
-                //this.modalWindow.open(res.message.url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500');
-                //this.modalWindow = window.open(res.message.url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500');
-                //this._router.navigate(['/externalRedirect', { externalUrl: res.message.url }]);
             }
         });
     }
-    payWithRazor(id, amount) {
+    payWithRazor(due) {
+        console.log(due);
         const options = {
             key: 'rzp_test_2szHLnMKAxEdYJ',
-            amount: amount,
+            amount: due.billAmount,
             currency: 'INR',
             name: '',
             description: '',
             image: '/assets/images/logo-cmc-brand.png',
-            order_id: "",
+            order_id: due.custInvoiceID,
             modal: {
                 // We should prevent closing of the form when esc key is pressed.
                 escape: false,
