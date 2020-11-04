@@ -417,7 +417,7 @@
             var details = {
               invoiceIds: invoiceIdsList,
               apartmentId: this.sessionService.apartmentId,
-              mobile: "9940558028",
+              mobile: "9916085255",
               email: this.user.emailId,
               name: this.user.firstName + " " + this.user.lastName,
               amount: billAmount.toString(),
@@ -440,7 +440,10 @@
                   Id: res.message.id
                 });
 
-                _this2.payWithRazor(res.message.payment_id, billAmount); //this.modalWindow = this.winRef.nativeWindow;
+                _this2._router.navigate(['/externalRedirect', {
+                  externalUrl: res.message.url
+                }]); //this.payWithRazor(res.message.payment_id, billAmount);
+                //this.modalWindow = this.winRef.nativeWindow;
                 //this.modalWindow.open(res.message.url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500');
                 //this.modalWindow = window.open(res.message.url, '_blank', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500');
                 //this._router.navigate(['/externalRedirect', { externalUrl: res.message.url }]);
@@ -499,18 +502,19 @@
             });
             this.sharedService.userpaymentduesid.subscribe(function (data) {
               if (data != null) {
-                /* let params = {
+                var _params = {
                   pay: {
                     bankPaymentsId: data.id,
                     payment_id: data.paymentId,
-                    insertedBy: this.sessionService.userId
+                    insertedBy: _this3.sessionService.userId
                   }
-                }
-                         this.paymentService.verifyPayment(params).subscribe((res:any) => {
-                           if(res.message) {
-                    this.sharedService.setUserPaymentDuesId(null);
+                };
+
+                _this3.paymentService.verifyPayment(_params).subscribe(function (res) {
+                  if (res.message) {
+                    _this3.sharedService.setUserPaymentDuesId(null);
                   }
-                         }) */
+                });
               }
             });
             var params = {

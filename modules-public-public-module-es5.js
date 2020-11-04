@@ -4413,7 +4413,8 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            // Create the form
+            console.log('hello'); // Create the form
+
             this.loginForm = this._formBuilder.group({
               email: [],
               password: [],
