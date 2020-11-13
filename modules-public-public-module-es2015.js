@@ -2867,7 +2867,6 @@ let LoginComponent = class LoginComponent {
         });
     }
     ngOnInit() {
-        console.log('hello');
         // Create the form
         this.loginForm = this._formBuilder.group({
             email: [],

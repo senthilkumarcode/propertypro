@@ -250,7 +250,7 @@ let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
                 datafield: 'custInvoiceDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(this.timeZone.date) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             },
@@ -259,7 +259,7 @@ let IncomePayInvoiceComponent = class IncomePayInvoiceComponent {
                 datafield: 'dueDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(this.timeZone.date) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             }, {
@@ -684,7 +684,8 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
         this.collection.collectionStatusId = "";
         this.apartmentBlockUnitId = this._activatedRoute.params['value'].id;
         let paymentListParams = {
-            LookupTypeId: 34
+            LookupTypeId: 34,
+            ApartmentId: this.sessionService.apartmentId
         };
         //payment status
         this.lookupService.getLookupValueByLookupTypeId(paymentListParams).subscribe((res) => {
@@ -694,7 +695,8 @@ let IncomePostCollectionComponent = class IncomePostCollectionComponent {
         }, error => {
         });
         let insListParams = {
-            LookupTypeId: 33
+            LookupTypeId: 33,
+            ApartmentId: this.sessionService.apartmentId
         };
         //payment mode
         this.lookupService.getLookupValueByLookupTypeId(insListParams).subscribe((res) => {

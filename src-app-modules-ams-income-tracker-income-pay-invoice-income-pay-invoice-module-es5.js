@@ -367,7 +367,7 @@
               datafield: 'custInvoiceDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -375,7 +375,7 @@
               datafield: 'dueDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_6__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -966,7 +966,8 @@
             this.collection.collectionStatusId = "";
             this.apartmentBlockUnitId = this._activatedRoute.params['value'].id;
             var paymentListParams = {
-              LookupTypeId: 34
+              LookupTypeId: 34,
+              ApartmentId: this.sessionService.apartmentId
             }; //payment status
 
             this.lookupService.getLookupValueByLookupTypeId(paymentListParams).subscribe(function (res) {
@@ -975,7 +976,8 @@
               });
             }, function (error) {});
             var insListParams = {
-              LookupTypeId: 33
+              LookupTypeId: 33,
+              ApartmentId: this.sessionService.apartmentId
             }; //payment mode
 
             this.lookupService.getLookupValueByLookupTypeId(insListParams).subscribe(function (res) {

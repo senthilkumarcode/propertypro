@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"income-post-invoice-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h5 class=\"mb-4\">\n\t\t\t<span *ngIf=\"isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Post Single Invoice</span>\n\t\t\t<span *ngIf=\"!isSingleInvoice && !isEditInvoice && !isGeneralInvoice && !isActionInvoice\">Post Multi Invoice</span>\n\t\t\t<span *ngIf=\"isEditInvoice && !isGeneralInvoice\">Edit Invoice</span>\n\t\t</h5>\n\t\n\t\t<div class=\"bg-card shadow primary\" *ngIf=\"isAccountDataLoaded && !isGeneralInvoice\">\n\t\t\t<p class=\"d-inline-block mr-md-4\" *ngIf=\"isEditInvoice\"><span class=\"font-medium\">Invoice ID: </span>{{invoice.custInvoiceId}}</p>\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Bill to party: </span>{{accountDataList[0].billToParty}}</p>\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Contact Person: </span>{{accountDataList[0].primayContact}}</p>\n\t\t\t<p class=\"d-inline-block\"><span class=\"font-medium\">Unit: </span>{{accountDataList[0].apartmentBlockNumber}} {{accountDataList[0].apartmentBlockUnitNumber}}</p>\n\t\t</div>\n\n\t\t<app-loader *ngIf=\"!isInvoiceSubmitted\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isInvoiceSubmitted\">\n\n\t\t\t<form #postIncomeMultiInvoiceForm = \"ngForm\" name=\"postIncomeMultiInvoiceForm\" (ngSubmit)=\"submitIncomeMultiInvoiceForm(postIncomeMultiInvoiceForm)\"  novalidate>\n\t\n\t\t\t\t<div class=\"bg-card shadow\">\n\t\n\t\t\t\t\t<div class=\"row\">\n\t\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf =\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Tower No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Tower\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"blocksData\"\n\t\t\t\t\t\t\t\tfieldValue=\"apartmentBlockNumber\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\tfieldId=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlock($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf=\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Unit No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Unit\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"unitData\"\n\t\t\t\t\t\t\t\tfieldValue=\"apartmentBlockUnitNumber\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"apartmentBlockUnitId\"\n\t\t\t\t\t\t\t\tfieldId=\"apartmentBlockUnitId\"\n\t\t\t\t\t\t\t\t[isDisabled]=\"!isBlockSelected\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlockUnit($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Invoice Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\t\tname=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTime]=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.custInvoiceDate\" \n\t\t\t\t\t\t\t\t\trequired \n\t\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t[ngClass]=\"isEditInvoice ? 'no-link' : ''\" [tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t<owl-date-time #custInvoiceDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"custInvoiceDate\" [ngClass]=\"isEditInvoice ? 'no-link' : ''\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Due Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\tname=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTime]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.dueDate\" \n\t\t\t\t\t\t\t\trequired\n\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[ngClass]=\"isEditInvoice ? 'no-link' : ''\" [tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t<help-tooltip title=\"dueDate\"></help-tooltip>\n\t\t\t\t\t\t\t\t<owl-date-time #invoiceDueDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"invoiceDueDate\" [ngClass]=\"isEditInvoice ? 'no-link' : ''\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\n\t\t\t\t\t</div>\n\t\n\t\t\t\t</div>\n\t\n\t\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"isUnitSelected || isEditInvoice\">\n\t\t\t\t\t<div class=\"invoice-card-wrapper\">\n\t\t\t\t\t\t<div class=\"invoice-table\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-header\">\n\t\t\t\t\t\t\t\t<div class=\"wp-50 heads\">S.No</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-300 heads\">Account*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Invoice Amount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-200 heads\">Comments*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-220 heads\">Discount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Amount</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-100 heads\">Actions</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-fields\"\n\t\t\t\t\t\t\t\t*ngFor=\"let invoiceGLAccountsData of invoiceGLAccountsArray; let i = index\" \n\t\t\t\t\t\t\t\tapp-income-post-multi-invoice-fields \n\t\t\t\t\t\t\t\t[invoiceGLAccountsArray] = \"invoiceGLAccountsArray\" \n\t\t\t\t\t\t\t\t[invoiceGLAccountsData] = \"invoiceGLAccountsData\"\n\t\t\t\t\t\t\t\t[isEditInvoice]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[index]=\"i\" \n\t\t\t\t\t\t\t\t(fieldParams) = \"getFieldParams($event)\"\n\t\t\t\t\t\t\t\t(taxParams) = \"getCustTaxInvoiceParams($event)\">\n\t\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"add-invoice-box\" *ngIf=\"!isEditInvoice && !isSingleInvoice\">\n\t\t\t\t\t\t<div class=\"float-left add-invoice-link\" (click)=\"addInvoice()\">\n\t\t\t\t\t\t\t<i-feather class=\"icon plus\" name=\"plus\"></i-feather>\n\t\t\t\t\t\t\t<span class=\"font-medium\">Add Another Line</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p>Sub Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.subAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\" *ngFor=\" let item of vatTypeDataList; let i = index \">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p>VAT [{{item.lookupValueName}}%]:</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{item.custVatTypeAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<div class=\"float-left\">\n\t\t\t\t\t\t\t\t\t<p>Discount</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"float-left ml-4\" [ngClass]=\"isDeselectColumn()\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box discount-input\"> \n\t\t\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter\" name=\"discountFinalAmount\" \n\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"invoice.invoicefinalinputdiscount\"\n\t\t\t\t\t\t\t\t\t\t(ngModelChange)=\"onDiscountFinalAdded(invoice.invoicefinalinputdiscount)\" \n\t\t\t\t\t\t\t\t\t\t[readonly]=\"!invoice.isFinalDiscount || isEditInvoice\" autocomplete=\"off\"\n\t\t\t\t\t\t\t\t\t\t[tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"float-left ml-3\">\n\t\t\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\t\t\tlabelText=\"Discount Gen Type{{index}}\"\n\t\t\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select\"\n\t\t\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t\t\t[fieldList]=\"discountFinalTypeDataList\"\n\t\t\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t\t\t[fieldModel]=\"invoice.invoicefinaldiscountId\"\n\t\t\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t\t\t[isLabel]=\"'false'\"\n\t\t\t\t\t\t\t\t\t\t[isDisabled]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t\t(fieldParams)=\"onDiscountFinalChange($event)\" \n\t\t\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\">{{invoice.invoicefinaldiscount | number : '1.2-2'}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Total</p>\n\t\t\t\t\t\t\t\t<!-- <p>{{invoice.custInvoiceDate}}</p> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.custInvoiceAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\n\t\t\t\t<button *ngIf=\"isUnitSelected\" class=\"mt-4 float-right\" mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t\n\t\t\t</form>\n\t\t\t\n\t\t</ng-container>\n\n\t</div>\n\n\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"income-post-invoice-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h5 class=\"mb-4\">\n\t\t\t<span *ngIf=\"isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Post Single Invoice</span>\n\t\t\t<span *ngIf=\"!isSingleInvoice && !isEditInvoice && !isGeneralInvoice && !isActionInvoice\">Post Multi Invoice</span>\n\t\t\t<span *ngIf=\"isEditInvoice && !isGeneralInvoice\">Edit Invoice</span>\n\t\t</h5>\n\t\n\t\t<div class=\"bg-card shadow primary\" *ngIf=\"isAccountDataLoaded && !isGeneralInvoice\">\n\t\t\t<p class=\"d-inline-block mr-md-4\" *ngIf=\"isEditInvoice\"><span class=\"font-medium\">Invoice ID: </span>{{invoice.custInvoiceId}}</p>\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Bill to party: </span>{{accountDataList[0].billToParty}}</p>\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Contact Person: </span>{{accountDataList[0].primayContact}}</p>\n\t\t\t<p class=\"d-inline-block\"><span class=\"font-medium\">Unit: </span>{{accountDataList[0].apartmentBlockNumber}} {{accountDataList[0].apartmentBlockUnitNumber}}</p>\n\t\t</div>\n\n\t\t<app-loader *ngIf=\"!isInvoiceSubmitted\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isInvoiceSubmitted\">\n\n\t\t\t<form #postIncomeMultiInvoiceForm = \"ngForm\" name=\"postIncomeMultiInvoiceForm\" (ngSubmit)=\"submitIncomeMultiInvoiceForm(postIncomeMultiInvoiceForm)\"  novalidate>\n\t\t\t\t\n\t\t\t\n\t\t\t\t<div class=\"bg-card shadow\">\n\t\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf =\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Tower No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Tower\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"blocksData\"\n\t\t\t\t\t\t\t\tfieldValue=\"apartmentBlockNumber\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\tfieldId=\"apartmentBlockId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlock($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf=\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Unit No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Unit\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"unitData\"\n\t\t\t\t\t\t\t\tfieldValue=\"apartmentBlockUnitNumber\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"apartmentBlockUnitId\"\n\t\t\t\t\t\t\t\tfieldId=\"apartmentBlockUnitId\"\n\t\t\t\t\t\t\t\t[isDisabled]=\"!isBlockSelected\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlockUnit($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Invoice Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\t\tname=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTime]=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"custInvoiceDate\" \n\t\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.custInvoiceDate\" \n\t\t\t\t\t\t\t\t\trequired \n\t\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t[ngClass]=\"isEditInvoice ? 'no-link' : ''\" [tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t<owl-date-time #custInvoiceDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"custInvoiceDate\" [ngClass]=\"isEditInvoice ? 'no-link' : ''\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Due Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\tname=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTime]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.dueDate\" \n\t\t\t\t\t\t\t\trequired\n\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[ngClass]=\"isEditInvoice ? 'no-link' : ''\" [tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t<help-tooltip title=\"dueDate\"></help-tooltip>\n\t\t\t\t\t\t\t\t<owl-date-time #invoiceDueDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"invoiceDueDate\" [ngClass]=\"isEditInvoice ? 'no-link' : ''\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\n\t\t\t\t\t</div>\n\t\n\t\t\t\t</div>\n\t\n\t\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"isUnitSelected || isEditInvoice\">\n\t\t\t\t\t<div class=\"invoice-card-wrapper\">\n\t\t\t\t\t\t<div class=\"invoice-table\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-header\">\n\t\t\t\t\t\t\t\t<div class=\"wp-50 heads\">S.No</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-300 heads\">Account*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Invoice Amount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-200 heads\">Comments*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-220 heads\">Discount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Amount</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-100 heads\">Actions</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-fields\"\n\t\t\t\t\t\t\t\t*ngFor=\"let invoiceGLAccountsData of invoiceGLAccountsArray; let i = index\" \n\t\t\t\t\t\t\t\tapp-income-post-multi-invoice-fields \n\t\t\t\t\t\t\t\t[invoiceGLAccountsArray] = \"invoiceGLAccountsArray\" \n\t\t\t\t\t\t\t\t[invoiceGLAccountsData] = \"invoiceGLAccountsData\"\n\t\t\t\t\t\t\t\t[isEditInvoice]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[index]=\"i\" \n\t\t\t\t\t\t\t\t(fieldParams) = \"getFieldParams($event)\"\n\t\t\t\t\t\t\t\t(taxParams) = \"getCustTaxInvoiceParams($event)\">\n\t\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"add-invoice-box\" *ngIf=\"!isEditInvoice && !isSingleInvoice\">\n\t\t\t\t\t\t<div class=\"float-left add-invoice-link\" (click)=\"addInvoice()\">\n\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" [svgIcon]=\"'add'\"></mat-icon>\n\t\t\t\t\t\t\t<span class=\"font-medium\">Add Another Line</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\t\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p>Sub Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.subAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\" *ngFor=\" let item of vatTypeDataList; let i = index \">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p>VAT [{{item.lookupValueName}}%]:</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{item.custVatTypeAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<div class=\"float-left\">\n\t\t\t\t\t\t\t\t\t<p>Discount</p>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"float-left ml-4\" [ngClass]=\"isDeselectColumn()\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box discount-input\"> \n\t\t\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter\" name=\"discountFinalAmount\" \n\t\t\t\t\t\t\t\t\t\t[(ngModel)]=\"invoice.invoicefinalinputdiscount\"\n\t\t\t\t\t\t\t\t\t\t(ngModelChange)=\"onDiscountFinalAdded(invoice.invoicefinalinputdiscount)\" \n\t\t\t\t\t\t\t\t\t\t[readonly]=\"!invoice.isFinalDiscount || isEditInvoice\" autocomplete=\"off\"\n\t\t\t\t\t\t\t\t\t\t[tabindex]=\"isEditInvoice ? -1 : 0\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t<div class=\"float-left ml-3\">\n\t\t\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\t\t\tlabelText=\"Discount Gen Type{{index}}\"\n\t\t\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select\"\n\t\t\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t\t\t[fieldList]=\"discountFinalTypeDataList\"\n\t\t\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t\t\t[fieldModel]=\"invoice.invoicefinaldiscountId\"\n\t\t\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t\t\t[isLabel]=\"'false'\"\n\t\t\t\t\t\t\t\t\t\t[isDisabled]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t\t(fieldParams)=\"onDiscountFinalChange($event)\" \n\t\t\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\">{{invoice.invoicefinaldiscount | number : '1.2-2'}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"font-medium\">Total</p>\n\t\t\t\t\t\t\t\t<!-- <p>{{invoice.custInvoiceDate}}</p> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-4 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.custInvoiceAmount | number : '1.2-2'}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\n\t\t\t\t<button *ngIf=\"isUnitSelected\" class=\"mt-4 float-right\" mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t\n\t\t\t</form>\n\t\t\t\n\t\t</ng-container>\n\n\t</div>\n\n\n\n</div>");
 
 /***/ }),
 
@@ -203,7 +203,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
     onAccountChange(event, index) {
         this.invoiceGLAccountsData.glaccountName = event[0].glaccountName;
         this.invoiceGLAccountsData.glaccountId = parseInt(event[0].glaccountId);
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
     }
@@ -220,7 +220,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
         this.invoiceGLAccountsData.discountTypeId = event[0].lookupValueName;
         this.onDiscountAdded(this.invoiceGLAccountsData.discountDirectAmt, index);
         this.invoiceGLAccountsData.lineItemTotal = this.invoiceGLAccountsData.amount - parseFloat(this.invoiceGLAccountsData.discountAmount);
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
     }
@@ -247,7 +247,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
             this.invoiceGLAccountsData.discountDirectAmt = 0;
         }
         this.invoiceGLAccountsData.lineItemTotal = this.invoiceGLAccountsData.amount - this.invoiceGLAccountsData.discountAmount;
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
         this.calculateVat();
@@ -261,7 +261,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
             this.invoiceGLAccountsData.discountDirectAmt = 0;
         }
         this.invoiceGLAccountsData.lineItemTotal = this.invoiceGLAccountsData.amount - this.invoiceGLAccountsData.discountAmount;
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
         this.calculateVat();
@@ -288,7 +288,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
         }
         this.invoiceGLAccountsData.vatid = parseInt(event[0].lookupValueId);
         this.invoiceGLAccountsData.vatamount = parseFloat(this.invoiceGLAccountsData.amount) * percent;
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
     }
@@ -300,14 +300,14 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
             this.invoiceGLAccountsData.amount = 0;
         }
         this.invoiceGLAccountsData.lineItemTotal = this.invoiceGLAccountsData.amount - parseFloat(this.invoiceGLAccountsData.discountAmount);
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
         this.calculateVat();
     }
     onCommentChange(value, index) {
         this.invoiceGLAccountsData.comments = value;
-        this.invoiceGLAccountsData.form = this.invoiceForm.valid;
+        this.invoiceGLAccountsData.form = this.isFormValid();
         this.invoiceGLAccountsArray[index] = this.invoiceGLAccountsData;
         this.fieldParams.emit(this.invoiceGLAccountsArray);
     }
@@ -343,12 +343,15 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
         if (this.isEditInvoice) {
             this.invoiceGLAccountsData.form = true;
         }
-        this.accountsService.getAllGlAccounts().subscribe((res) => {
-            this.glAccountListData = res.filter(item => {
-                return item.isActive && this.sessionService.apartmentId && item.indicator == this.glAccountIndicator;
-            });
+        let params = {
+            apartmentId: this.sessionService.apartmentId,
+            GLAccountTypeId: 165
+        };
+        this.accountsService.getNewGlAccountsByGlAccountTypeId(params).subscribe((res) => {
+            this.glAccountListData = res;
         });
         let vatListParams = {
+            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 77
         };
         //VAT types
@@ -356,6 +359,7 @@ let IncomePostMultiInvoiceFieldsComponent = class IncomePostMultiInvoiceFieldsCo
             this.vatTypeDataList = res;
         });
         let disListParams = {
+            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 88
         };
         //discount types
@@ -681,8 +685,8 @@ let IncomePostMultiInvoiceComponent = class IncomePostMultiInvoiceComponent {
                 "apartmentId": this.sessionService.apartmentId,
                 "apartmentBlockUnitId": parseInt(this.apartmentBlockUnitId),
                 "custInvoiceAmount": parseFloat(this.invoice.custInvoiceAmount),
-                "custInvoiceDate": this.invoice.custInvoiceDate,
-                "dueDate": this.invoice.dueDate,
+                "custInvoiceDate": moment__WEBPACK_IMPORTED_MODULE_10__(this.invoice.custInvoiceDate).utcOffset(this.timeZone.offset).format(),
+                "dueDate": moment__WEBPACK_IMPORTED_MODULE_10__(this.invoice.dueDate).utcOffset(this.timeZone.offset).format(),
                 "tax1": this.invoice.tax1,
                 "tax2": this.invoice.tax2,
                 "tax3": this.invoice.tax3,
@@ -764,7 +768,7 @@ let IncomePostMultiInvoiceComponent = class IncomePostMultiInvoiceComponent {
         this.isUnitSelected = true;
     }
     getTestDate(value) {
-        return moment__WEBPACK_IMPORTED_MODULE_10__(value).format(this.timeZone.time);
+        return moment__WEBPACK_IMPORTED_MODULE_10__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
     }
     ngOnInit() {
         this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
@@ -784,7 +788,7 @@ let IncomePostMultiInvoiceComponent = class IncomePostMultiInvoiceComponent {
         this.invoice.finalDiscountTypeName = "";
         this.invoice.comments = "";
         this.invoice.isRecurCustInvoice = true;
-        this.invoice.custInvoiceDate = moment__WEBPACK_IMPORTED_MODULE_10__().utcOffset(this.timeZone.offset).format(this.timeZone.hours);
+        this.invoice.custInvoiceDate = moment__WEBPACK_IMPORTED_MODULE_10__().add(this.timeZone.offset, 'hours');
         this.invoiceGLAccountsData = {};
         this.invoiceGLAccountsData.glaccountId = "";
         this.invoiceGLAccountsData.glaccountName = "";
@@ -865,12 +869,15 @@ let IncomePostMultiInvoiceComponent = class IncomePostMultiInvoiceComponent {
             }
         ];
         let dateParams = {
+            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 74
         };
         this.lookupService.getLookupValueByLookupTypeId(dateParams).subscribe((res) => {
-            this.invoice.dueDate = moment__WEBPACK_IMPORTED_MODULE_10__().add(parseInt(res[0].lookupValueName), 'days');
+            if (res[0] != undefined)
+                this.invoice.dueDate = moment__WEBPACK_IMPORTED_MODULE_10__().add(parseInt(res[0].lookupValueName), 'days').add(this.timeZone.offset, 'hours');
         });
         let vatListParams = {
+            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 77
         };
         //VAT types
@@ -881,6 +888,7 @@ let IncomePostMultiInvoiceComponent = class IncomePostMultiInvoiceComponent {
             });
         });
         let disListParams = {
+            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 88
         };
         //discount types

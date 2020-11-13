@@ -214,7 +214,7 @@ let UnitUsersReportDataComponent = class UnitUsersReportDataComponent {
         return this.pageName == "List of Admins";
     }
     getDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_8__(date).format(this.timeZone.time);
+        return moment__WEBPACK_IMPORTED_MODULE_8__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
     }
     getBlockDetails() {
         //jqx column generating
@@ -309,59 +309,51 @@ let UnitUsersReportDataComponent = class UnitUsersReportDataComponent {
             this.columnData = [{
                     text: 'User Name',
                     datafield: 'unitUserName',
-                    width: 150,
+                    minwidth: 180,
+                    maxwidth: 200,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
                 {
                     text: 'Block Number',
                     datafield: 'blockNo',
-                    width: 120,
+                    minwidth: 200,
+                    maxwidth: 230,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
                 {
                     text: 'Unit Number',
                     datafield: 'unitNo',
-                    width: 100,
+                    minwidth: 150,
+                    maxwidth: 180,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
                 {
                     text: 'Email Id',
                     datafield: 'emailID',
-                    width: 240,
+                    minwidth: 280,
+                    maxwidth: 300,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
                 {
                     text: 'User Type',
                     datafield: 'userTypeName',
-                    width: 100,
+                    minwidth: 150,
+                    maxwidth: 170,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
                 {
                     text: 'Mobile',
                     datafield: 'mobile',
-                    width: 120,
+                    minwidth: 150,
+                    maxwidth: 170,
                     cellsrenderer: cellsrenderer,
                     renderer: columnrenderer
                 },
-                {
-                    text: 'Vehicle Model',
-                    datafield: 'vehicleModel',
-                    width: 150,
-                    cellsrenderer: cellsrenderer,
-                    renderer: columnrenderer
-                },
-                {
-                    text: 'Vehicle Number',
-                    datafield: 'vehicleNumber',
-                    width: 140,
-                    cellsrenderer: cellsrenderer,
-                    renderer: columnrenderer
-                }
             ];
             this.userService.getReportApprovedUnitUserbyApartmentIdBlockId(details).subscribe((res) => {
                 let gridSourceData = {
@@ -998,7 +990,8 @@ let UnitUsersReportDataComponent = class UnitUsersReportDataComponent {
             this.unitBlocksData = res;
         });
         let params = {
-            LookupTypeId: 87
+            LookupTypeId: 87,
+            ApartmentId: this.sessionService.apartmentId
         };
         this.lookupService.getLookupValueByLookupTypeId(params).subscribe((res) => {
             var data = res.filter(item => {
@@ -1149,7 +1142,6 @@ let UnitUsersReportComponent = class UnitUsersReportComponent {
     }
     ngOnInit() {
         let details = {
-            ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: 87,
             MenuName: 'UnitUser'
         };

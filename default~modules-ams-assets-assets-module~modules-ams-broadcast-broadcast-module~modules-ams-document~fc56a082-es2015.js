@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~bfc1b2db"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~fc56a082"],{
 
 /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/modules/ui/upload/upload.component.html":
 /*!***********************************************************************************************!*\
@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"upload-wrapper\">\n    \n    \n    <label *ngIf=\"isFileIdAvailable()\">Image/Document</label>\n    \n    <ng-container *ngFor=\"let file of fileList\">\n        <div class=\"preview-wrapper\">\n            <div class=\"icon-wrapper ml-1\">\n                <mat-icon class=\"icon-sm\" [color]=\"'warn'\" [svgIcon]=\"'close'\" (click)=\"deleteFile(file)\"></mat-icon>\n            </div>\n            <figure class=\"preview-img\">\n                \n                <ng-container *ngIf=\"file.status\">\n                    <img *ngIf=\"isImage(file.type)\" class=\"img-fluid\" [src] =\"file.binary\" id=\"imageElem\">\n                    <a [href]=\"file.binary\" target=\"_blank\" *ngIf=\"!isImage(file.type)\">\n                        <mat-icon class=\"w-100 h-100\" svgIcon=\"feather:file-text\"></mat-icon>\n                    </a>\n                </ng-container>\n                <div class=\"loader\" *ngIf=\"!file.status\">\n                    <svg version=\"1.1\" id=\"L9\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                    viewBox=\"0 0 100 100\" enable-background=\"new 0 0 0 0\" xml:space=\"preserve\">\n                    <path fill=\"#fff\" d=\"M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50\">\n                    <animateTransform \n                        attributeName=\"transform\" \n                        attributeType=\"XML\" \n                        type=\"rotate\"\n                        dur=\"1s\" \n                        from=\"0 50 50\"\n                        to=\"360 50 50\" \n                        repeatCount=\"indefinite\" />\n                    </path>\n                    </svg>\n                </div>\n            </figure>\n        </div>\n    </ng-container>\n    \n    <ng-container *ngIf=\"IsOneFileId()\">\n\n        <label>Upload File</label>\n\n        <div class=\"browse-files\" [appDragAndDrop] [multiple]=\"multiple\" (onFileDropped)=\"selectFile($event)\">\n            <input hidden type=\"file\" #fileInput (change)=\"selectFile($event)\" [multiple]=\"isMultiple()\">\n            <div class=\"attachfiles-normal\">\n                <span class=\"attachfiles-dragSupport\">Drop file here or </span>\n                <a class=\"attachFiles-link\" href=\"javascript:void(0)\" id=\"attachProfilePic\" (click)=\"fileInput.click()\">Browse<br></a> to add attachment\n            </div>\n        </div>\n\n    </ng-container>     \n\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"upload-wrapper\">\n    \n    \n    <label *ngIf=\"isFileIdAvailable()\">Image/Document</label>\n    \n    <ng-container *ngFor=\"let file of fileList\">\n        <div class=\"preview-wrapper\">\n            <div class=\"icon-wrapper ml-1\">\n                <mat-icon class=\"icon-sm delete\" [svgIcon]=\"'close'\" (click)=\"deleteFile(file)\"></mat-icon>\n            </div>\n            <figure class=\"preview-img\">\n                \n                <ng-container *ngIf=\"file.status\">\n                    <img *ngIf=\"isImage(file.type)\" class=\"img-fluid\" [src] =\"file.binary\" id=\"imageElem\">\n                    <a [href]=\"file.binary\" target=\"_blank\" *ngIf=\"!isImage(file.type)\">\n                        <mat-icon class=\"w-100 h-100\" svgIcon=\"feather:file-text\"></mat-icon>\n                    </a>\n                </ng-container>\n                <div class=\"loader\" *ngIf=\"!file.status\">\n                    <svg version=\"1.1\" id=\"L9\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n                    viewBox=\"0 0 100 100\" enable-background=\"new 0 0 0 0\" xml:space=\"preserve\">\n                    <path fill=\"#fff\" d=\"M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50\">\n                    <animateTransform \n                        attributeName=\"transform\" \n                        attributeType=\"XML\" \n                        type=\"rotate\"\n                        dur=\"1s\" \n                        from=\"0 50 50\"\n                        to=\"360 50 50\" \n                        repeatCount=\"indefinite\" />\n                    </path>\n                    </svg>\n                </div>\n            </figure>\n        </div>\n    </ng-container>\n    \n    <ng-container *ngIf=\"IsOneFileId()\">\n\n        <p class=\"error text-sm pb-1\" *ngIf=\"isMoreFileSize\">* upload file less than 2 MB</p>\n        <label>Upload File</label>\n\n        <div class=\"browse-files\" [appDragAndDrop] [multiple]=\"multiple\" (onFileDropped)=\"selectFile($event)\">\n            <input hidden type=\"file\" #fileInput (change)=\"selectFile($event)\" [multiple]=\"isMultiple()\">\n            <div class=\"attachfiles-normal\">\n                <span class=\"attachfiles-dragSupport\">Drop file here or </span>\n                <a class=\"attachFiles-link\" href=\"javascript:void(0)\" id=\"attachProfilePic\" (click)=\"fileInput.click()\">Browse<br></a> to add attachment\n            </div>\n        </div>\n\n    </ng-container>     \n\n</div>\n");
 
 /***/ }),
 
@@ -45,7 +45,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
 /* harmony import */ var src_app_api_controllers_FileDetails__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api/controllers/FileDetails */ "./src/app/api/controllers/FileDetails.ts");
 /* harmony import */ var src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/services/constants.service */ "./src/app/shared/services/constants.service.ts");
-/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
+/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
+
 
 
 
@@ -57,18 +59,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let UploadComponent = class UploadComponent {
-    constructor(sanitizer, fileUploadService, fileDownloadService, fileDetailsService, constantsService, sessionService) {
+    constructor(sanitizer, fileUploadService, fileDownloadService, fileDetailsService, constantsService, sharedService, sessionService) {
         this.sanitizer = sanitizer;
         this.fileUploadService = fileUploadService;
         this.fileDownloadService = fileDownloadService;
         this.fileDetailsService = fileDetailsService;
         this.constantsService = constantsService;
+        this.sharedService = sharedService;
         this.sessionService = sessionService;
         this.isImageUploaded = false;
         this.fileList = [];
         this.selectedFiles = [];
         this.newFiles = [];
         this.isFileIdChanged = false;
+        this.isMoreFileSize = false;
         this.fileIds = [];
         this.isEdit = false;
         this.multiple = false;
@@ -96,21 +100,48 @@ let UploadComponent = class UploadComponent {
     }
     selectFile(event) {
         this.selectedFiles = Array.from(event.target.files);
-        this.newFiles = this.selectedFiles.map(item => {
-            return { fileDetailsId: null, filePath: null, status: false };
+        this.selectedFiles.forEach(file => {
+            var totalSizeMB = file.size / Math.pow(1024, 2);
+            if (totalSizeMB >= 2) {
+                this.isMoreFileSize = true;
+                return true;
+            }
+            else {
+                this.isMoreFileSize = false;
+            }
         });
-        this.uploadSubscription = this.uploadFiles().subscribe((res) => {
-            res.map((data, index) => {
-                this.fileList = this.fileList.concat(this.newFiles[index]);
-                this.newFiles[index].binary = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.body));
-                this.newFiles[index].type = data.body.type;
-                this.newFiles[index].status = true;
+        if (!this.isMoreFileSize) {
+            this.newFiles = this.selectedFiles.map(item => {
+                return { tempId: this.sharedService.guid(), fileDetailsId: null, filePath: null, status: false };
             });
-            this.fileIds = this.fileList.map(item => {
-                return item.fileDetailsId;
+            this.newFiles.map((item) => {
+                this.fileList = this.fileList.concat(item);
             });
-            this.outputParams.emit(this.fileIds);
-        });
+            this.selectedFiles.forEach((file, index) => {
+                this.uploadFiles(file, index).subscribe((data) => {
+                    this.newFiles[index].binary = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.body));
+                    this.newFiles[index].type = data.body.type;
+                    this.newFiles[index].status = true;
+                    this.fileList.map(fileItem => {
+                        if (fileItem.tempId == this.newFiles[index].tempId) {
+                            fileItem.status = true;
+                            return fileItem;
+                        }
+                    });
+                    this.fileIds = this.fileList.map(item => {
+                        return item.fileDetailsId;
+                    });
+                    this.outputParams.emit(this.fileIds);
+                });
+            });
+        }
+    }
+    uploadFiles(file, index) {
+        return this.fileUploadService.upload(file).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(data => data != undefined), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(data => {
+            this.newFiles[index].fileDetailsId = data[0].fileDetailsId;
+            this.newFiles[index].filePath = data[0].filePath;
+            return this.fileDownloadService.downloadFile(data[0].filePath);
+        }));
     }
     isImage(type) {
         let splitFile = type.split('/');
@@ -131,17 +162,6 @@ let UploadComponent = class UploadComponent {
             });
             this.outputParams.emit(this.fileIds);
         });
-    }
-    uploadFiles() {
-        const observables = this.selectedFiles.map((file, index) => {
-            return this.fileUploadService.upload(file).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["first"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["filter"])(data => data != undefined), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["mergeMap"])(data => {
-                this.newFiles[index].status = false;
-                this.newFiles[index].fileDetailsId = data[0].fileDetailsId;
-                this.newFiles[index].filePath = data[0].filePath;
-                return this.fileDownloadService.downloadFile(data[0].filePath);
-            }));
-        });
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["forkJoin"])(observables);
     }
     getFileDetails() {
         const observables = this.fileList.map((file, index) => {
@@ -180,6 +200,10 @@ let UploadComponent = class UploadComponent {
             });
             this.isFileIdChanged = true;
         }
+        else if (!this.isEdit && !this.fileIds) {
+            this.isFileIdChanged = false;
+            this.fileList = [];
+        }
     }
 };
 UploadComponent.ctorParameters = () => [
@@ -188,7 +212,8 @@ UploadComponent.ctorParameters = () => [
     { type: src_app_shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_6__["FileDownloadService"] },
     { type: src_app_api_controllers_FileDetails__WEBPACK_IMPORTED_MODULE_7__["FileDetailsService"] },
     { type: src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_8__["ConstantsService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__["SessionService"] }
+    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"] },
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_10__["SessionService"] }
 ];
 UploadComponent.propDecorators = {
     fileIds: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
@@ -208,7 +233,8 @@ UploadComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         src_app_shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_6__["FileDownloadService"],
         src_app_api_controllers_FileDetails__WEBPACK_IMPORTED_MODULE_7__["FileDetailsService"],
         src_app_shared_services_constants_service__WEBPACK_IMPORTED_MODULE_8__["ConstantsService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_9__["SessionService"]])
+        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"],
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_10__["SessionService"]])
 ], UploadComponent);
 
 
@@ -258,4 +284,4 @@ UploadModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /***/ })
 
 }]);
-//# sourceMappingURL=default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~bfc1b2db-es2015.js.map
+//# sourceMappingURL=default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~fc56a082-es2015.js.map

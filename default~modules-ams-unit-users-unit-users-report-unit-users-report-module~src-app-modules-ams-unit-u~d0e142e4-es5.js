@@ -350,7 +350,7 @@
         }, {
           key: "getDate",
           value: function getDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_8__(date).format(this.timeZone.time);
+            return moment__WEBPACK_IMPORTED_MODULE_8__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
           }
         }, {
           key: "getBlockDetails",
@@ -444,49 +444,43 @@
               this.columnData = [{
                 text: 'User Name',
                 datafield: 'unitUserName',
-                width: 150,
+                minwidth: 180,
+                maxwidth: 200,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Block Number',
                 datafield: 'blockNo',
-                width: 120,
+                minwidth: 200,
+                maxwidth: 230,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Unit Number',
                 datafield: 'unitNo',
-                width: 100,
+                minwidth: 150,
+                maxwidth: 180,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Email Id',
                 datafield: 'emailID',
-                width: 240,
+                minwidth: 280,
+                maxwidth: 300,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'User Type',
                 datafield: 'userTypeName',
-                width: 100,
+                minwidth: 150,
+                maxwidth: 170,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Mobile',
                 datafield: 'mobile',
-                width: 120,
-                cellsrenderer: cellsrenderer,
-                renderer: columnrenderer
-              }, {
-                text: 'Vehicle Model',
-                datafield: 'vehicleModel',
-                width: 150,
-                cellsrenderer: cellsrenderer,
-                renderer: columnrenderer
-              }, {
-                text: 'Vehicle Number',
-                datafield: 'vehicleNumber',
-                width: 140,
+                minwidth: 150,
+                maxwidth: 170,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }];
@@ -1067,7 +1061,8 @@
               _this4.unitBlocksData = res;
             });
             var params = {
-              LookupTypeId: 87
+              LookupTypeId: 87,
+              ApartmentId: this.sessionService.apartmentId
             };
             this.lookupService.getLookupValueByLookupTypeId(params).subscribe(function (res) {
               var data = res.filter(function (item) {
@@ -1325,7 +1320,6 @@
             var _this6 = this;
 
             var details = {
-              ApartmentId: this.sessionService.apartmentId,
               LookupTypeId: 87,
               MenuName: 'UnitUser'
             };

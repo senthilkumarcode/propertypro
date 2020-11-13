@@ -251,7 +251,7 @@ let FacilityReportDataComponent = class FacilityReportDataComponent {
         return this.pageName == "List of Admins";
     }
     getDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_8__(date).format(this.timeZone.time);
+        return moment__WEBPACK_IMPORTED_MODULE_8__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
     }
     getSelectedType(event) {
         this.blockId = event[0].apartmentBlockId;
@@ -891,7 +891,6 @@ let FacilityReportsComponent = class FacilityReportsComponent {
         ];
         this.isDataLoaded = true;
         //  let details = {
-        //   ApartmentId: this.sessionService.apartmentId,
         //   LookupTypeId: 87, //lookuptypeid for report
         //   MenuName: 'VisitorManagement'
         // }

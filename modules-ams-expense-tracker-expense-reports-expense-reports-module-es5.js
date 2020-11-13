@@ -263,7 +263,7 @@
         }, {
           key: "getDate",
           value: function getDate(date) {
-            if (date != null) return moment__WEBPACK_IMPORTED_MODULE_3__(date).format(this.timeZone.time);else return "";
+            if (date != null) return moment__WEBPACK_IMPORTED_MODULE_3__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);else return "";
           }
         }, {
           key: "getSelectedGlAccount",
@@ -293,7 +293,7 @@
         }, {
           key: "getDateFormat",
           value: function getDateFormat(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_3__(date).format(this.timeZone.date);
+            return moment__WEBPACK_IMPORTED_MODULE_3__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.date);
           }
         }, {
           key: "getTimeFormat",
@@ -364,7 +364,8 @@
             }); //Gl Document 
 
             var documentParams = {
-              LookupTypeId: 31
+              LookupTypeId: 31,
+              ApartmentId: this.sessionService.apartmentId
             };
             this.lookupService.getLookupValueByLookupTypeId(documentParams).subscribe(function (res) {
               _this2.glDocumentTypeDataList = res;

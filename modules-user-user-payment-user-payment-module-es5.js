@@ -472,8 +472,11 @@
           }
         }, {
           key: "doRazorPay",
-          value: function doRazorPay(res, amount) {
-            console.log(amount);
+          value: function doRazorPay(data, amount) {
+            var _this3 = this;
+
+            var orderId = data.message.payment_id;
+            console.log(orderId);
             var options = {
               key: 'rzp_test_2szHLnMKAxEdYJ',
               amount: amount * 100,
@@ -481,7 +484,7 @@
               name: '',
               description: '',
               image: '/assets/images/logo-cmc-brand.png',
-              order_id: res.payment_id,
+              order_id: orderId,
               modal: {
                 // We should prevent closing of the form when esc key is pressed.
                 escape: false
@@ -494,14 +497,33 @@
             };
 
             options.handler = function (response, error) {
-              options.response = response;
-              console.log(response);
-              console.log(options); // call your backend api to verify payment signature & capture transaction
+              options.response = response; //console.log(response);
+              //console.log(options);
+
+              var params = {
+                pay: {
+                  bankPaymentsId: 0,
+                  payment_id: orderId,
+                  insertedBy: _this3.sessionService.userId,
+                  gatewayID: 2
+                }
+              };
+              console.log(params);
+
+              _this3.paymentService.verifyPayment(params).subscribe(function (res) {
+                if (res.message) {
+                  _this3.sharedService.openSnackBar("Payment done successfully", 'success');
+                } else {
+                  _this3.sharedService.openSnackBar("Payment Failed", 'error');
+                }
+              }, function (error) {
+                _this3.sharedService.openSnackBar("Payment Failed", 'error');
+              }); // call your backend api to verify payment signature & capture transaction
+
             };
 
             options.modal.ondismiss = function () {
-              // handle the case when user closes the form while transaction is in progress
-              console.log('Transaction cancelled.');
+              _this3.sharedService.openSnackBar("Payment Failed", 'error');
             };
 
             var rzp = new this.winRef.nativeWindow.Razorpay(options);
@@ -510,40 +532,41 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this3 = this;
+            var _this4 = this;
 
             // Subscribe to the resolved route data
             this._activatedRoute.parent.parent.parent.data.subscribe(function (data) {
-              _this3.user = data.initialData.user;
+              _this4.user = data.initialData.user;
             });
 
             this.sharedService.timezonecast.subscribe(function (timeZone) {
-              return _this3.timeZone = timeZone;
+              return _this4.timeZone = timeZone;
             });
             this.sharedService.userpaymentduesid.subscribe(function (data) {
-              if (_this3.sessionService.isPaymentIdAvailable() && _this3.sessionService.isBankPaymentsIdAvailable()) {
+              if (_this4.sessionService.isPaymentIdAvailable() && _this4.sessionService.isBankPaymentsIdAvailable()) {
                 var _params = {
                   pay: {
-                    bankPaymentsId: _this3.sessionService.bankPaymentsId,
-                    payment_id: _this3.sessionService.paymentId,
-                    insertedBy: _this3.sessionService.userId
+                    bankPaymentsId: _this4.sessionService.bankPaymentsId,
+                    payment_id: _this4.sessionService.paymentId,
+                    insertedBy: _this4.sessionService.userId,
+                    gatewayID: 1
                   }
                 };
 
-                _this3.paymentService.verifyPayment(_params).subscribe(function (res) {
-                  _this3.sessionService.bankPaymentsId = null;
-                  _this3.sessionService.paymentId = null;
+                _this4.paymentService.verifyPayment(_params).subscribe(function (res) {
+                  _this4.sessionService.bankPaymentsId = null;
+                  _this4.sessionService.paymentId = null;
 
                   if (res.message) {
-                    _this3.sharedService.openSnackBar("Payment done successfully", 'success');
+                    _this4.sharedService.openSnackBar("Payment done successfully", 'success');
                   } else {
-                    _this3.sharedService.openSnackBar("Some error occured", 'error');
+                    _this4.sharedService.openSnackBar("Payment Failed", 'error');
                   }
                 }, function (error) {
-                  _this3.sessionService.bankPaymentsId = null;
-                  _this3.sessionService.paymentId = null;
+                  _this4.sessionService.bankPaymentsId = null;
+                  _this4.sessionService.paymentId = null;
 
-                  _this3.sharedService.openSnackBar("Some error occured", 'error');
+                  _this4.sharedService.openSnackBar("Some error occured", 'error');
                 });
               }
             });
@@ -551,22 +574,22 @@
               ApartmentBlockUnitID: this.sessionService.apartmentBlockUnitID
             };
             this.accountsService.getArBalancewithDueByAptBlkUnitId(params).subscribe(function (res) {
-              _this3.paymentDataList = res;
+              _this4.paymentDataList = res;
 
-              _this3.paymentDataList.map(function (item) {
+              _this4.paymentDataList.map(function (item) {
                 item.checked = false;
                 return item;
               });
 
-              _this3.totalItems = _this3.paymentDataList.length;
+              _this4.totalItems = _this4.paymentDataList.length;
 
-              if (_this3.totalItems > _this3.itemLimit) {
-                _this3.ItemEndIndex = _this3.itemLimit;
+              if (_this4.totalItems > _this4.itemLimit) {
+                _this4.ItemEndIndex = _this4.itemLimit;
               } else {
-                _this3.ItemEndIndex = _this3.totalItems;
+                _this4.ItemEndIndex = _this4.totalItems;
               }
 
-              _this3.isDataLoaded = true;
+              _this4.isDataLoaded = true;
             });
           }
         }]);
@@ -707,7 +730,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this4 = this;
+            var _this5 = this;
 
             this.isDataLoaded = false;
             var params = {
@@ -715,16 +738,16 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.accountsService.getAdvanceByApartmentBlockUnitId(params).subscribe(function (res) {
-              _this4.advanceDataList = res;
-              _this4.totalItems = _this4.advanceDataList.length;
+              _this5.advanceDataList = res;
+              _this5.totalItems = _this5.advanceDataList.length;
 
-              if (_this4.totalItems > _this4.itemLimit) {
-                _this4.ItemEndIndex = _this4.itemLimit;
+              if (_this5.totalItems > _this5.itemLimit) {
+                _this5.ItemEndIndex = _this5.itemLimit;
               } else {
-                _this4.ItemEndIndex = _this4.totalItems;
+                _this5.ItemEndIndex = _this5.totalItems;
               }
 
-              _this4.isDataLoaded = true;
+              _this5.isDataLoaded = true;
             });
           }
         }]);
@@ -848,7 +871,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this5 = this;
+            var _this6 = this;
 
             this.isCreditNoteLoaded = false;
             var params = {
@@ -856,16 +879,16 @@
               blockUnitId: this.sessionService.apartmentBlockUnitID
             };
             this.accountsService.getCreditNotesByApartmentBlockUnit(params).subscribe(function (res) {
-              _this5.creditNoteDataList = res;
-              _this5.totalItems = _this5.creditNoteDataList.length;
+              _this6.creditNoteDataList = res;
+              _this6.totalItems = _this6.creditNoteDataList.length;
 
-              if (_this5.totalItems > _this5.itemLimit) {
-                _this5.ItemEndIndex = _this5.itemLimit;
+              if (_this6.totalItems > _this6.itemLimit) {
+                _this6.ItemEndIndex = _this6.itemLimit;
               } else {
-                _this5.ItemEndIndex = _this5.totalItems;
+                _this6.ItemEndIndex = _this6.totalItems;
               }
 
-              _this5.isCreditNoteLoaded = true;
+              _this6.isCreditNoteLoaded = true;
             });
           }
         }]);
@@ -989,7 +1012,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this6 = this;
+            var _this7 = this;
 
             this.isDataLoaded = false;
             var params = {
@@ -997,17 +1020,17 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.accountsService.getSecurityDepositByApartmentBlockUnitId(params).subscribe(function (res) {
-              _this6.depositDataList = res;
-              _this6.totalItems = _this6.depositDataList.length;
+              _this7.depositDataList = res;
+              _this7.totalItems = _this7.depositDataList.length;
               console.log(res);
 
-              if (_this6.totalItems > _this6.itemLimit) {
-                _this6.ItemEndIndex = _this6.itemLimit;
+              if (_this7.totalItems > _this7.itemLimit) {
+                _this7.ItemEndIndex = _this7.itemLimit;
               } else {
-                _this6.ItemEndIndex = _this6.totalItems;
+                _this7.ItemEndIndex = _this7.totalItems;
               }
 
-              _this6.isDataLoaded = true;
+              _this7.isDataLoaded = true;
             });
           }
         }]);

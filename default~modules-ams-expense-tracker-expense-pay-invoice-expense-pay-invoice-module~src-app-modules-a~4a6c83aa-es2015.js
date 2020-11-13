@@ -128,7 +128,7 @@ let ExpensePayInvoiceComponent = class ExpensePayInvoiceComponent {
         this.isVendorDataLoaded = false;
     }
     getInvoiceDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_9__(date).format(this.timeZone.date);
+        return moment__WEBPACK_IMPORTED_MODULE_9__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.date);
     }
     getAccountName(account) {
         var accountDetails = {
@@ -295,7 +295,7 @@ let ExpensePayInvoiceComponent = class ExpensePayInvoiceComponent {
                 datafield: 'vendorInvoiceDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).format(this.timeZone.date) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             }, {
@@ -309,7 +309,7 @@ let ExpensePayInvoiceComponent = class ExpensePayInvoiceComponent {
                 datafield: 'dueDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).format(this.timeZone.date) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             }, {
@@ -336,7 +336,8 @@ let ExpensePayInvoiceComponent = class ExpensePayInvoiceComponent {
             });
             this.isVendorDataLoaded = true;
             let categoryParams = {
-                LookupTypeId: 57
+                LookupTypeId: 57,
+                ApartmentId: this.sessionService.apartmentId
             };
             this.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe((res) => {
                 this.vendorCategoryData = res.filter(item => {
@@ -553,7 +554,8 @@ let ExpensePostPaymentComponent = class ExpensePostPaymentComponent {
         this.collection = {};
         this.collection.instrumentTypeId = "";
         let params = {
-            LookupTypeId: 33
+            LookupTypeId: 33,
+            ApartmentId: this.sessionService.apartmentId
         };
         //payment mode
         this.lookupService.getLookupValueByLookupTypeId(params).subscribe((res) => {

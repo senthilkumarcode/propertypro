@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"expense-post-invoice-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h5 class=\"mb-4\">\n\t\t\t<span *ngIf=\"!isEditInvoice && isGeneralInvoice\">Create Invoice</span>\n\t\t\t<span *ngIf=\"isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Create Single Invoice</span>\n\t\t\t<span *ngIf=\"!isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Create Multi Invoice</span>\n\t\t\t<span *ngIf=\"isEditInvoice && !isGeneralInvoice\">Edit Invoice</span>\n\t\t</h5>\n\n\t\t<div class=\"bg-card shadow primary\" *ngIf=\"isVendorDataLoaded && !isGeneralInvoice\">\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Vendor Name: </span>{{vendorDataList[0].vendorName}}</p>\n\t\t\t<p class=\"d-inline-block  mr-md-4\"><span class=\"font-medium\">Vendor Category: </span>{{getCategoryName(vendorDataList[0].vendorCategoryId)}}</p>\n\t\t\t<p class=\"d-inline-block\"><span class=\"font-medium\">Contact Person: </span>{{vendorDataList[0].contactPerson}}</p>\n\t\t</div>\n\n\t\t<app-loader *ngIf=\"!isInvoiceSubmitted\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isInvoiceSubmitted\">\n\n\t\t\t<form #postExpenseMultiInvoiceForm = \"ngForm\" name=\"postExpenseMultiInvoiceForm\" (ngSubmit)=\"submitExpenseMultiInvoiceForm(postExpenseMultiInvoiceForm)\"  novalidate>\n\n\t\t\t\t<div class=\"bg-card shadow\">\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf =\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Vendor\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"vendorDataList\"\n\t\t\t\t\t\t\t\tfieldValue=\"vendorName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"invoice.vendorId\"\n\t\t\t\t\t\t\t\tfieldId=\"vendorId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedVendor($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Invoice Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\t\tname=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTime]=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\trequired \n\t\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t[ngClass]=\"isDisabled()\" [tabindex]=\"isTabDisabled()\">\n\t\t\t\t\t\t\t\t<owl-date-time #vendorInvoiceDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"vendorInvoiceDate\" [ngClass]=\"isDisabled()\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Due Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\tname=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTime]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.dueDate\" \n\t\t\t\t\t\t\t\trequired\n\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[ngClass]=\"isDisabled()\" [tabindex]=\"isTabDisabled()\">\n\t\t\t\t\t\t\t\t<owl-date-time #invoiceDueDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"invoiceDueDate\" [ngClass]=\"isDisabled()\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t</div>\t\n\n\t\t\t\t</div>\n\n\n\t\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"isVendorSelected\">\n\t\t\t\t\t<div class=\"invoice-card-wrapper\">\n\t\t\t\t\t\t<div class=\"invoice-table\">\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-header\">\n\t\t\t\t\t\t\t\t<div class=\"wp-50 heads\">S.No</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-300 heads\">Account Type*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Invoice Amount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-200 heads\">Description*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-150 heads\">Withholding Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-220 heads\">Discount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Net Amount</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-100 heads\">Actions</div>\n\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-fields\" \n\t\t\t\t\t\t\t\t*ngFor=\"let invoiceVendorAccountsData of invoiceVendorAccountsArray; let i = index\" \n\t\t\t\t\t\t\t\tapp-expense-post-multi-invoice-fields\n\t\t\t\t\t\t\t\t[invoiceVendorAccountsArray] = \"invoiceVendorAccountsArray\" \n\t\t\t\t\t\t\t\t[invoiceVendorAccountsData] = \"invoiceVendorAccountsData\"\n\t\t\t\t\t\t\t\t[isEditInvoice]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[index]=\"i\" \n\t\t\t\t\t\t\t\t(fieldParams) = \"getFieldParams($event)\"\n\t\t\t\t\t\t\t\t(taxParams) = \"getVendorTaxInvoiceParams($event)\"\n\t\t\t\t\t\t\t\t(deleteVatParams) = \"getVatParams($event)\">\n\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"add-invoice-box\" *ngIf=\"!isEditInvoice && !isSingleInvoice\">\n\t\t\t\t\t\t<div class=\"float-left add-invoice-link\" (click)=\"addInvoice()\">\n\t\t\t\t\t\t\t<i-feather class=\"icon plus\" name=\"plus\"></i-feather>\n\t\t\t\t\t\t\t<span class=\"font-medium\">Add Another Line</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Sub Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.subAmountAfterdiscount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\" *ngFor=\" let item of vatTypeDataList; let i = index \">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Input VAT [{{item.lookupValueName}}%]:</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{item.custVatTypeAmount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Withholding Tax</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\">{{invoice.totalWthtaxAmount}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"total-box final border-top\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-3 col-6\">\n\t\t\t\t\t\t\t\t<p>Total Net Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-3 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.vendorInvoiceAmount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\n\t\t\t\t<button class=\"mt-4 float-right\" mat-flat-button [color]=\"'primary'\">Submit</button>\n\n\t\t\t</form>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>";
+      __webpack_exports__["default"] = "<div class=\"expense-post-invoice-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h5 class=\"mb-4\">\n\t\t\t<span *ngIf=\"!isEditInvoice && isGeneralInvoice\">Create Invoice</span>\n\t\t\t<span *ngIf=\"isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Create Single Invoice</span>\n\t\t\t<span *ngIf=\"!isSingleInvoice && !isEditInvoice && !isGeneralInvoice\">Create Multi Invoice</span>\n\t\t\t<span *ngIf=\"isEditInvoice && !isGeneralInvoice\">Edit Invoice</span>\n\t\t</h5>\n\n\t\t<div class=\"bg-card shadow primary\" *ngIf=\"isVendorDataLoaded && !isGeneralInvoice\">\n\t\t\t<p class=\"d-inline-block mr-md-4\"><span class=\"font-medium\">Vendor Name: </span>{{vendorDataList[0].vendorName}}</p>\n\t\t\t<p class=\"d-inline-block  mr-md-4\"><span class=\"font-medium\">Vendor Category: </span>{{getCategoryName(vendorDataList[0].vendorCategoryId)}}</p>\n\t\t\t<p class=\"d-inline-block\"><span class=\"font-medium\">Contact Person: </span>{{vendorDataList[0].contactPerson}}</p>\n\t\t</div>\n\n\t\t<app-loader *ngIf=\"!isInvoiceSubmitted\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isInvoiceSubmitted\">\n\n\t\t\t<form #postExpenseMultiInvoiceForm = \"ngForm\" name=\"postExpenseMultiInvoiceForm\" (ngSubmit)=\"submitExpenseMultiInvoiceForm(postExpenseMultiInvoiceForm)\"  novalidate>\n\n\t\t\t\t<div class=\"bg-card shadow\">\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\" *ngIf =\"isGeneralInvoice\">\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Vendor\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"vendorDataList\"\n\t\t\t\t\t\t\t\tfieldValue=\"vendorName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"invoice.vendorId\"\n\t\t\t\t\t\t\t\tfieldId=\"vendorId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedVendor($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Invoice Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\t\tname=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTime]=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.vendorInvoiceDate\" \n\t\t\t\t\t\t\t\t\trequired \n\t\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t\t[ngClass]=\"isDisabled()\" [tabindex]=\"isTabDisabled()\">\n\t\t\t\t\t\t\t\t<owl-date-time #vendorInvoiceDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"vendorInvoiceDate\" [ngClass]=\"isDisabled()\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Due Date*</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" \n\t\t\t\t\t\t\t\tname=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTime]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\t[owlDateTimeTrigger]=\"invoiceDueDate\" \n\t\t\t\t\t\t\t\tplaceholder=\"Date\" [(ngModel)]=\"invoice.dueDate\" \n\t\t\t\t\t\t\t\trequired\n\t\t\t\t\t\t\t\t[readonly]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[ngClass]=\"isDisabled()\" [tabindex]=\"isTabDisabled()\">\n\t\t\t\t\t\t\t\t<owl-date-time #invoiceDueDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"invoiceDueDate\" [ngClass]=\"isDisabled()\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t</div>\t\n\n\t\t\t\t</div>\n\n\n\t\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"isVendorSelected\">\n\t\t\t\t\t<div class=\"invoice-card-wrapper\">\n\t\t\t\t\t\t<div class=\"invoice-table\">\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-header\">\n\t\t\t\t\t\t\t\t<div class=\"wp-50 heads\">S.No</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-300 heads\">Account Type*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Invoice Amount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-200 heads\">Description*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-150 heads\">Withholding Tax*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-220 heads\">Discount*</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-120 heads\">Net Amount</div>\n\t\t\t\t\t\t\t\t<div class=\"wp-100 heads\">Actions</div>\n\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t<div class=\"p-0 invoice-fields\" \n\t\t\t\t\t\t\t\t*ngFor=\"let invoiceVendorAccountsData of invoiceVendorAccountsArray; let i = index\" \n\t\t\t\t\t\t\t\tapp-expense-post-multi-invoice-fields\n\t\t\t\t\t\t\t\t[invoiceVendorAccountsArray] = \"invoiceVendorAccountsArray\" \n\t\t\t\t\t\t\t\t[invoiceVendorAccountsData] = \"invoiceVendorAccountsData\"\n\t\t\t\t\t\t\t\t[isEditInvoice]=\"isEditInvoice\"\n\t\t\t\t\t\t\t\t[index]=\"i\" \n\t\t\t\t\t\t\t\t(fieldParams) = \"getFieldParams($event)\"\n\t\t\t\t\t\t\t\t(taxParams) = \"getVendorTaxInvoiceParams($event)\"\n\t\t\t\t\t\t\t\t(deleteVatParams) = \"getVatParams($event)\">\n\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"add-invoice-box\" *ngIf=\"!isEditInvoice && !isSingleInvoice\">\n\t\t\t\t\t\t<div class=\"float-left add-invoice-link\" (click)=\"addInvoice()\">\n\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" [svgIcon]=\"'add'\"></mat-icon>\n\t\t\t\t\t\t\t<span class=\"font-medium\">Add Another Line</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\n\t\t\t\t\t<div class=\"total-box border-top\">\n\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Sub Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.subAmountAfterdiscount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\" *ngFor=\" let item of vatTypeDataList; let i = index \">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Input VAT [{{item.lookupValueName}}%]:</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{item.custVatTypeAmount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-6 col-9\">\n\t\t\t\t\t\t\t\t<p>Withholding Tax</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-3\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\">{{invoice.totalWthtaxAmount}}</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"total-box final border-top\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"offset-md-4 col-md-3 col-6\">\n\t\t\t\t\t\t\t\t<p>Total Net Amount</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-3 d-none d-md-block\"></div>\n\t\t\t\t\t\t\t<div class=\"col-md-2 col-6\">\n\t\t\t\t\t\t\t\t<p class=\"text-right\"><span class=\"ml-1\">{{invoice.vendorInvoiceAmount}}</span></p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t\n\t\t\t\t</div>\n\n\t\t\t\t<button class=\"mt-4 float-right\" mat-flat-button [color]=\"'primary'\">Submit</button>\n\n\t\t\t</form>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>";
       /***/
     },
 
@@ -364,7 +364,7 @@
           value: function onAccountChange(event, index) {
             this.invoiceVendorAccountsData.glaccountName = event[0].glaccountName;
             this.invoiceVendorAccountsData.glaccountId = parseInt(event[0].glaccountId);
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
           }
@@ -378,7 +378,7 @@
             }
 
             this.invoiceVendorAccountsData.lineAmountAfterDiscount = this.invoiceVendorAccountsData.amount - parseFloat(this.invoiceVendorAccountsData.discountAmount);
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -400,7 +400,7 @@
             this.invoiceVendorAccountsData.discountTypeId = event[0].lookupValueName;
             this.onDiscountAdded(this.invoiceVendorAccountsData.discountDirectAmt, index);
             this.invoiceVendorAccountsData.lineItemTotal = this.invoiceVendorAccountsData.amount - parseFloat(this.invoiceVendorAccountsData.discountAmount);
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -432,7 +432,7 @@
             }
 
             this.invoiceVendorAccountsData.lineAmountAfterDiscount = this.invoiceVendorAccountsData.amount - this.invoiceVendorAccountsData.discountAmount;
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -451,7 +451,7 @@
             }
 
             this.invoiceVendorAccountsData.lineAmountAfterDiscount = this.invoiceVendorAccountsData.amount - this.invoiceVendorAccountsData.discountAmount;
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -461,7 +461,7 @@
           key: "onCommentChange",
           value: function onCommentChange(value, index) {
             this.invoiceVendorAccountsData.comments = value;
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
           }
@@ -493,7 +493,7 @@
             }
 
             this.vendorinvoiceTaxData.lineAmountAfterDiscount = this.invoiceVendorAccountsData.amount - this.invoiceVendorAccountsData.discountAmount;
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -526,7 +526,7 @@
               this.vendorinvoiceTaxData.wthtaxAmountId = 0;
             }
 
-            this.invoiceVendorAccountsData.form = this.invoiceForm.valid;
+            this.invoiceVendorAccountsData.form = this.isFormValid();
             this.invoiceVendorAccountsArray[index] = this.invoiceVendorAccountsData;
             this.fieldParams.emit(this.invoiceVendorAccountsArray);
             this.taxParams.emit(this.vendorinvoiceTaxData);
@@ -566,21 +566,24 @@
               });
             });
             var vatListParams = {
-              LookupTypeId: 189
+              LookupTypeId: 189,
+              ApartmentId: this.sessionService.apartmentId
             }; //VAT types
 
             this.lookupService.getLookupValueByLookupTypeId(vatListParams).subscribe(function (res) {
               _this.vatTypeDataList = res;
             });
             var withHoldingListParams = {
-              LookupTypeId: 179
+              LookupTypeId: 179,
+              ApartmentId: this.sessionService.apartmentId
             }; //withholding tax types
 
             this.lookupService.getLookupValueByLookupTypeId(withHoldingListParams).subscribe(function (res) {
               _this.withTaxTypeDataList = res;
             });
             var disListParams = {
-              LookupTypeId: 88
+              LookupTypeId: 88,
+              ApartmentId: this.sessionService.apartmentId
             }; //discount types
 
             this.lookupService.getLookupValueByLookupTypeId(disListParams).subscribe(function (res) {
@@ -983,8 +986,8 @@
                 "vendorId": parseInt(this.route.params['value'].id),
                 "vendorInvoiceNumber": this.invoice.vendorInvoiceNumber,
                 "vendorInvoiceAmount": parseFloat(this.invoice.vendorInvoiceAmount),
-                "vendorInvoiceDate": this.invoice.vendorInvoiceDate,
-                "dueDate": this.invoice.dueDate,
+                "vendorInvoiceDate": moment__WEBPACK_IMPORTED_MODULE_9__(this.invoice.vendorInvoiceDate).utcOffset(this.timeZone.offset).format(),
+                "dueDate": moment__WEBPACK_IMPORTED_MODULE_9__(this.invoice.dueDate).utcOffset(this.timeZone.offset).format(),
                 "tax1": null,
                 "tax2": null,
                 "tax3": null,
@@ -1038,8 +1041,8 @@
                 "vendorId": parseInt(this.route.params['value'].id),
                 "vendorInvoiceNumber": this.invoice.vendorInvoiceNumber,
                 "vendorInvoiceAmount": parseFloat(this.invoice.vendorInvoiceAmount),
-                "vendorInvoiceDate": this.invoice.vendorInvoiceDate,
-                "dueDate": this.invoice.dueDate,
+                "vendorInvoiceDate": moment__WEBPACK_IMPORTED_MODULE_9__(this.invoice.vendorInvoiceDate).utcOffset(this.timeZone.offset).format(),
+                "dueDate": moment__WEBPACK_IMPORTED_MODULE_9__(this.invoice.dueDate).utcOffset(this.timeZone.offset).format(),
                 "tax1": this.invoice.tax1,
                 "tax2": this.invoice.tax2,
                 "tax3": this.invoice.tax3,
@@ -1093,11 +1096,14 @@
           value: function ngOnInit() {
             var _this4 = this;
 
+            this.sharedService.timezonecast.subscribe(function (timeZone) {
+              return _this4.timeZone = timeZone;
+            });
             this.invoice = {};
             this.invoice.vendorId = this.route.params['value'].id;
             this.invoice.vendorInvoiceNumber = "";
             this.invoice.vendorInvoiceAmount = 0;
-            this.invoice.vendorInvoiceDate = moment_timezone__WEBPACK_IMPORTED_MODULE_10___default()().toISOString();
+            this.invoice.vendorInvoiceDate = moment__WEBPACK_IMPORTED_MODULE_9__().utcOffset(this.timeZone.offset).format(this.timeZone.hours);
             this.invoice.isVat = false;
             this.invoice.totalVatamount = 0;
             this.invoice.isdiscount = false;
@@ -1203,12 +1209,14 @@
               "form": false
             }];
             var dateParams = {
+              ApartmentId: this.sessionService.apartmentId,
               LookupTypeId: 74
             };
             this.lookupService.getLookupValueByLookupTypeId(dateParams).subscribe(function (res) {
-              _this4.invoice.dueDate = moment__WEBPACK_IMPORTED_MODULE_9__().add(parseInt(res[0].lookupValueName), 'days');
+              if (res[0] != undefined) _this4.invoice.dueDate = moment__WEBPACK_IMPORTED_MODULE_9__().add(parseInt(res[0].lookupValueName), 'days').add(_this4.timeZone.offset, 'hours');
             });
             var vatListParams = {
+              ApartmentId: this.sessionService.apartmentId,
               LookupTypeId: 77
             }; //VAT types
 
@@ -1219,6 +1227,7 @@
               });
             });
             var disListParams = {
+              ApartmentId: this.sessionService.apartmentId,
               LookupTypeId: 88
             }; //discount types
 

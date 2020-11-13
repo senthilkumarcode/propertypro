@@ -291,7 +291,7 @@
         }, {
           key: "getDate",
           value: function getDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_10__(date).format(this.timeZone.time);
+            return moment__WEBPACK_IMPORTED_MODULE_10__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
           }
         }, {
           key: "getSelectedType",
@@ -342,55 +342,57 @@
               this.columnData = [{
                 text: 'User Name',
                 datafield: 'userName',
-                width: 130,
+                minwidth: 150,
+                maxwidth: 170,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Block Number',
                 datafield: 'blockNo',
-                width: 120,
+                minwidth: 120,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Unit Number',
                 datafield: 'unitNo',
-                width: 120,
+                minwidth: 110,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Type',
                 datafield: 'ticketType',
-                width: 120,
+                minwidth: 100,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'User Type',
                 datafield: 'userTypeName',
-                width: 100,
+                minwidth: 100,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Subject',
                 datafield: 'subject',
-                width: 120,
+                minwidth: 220,
+                maxwidth: 240,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Priority',
                 datafield: 'ticketPriority',
-                width: 120,
-                cellsrenderer: cellsrenderer,
-                renderer: columnrenderer
-              }, {
-                text: 'Ticket Age',
-                datafield: 'ticketAge',
-                width: 110,
+                minwidth: 120,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Status',
                 datafield: 'ticketStatus',
-                width: 120,
+                minwidth: 120,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }];
@@ -421,55 +423,64 @@
               this.columnData = [{
                 text: 'User Name',
                 datafield: 'userName',
-                width: 160,
+                minwidth: 130,
+                maxwidth: 140,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Block Number',
                 datafield: 'blockNo',
-                width: 130,
+                minwidth: 100,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Unit Number',
                 datafield: 'unitNo',
-                width: 120,
+                minwidth: 100,
+                maxwidth: 110,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Type',
                 datafield: 'ticketType',
-                width: 120,
+                minwidth: 100,
+                maxwidth: 110,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'User Type',
                 datafield: 'userTypeName',
-                width: 100,
+                minwidth: 100,
+                maxwidth: 110,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Subject',
                 datafield: 'subject',
-                width: 120,
+                minwidth: 220,
+                maxwidth: 240,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Priority',
                 datafield: 'ticketPriority',
-                width: 140,
+                minwidth: 100,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Age',
                 datafield: 'ticketAge',
-                width: 100,
+                minwidth: 80,
+                maxwidth: 100,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Status',
                 datafield: 'ticketStatus',
-                width: 170,
+                minwidth: 150,
+                maxwidth: 170,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }];
@@ -499,55 +510,57 @@
               this.columnData = [{
                 text: 'User Name',
                 datafield: 'userName',
-                width: 130,
+                minwidth: 170,
+                maxwidth: 200,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Block Number',
                 datafield: 'blockNo',
-                width: 130,
+                minwidth: 130,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Unit Number',
                 datafield: 'unitNo',
-                width: 120,
+                minwidth: 110,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Type',
                 datafield: 'ticketType',
-                width: 120,
+                minwidth: 100,
+                maxwidth: 120,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'User Type',
                 datafield: 'userTypeName',
-                width: 110,
+                minwidth: 110,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Subject',
                 datafield: 'subject',
-                width: 100,
+                minwidth: 220,
+                maxwidth: 240,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Priority',
                 datafield: 'ticketPriority',
-                width: 130,
-                cellsrenderer: cellsrenderer,
-                renderer: columnrenderer
-              }, {
-                text: 'Ticket Age',
-                datafield: 'ticketAge',
-                width: 110,
+                minwidth: 130,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }, {
                 text: 'Ticket Status',
                 datafield: 'ticketStatus',
-                width: 130,
+                minwidth: 130,
+                maxwidth: 150,
                 cellsrenderer: cellsrenderer,
                 renderer: columnrenderer
               }];
@@ -631,7 +644,8 @@
               _this3.unitBlocksData = res;
             });
             var params = {
-              LookupTypeId: 87
+              LookupTypeId: 87,
+              ApartmentId: this.sessionService.apartmentId
             };
             this.lookupService.getLookupValueByLookupTypeId(params).subscribe(function (res) {
               var data = res.filter(function (item) {
@@ -882,7 +896,6 @@
             var _this5 = this;
 
             var details = {
-              ApartmentId: this.sessionService.apartmentId,
               LookupTypeId: 87,
               MenuName: 'HelpdeskTracker'
             }; // this.reportDataList = [
@@ -1234,7 +1247,7 @@
         }, {
           key: "getDate",
           value: function getDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_8__(date).format(this.timeZone.time);
+            return moment__WEBPACK_IMPORTED_MODULE_8__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
           }
         }, {
           key: "getBlockDetails",
@@ -1849,7 +1862,8 @@
               _this7.unitBlocksData = res;
             });
             var params = {
-              LookupTypeId: 87
+              LookupTypeId: 87,
+              ApartmentId: this.sessionService.apartmentId
             };
             this.lookupService.getLookupValueByLookupTypeId(params).subscribe(function (res) {
               var data = res.filter(function (item) {

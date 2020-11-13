@@ -250,7 +250,7 @@
         _createClass(ExpensePayInvoiceComponent, [{
           key: "getInvoiceDate",
           value: function getInvoiceDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_9__(date).format(this.timeZone.date);
+            return moment__WEBPACK_IMPORTED_MODULE_9__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.date);
           }
         }, {
           key: "getAccountName",
@@ -437,7 +437,7 @@
               datafield: 'vendorInvoiceDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -451,7 +451,7 @@
               datafield: 'dueDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -477,7 +477,8 @@
               });
               _this4.isVendorDataLoaded = true;
               var categoryParams = {
-                LookupTypeId: 57
+                LookupTypeId: 57,
+                ApartmentId: _this4.sessionService.apartmentId
               };
 
               _this4.lookupService.getLookupValueByLookupTypeId(categoryParams).subscribe(function (res) {
@@ -811,7 +812,8 @@
             this.collection = {};
             this.collection.instrumentTypeId = "";
             var params = {
-              LookupTypeId: 33
+              LookupTypeId: 33,
+              ApartmentId: this.sessionService.apartmentId
             }; //payment mode
 
             this.lookupService.getLookupValueByLookupTypeId(params).subscribe(function (res) {

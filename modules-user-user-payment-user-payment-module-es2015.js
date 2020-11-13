@@ -288,8 +288,9 @@ let PaymentDuesComponent = class PaymentDuesComponent {
         this.sessionService.paymentId = res.message.payment_id;
         this._router.navigate(['/externalRedirect', { externalUrl: res.message.url }]);
     }
-    doRazorPay(res, amount) {
-        console.log(amount);
+    doRazorPay(data, amount) {
+        var orderId = data.message.payment_id;
+        console.log(orderId);
         const options = {
             key: 'rzp_test_2szHLnMKAxEdYJ',
             amount: amount * 100,
@@ -297,7 +298,7 @@ let PaymentDuesComponent = class PaymentDuesComponent {
             name: '',
             description: '',
             image: '/assets/images/logo-cmc-brand.png',
-            order_id: res.payment_id,
+            order_id: orderId,
             modal: {
                 // We should prevent closing of the form when esc key is pressed.
                 escape: false,
@@ -311,13 +312,31 @@ let PaymentDuesComponent = class PaymentDuesComponent {
         };
         options.handler = ((response, error) => {
             options.response = response;
-            console.log(response);
-            console.log(options);
+            //console.log(response);
+            //console.log(options);
+            let params = {
+                pay: {
+                    bankPaymentsId: 0,
+                    payment_id: orderId,
+                    insertedBy: this.sessionService.userId,
+                    gatewayID: 2
+                }
+            };
+            console.log(params);
+            this.paymentService.verifyPayment(params).subscribe((res) => {
+                if (res.message) {
+                    this.sharedService.openSnackBar("Payment done successfully", 'success');
+                }
+                else {
+                    this.sharedService.openSnackBar("Payment Failed", 'error');
+                }
+            }, error => {
+                this.sharedService.openSnackBar("Payment Failed", 'error');
+            });
             // call your backend api to verify payment signature & capture transaction
         });
         options.modal.ondismiss = (() => {
-            // handle the case when user closes the form while transaction is in progress
-            console.log('Transaction cancelled.');
+            this.sharedService.openSnackBar("Payment Failed", 'error');
         });
         const rzp = new this.winRef.nativeWindow.Razorpay(options);
         rzp.open();
@@ -334,7 +353,8 @@ let PaymentDuesComponent = class PaymentDuesComponent {
                     pay: {
                         bankPaymentsId: this.sessionService.bankPaymentsId,
                         payment_id: this.sessionService.paymentId,
-                        insertedBy: this.sessionService.userId
+                        insertedBy: this.sessionService.userId,
+                        gatewayID: 1
                     }
                 };
                 this.paymentService.verifyPayment(params).subscribe((res) => {
@@ -344,7 +364,7 @@ let PaymentDuesComponent = class PaymentDuesComponent {
                         this.sharedService.openSnackBar("Payment done successfully", 'success');
                     }
                     else {
-                        this.sharedService.openSnackBar("Some error occured", 'error');
+                        this.sharedService.openSnackBar("Payment Failed", 'error');
                     }
                 }, error => {
                     this.sessionService.bankPaymentsId = null;
