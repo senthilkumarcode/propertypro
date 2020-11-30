@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"expense-post-collection-wrapper mt-4\">\n\n\t<div class=\"card clear mb-5\">\n\t\t\n\t\t<div class=\"card-header\">\n\t\t\t<div class=\"float-left\">\n    \t\t\t<h5>Post Collection</h5>\n    \t\t</div>\n\t\t</div>\n\n\t\t<form #postExpenseCollectionForm = \"ngForm\" name=\"postExpenseCollectionForm\" (ngSubmit)=\"submitExpensePostCollectionForm(postExpenseCollectionForm)\"  novalidate>\n\n\t\t\t<div class=\"card-body\">\n\t\t\t\t\n\t\t\t\t<app-loader *ngIf=\"!isCollectionSubmitted\"></app-loader>\n\n\t\t\t\t<app-alert-message [message]=\"alertMessage\" [isError]=\"isError\" ></app-alert-message>\n\n\t\t\t\t<ng-container *ngIf=\"isCollectionSubmitted\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t                    <label>Payment Amount*</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" \n\t\t\t\t\t\t\t\tclass=\"form-control\" \n\t\t\t\t\t\t\t\tplaceholder=\"Enter text\"\n\t\t\t\t\t\t\t\t[customMin] =\"minCollectionAmount\" [customMax] =\"maxCollectionAmount\" \n\t\t\t\t\t\t\t\tname=\"collectionAmount\" [(ngModel)]=\"collection.paymentAmount\" required>\n\t                \t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"select-box\">\n\t\t\t                   <label>Instrument Type*</label>\n\t\t\t                   <select \n\t\t\t\t\t\t\t        name=\"InstrumentType\" \n\t\t\t\t\t\t\t        id=\"InstrumentType\" \n\t\t\t\t\t\t\t        class=\"form-control\"\n\t\t\t\t\t\t\t        [(ngModel)]=\"collection.instrumentTypeId\" required>\n\t\t\t\t\t\t\t        <option value=\"\" disabled selected hidden>Select</option>\n\t\t\t\t\t\t\t        <option *ngFor=\"let item of instrumentTypeListData\" [value]=\"item.lookupValueId\">{{ item.lookupValueName }}</option>\n\t\t\t\t\t\t\t    </select>\n\t\t            \t\t</div>\n\t\t\t\t\t\t</div>\n\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t                    <label>Post On*</label>\n\t\t\t                    <input class=\"form-control\" name=\"collectionPostOn\" [owlDateTime]=\"collectionPostOn\" [owlDateTimeTrigger]=\"collectionPostOn\" placeholder=\"Date\" [(ngModel)]=\"collection.postOn\">\n\t\t\t\t\t\t\t\t<owl-date-time #collectionPostOn [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"collectionPostOn\">\n  \t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n  \t\t\t\t\t\t\t\t</div>\n\t                \t\t</div>\n\t\t\t\t\t\t</div>\n\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t                <label>Comments</label>\n\t\t\t\t                <input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comments\" [(ngModel)]=\"collection.comment\" required>\n\t\t\t\t    \t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t</div>\n\n\t\t\t\t</ng-container>\n\n\t\t\t</div>\n\n\t\t</form>\n\n\t</div>\n\n</div>";
+      __webpack_exports__["default"] = "<div class=\"expense-post-collection-wrapper mt-4\">\n\n\t<div class=\"card clear mb-5\">\n\t\t\n\t\t<div class=\"card-header\">\n\t\t\t<div class=\"float-left\">\n    \t\t\t<h5>Post Collection</h5>\n    \t\t</div>\n\t\t</div>\n\n\t\t<form #postExpenseCollectionForm = \"ngForm\" name=\"postExpenseCollectionForm\" (ngSubmit)=\"submitExpensePostCollectionForm(postExpenseCollectionForm)\"  novalidate>\n\n\t\t\t<div class=\"card-body\">\n\t\t\t\t\n\t\t\t\t<app-loader *ngIf=\"!isCollectionSubmitted\"></app-loader>\n\n\t\t\t\t<app-alert-message [message]=\"alertMessage\" [isError]=\"isError\" ></app-alert-message>\n\n\t\t\t\t<ng-container *ngIf=\"isCollectionSubmitted\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t                    <label>Payment Amount*</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" \n\t\t\t\t\t\t\t\tclass=\"form-control\" \n\t\t\t\t\t\t\t\tplaceholder=\"Enter text\"\n\t\t\t\t\t\t\t\t[customMin] =\"minCollectionAmount\" [customMax] =\"maxCollectionAmount\" \n\t\t\t\t\t\t\t\tname=\"collectionAmount\" [(ngModel)]=\"collection.paymentAmount\" required>\n\t                \t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"select-box\">\n\t\t\t                   <label>Instrument Type*</label>\n\t\t\t                   <select \n\t\t\t\t\t\t\t        name=\"InstrumentType\" \n\t\t\t\t\t\t\t        id=\"InstrumentType\" \n\t\t\t\t\t\t\t        class=\"form-control\"\n\t\t\t\t\t\t\t        [(ngModel)]=\"collection.instrumentTypeId\" required>\n\t\t\t\t\t\t\t        <option value=\"\" disabled selected hidden>Select</option>\n\t\t\t\t\t\t\t        <option *ngFor=\"let item of instrumentTypeListData\" [value]=\"item.lookupValueId\">{{ item.lookupValueName }}</option>\n\t\t\t\t\t\t\t    </select>\n\t\t            \t\t</div>\n\t\t\t\t\t\t</div>\n\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"Post On\"\n\t\t\t\t\t\t\t\tfieldName=\"collectionPostOn\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'null'\"\n\t\t\t\t\t\t\t\ttype=\"date\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"collection.postOn\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getCollectionPostOn($event)\">\n\t\t\t\t\t\t\t</app-datepicker>\n\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\n\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t                <label>Comments</label>\n\t\t\t\t                <input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comments\" [(ngModel)]=\"collection.comment\" required>\n\t\t\t\t    \t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t</div>\n\n\t\t\t\t</ng-container>\n\n\t\t\t</div>\n\n\t\t</form>\n\n\t</div>\n\n</div>";
       /***/
     },
 
@@ -437,7 +437,7 @@
               datafield: 'vendorInvoiceDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this4.timeZone.region).format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -451,7 +451,7 @@
               datafield: 'dueDate',
               width: 120,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this4.timeZone.offset, 'hours').format(_this4.timeZone.date) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this4.timeZone.region).format(_this4.timeZone.date) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -600,25 +600,31 @@
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/modules/ui/datepicker/datepicker.module */
+      "./src/app/modules/ui/datepicker/datepicker.module.ts");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @angular/router */
       "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
       /* harmony import */
 
 
-      var _expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ./expense-pay-invoice-routing.module */
       "./src/app/modules/ams/expense-tracker/expense-pay-invoice/expense-pay-invoice-routing.module.ts");
       /* harmony import */
 
 
-      var _expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ./expense-pay-invoice.component */
       "./src/app/modules/ams/expense-tracker/expense-pay-invoice/expense-pay-invoice.component.ts");
       /* harmony import */
 
 
-      var _expense_post_payment_expense_post_payment_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _expense_post_payment_expense_post_payment_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./expense-post-payment/expense-post-payment.component */
       "./src/app/modules/ams/expense-tracker/expense-pay-invoice/expense-post-payment/expense-post-payment.component.ts");
 
@@ -627,9 +633,9 @@
       };
 
       ExpensePayInvoiceModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_9__["ExpensePayInvoiceComponent"], _expense_post_payment_expense_post_payment_component__WEBPACK_IMPORTED_MODULE_10__["ExpensePostPaymentComponent"]],
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterModule"].forChild(_expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_8__["routes"]), src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_4__["CondoCardModule"], src_app_modules_ui_select_select_module__WEBPACK_IMPORTED_MODULE_5__["SelectModule"], src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_6__["ListModule"], _expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_8__["ExpensePayInvoiceRoutingModule"]],
-        bootstrap: [_expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_9__["ExpensePayInvoiceComponent"]]
+        declarations: [_expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_10__["ExpensePayInvoiceComponent"], _expense_post_payment_expense_post_payment_component__WEBPACK_IMPORTED_MODULE_11__["ExpensePostPaymentComponent"]],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterModule"].forChild(_expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_9__["routes"]), src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_4__["CondoCardModule"], src_app_modules_ui_select_select_module__WEBPACK_IMPORTED_MODULE_5__["SelectModule"], src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_6__["ListModule"], src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_7__["DatepickerModule"].forRoot(), _expense_pay_invoice_routing_module__WEBPACK_IMPORTED_MODULE_9__["ExpensePayInvoiceRoutingModule"]],
+        bootstrap: [_expense_pay_invoice_component__WEBPACK_IMPORTED_MODULE_10__["ExpensePayInvoiceComponent"]]
       })], ExpensePayInvoiceModule);
       /***/
     },
@@ -745,6 +751,11 @@
         }
 
         _createClass(ExpensePostPaymentComponent, [{
+          key: "getCollectionPostOn",
+          value: function getCollectionPostOn(event) {
+            this.collection.postOn = event;
+          }
+        }, {
           key: "submitExpensePostCollectionForm",
           value: function submitExpensePostCollectionForm(form) {
             var _this5 = this;

@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"income-add-customer-advance-wrapper\">\n\t\n\t<app-loader *ngIf=\"!isAdvanceSubmitted\"></app-loader>\n\t\t\n\t<ng-container *ngIf=\"isAdvanceSubmitted\">\n\n\t\t<form #addCustomerAdvanceForm = \"ngForm\" name=\"addCustomerAdvanceForm\" (ngSubmit)=\"submitAddCustomerAdvanceForm(addCustomerAdvanceForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\t\t\t<div class=\"row\">\n\t\t\t\n\t\t\t\t<!-- <div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\n\t\t\t\t\t<condo-select \n\t\t\t\t\t\tlabelText=\"Account\"\n\t\t\t\t\t\tfieldPlaceholder=\"Select Account\"\n\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t[fieldList]=\"glAccountsDataList\"\n\t\t\t\t\t\tfieldValue=\"glaccountName\"\n\t\t\t\t\t\t[fieldModel]=\"advance.glaccountId\"\n\t\t\t\t\t\tfieldId=\"glaccountId\"\n\t\t\t\t\t\t[isDisabled]=\"false\"\n\t\t\t\t\t\t(fieldParams)=\"getGlAccount($event)\" \n\t\t\t\t\t></condo-select>\n\t\t\t\t\t\n\t\t\t\t</div>  -->\n\n\t\t\t\t<div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Amount*</label>\n\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"advanceAmount\" [(ngModel)]=\"advance.amount\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"advance.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</form> \n\n\t</ng-container>\n\n</div>";
+      __webpack_exports__["default"] = "<div class=\"income-add-customer-advance-wrapper\">\n\t\n\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\t\t\n\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t<form #addCustomerAdvanceForm = \"ngForm\" name=\"addCustomerAdvanceForm\" (ngSubmit)=\"submitAddCustomerAdvanceForm(addCustomerAdvanceForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Amount*</label>\n\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"advanceAmount\" [(ngModel)]=\"advance.amount\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"advance.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Submit</button>\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</form> \n\n\t</ng-container>\n\n</div>";
       /***/
     },
 
@@ -62,7 +62,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"income-add-security-deposit-wrapper\">\n\n\t<app-loader *ngIf=\"!isDepositSubmitted\"></app-loader>\n\n\t<ng-container *ngIf=\"isDepositSubmitted\">\n\n\t\t<form #addSecuityDepositForm = \"ngForm\" name=\"addSecuityDepositForm\" (ngSubmit)=\"submitAddSecuityDepositForm(addSecuityDepositForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\t\t\t\n\t\t\t\t<!-- <div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\n\t\t\t\t\t<condo-select \n\t\t\t\t\t\tlabelText=\"Account\"\n\t\t\t\t\t\tfieldPlaceholder=\"Select Account\"\n\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t[fieldList]=\"glAccountsDataList\"\n\t\t\t\t\t\tfieldValue=\"glaccountName\"\n\t\t\t\t\t\t[fieldModel]=\"deposit.glaccountId\"\n\t\t\t\t\t\tfieldId=\"glaccountId\"\n\t\t\t\t\t\t[isDisabled]=\"false\"\n\t\t\t\t\t\t(fieldParams)=\"getGlAccount($event)\" \n\t\t\t\t\t></condo-select>\n\t\t\t\t\t\n\t\t\t\t</div> -->\n\n\t\t\t\t<div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Amount*</label>\n\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"advanceAmount\" [(ngModel)]=\"deposit.amount\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"deposit.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" class=\"btn blue\">Submit</button>\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</form>\n\n\t</ng-container>\n\t\t\n</div>";
+      __webpack_exports__["default"] = "<div class=\"income-add-security-deposit-wrapper\">\n\n\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t<form #addSecuityDepositForm = \"ngForm\" name=\"addSecuityDepositForm\" (ngSubmit)=\"submitAddSecuityDepositForm(addSecuityDepositForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\t\t\t\n\t\t\t\t\n\n\t\t\t\t<div class=\"col-sm-12\" *ngIf=\"!isEdit\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Amount*</label>\n\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"advanceAmount\" [(ngModel)]=\"deposit.amount\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"deposit.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" class=\"btn blue\">Submit</button>\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</form>\n\n\t</ng-container>\n\t\t\n</div>";
       /***/
     },
 
@@ -102,7 +102,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"income-journal-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h4 class=\"mb-4\">Journal Entries</h4>\n\n\t\t<div class=\"bg-card shadow\">\n\n\t\t\t<form #incomeReportsForm = \"ngForm\" name=\"incomeReportsForm\" (ngSubmit)=\"submitIncomeReportsForm(incomeReportsForm)\"  novalidate>\n\n\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>Posting Date From*</label>\n\t\t\t\t\t\t\t<input class=\"form-control\" name=\"PostingDateFrom\" [owlDateTime]=\"PostingDateFrom\" [owlDateTimeTrigger]=\"PostingDateFrom\" placeholder=\"Date\" [(ngModel)]=\"report.PostingdateFrom\" autocomplete=\"off\" required>\n\t\t\t\t\t\t\t<owl-date-time #PostingDateFrom [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"PostingDateFrom\">\n\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>Posting Date To*</label>\n\t\t\t\t\t\t\t<input class=\"form-control\" name=\"PostingdateTo\" [owlDateTime]=\"PostingdateTo\" [owlDateTimeTrigger]=\"PostingdateTo\" placeholder=\"Date\" [(ngModel)]=\"report.PostingdateTo\" autocomplete=\"off\" required>\n\t\t\t\t\t\t\t<owl-date-time #PostingdateTo [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"PostingdateTo\">\n\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Generate</button>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</form>\n\n\t\t</div>\n\n\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded && !isReportSubmitted\">\n\n\t\t\t<condo-card>\n\n\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\t<div class=\"d-flex\">\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<h5>Reports</h5>\n\t\t\t\t\t\t\t<p class=\"text-secondary\">{{totalItems}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"ml-auto mr-3\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"reportsData\" (ngModelChange)=\"onGlSearchFilter()\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div CondoCardBody>\n\n\t\t\t\t\t<jqxGrid \n\t\t\t\t\t\t[theme]=\"'material'\" \n\t\t\t\t\t\t[width]=\"'100%'\"\n\t\t\t\t\t\t[rowsheight]=\"48\"\n\t\t\t\t\t\t[autoheight]=\"true\"\n\t\t\t\t\t\t[pageable]=\"true\" \n\t\t\t\t\t\t[filterable]=\"true\"\n\t\t\t\t\t\t[sortable]=\"true\" \n\t\t\t\t\t\t[source]=\"reportsDataList\"\n\t\t\t\t\t\t[columns]=\"columnData\"\n\t\t\t\t\t\t[columnsresize]=\"true\"\n\t\t\t\t\t\t[enablehover]=\"false\"\n\t\t\t\t\t\t#datagrid>\n\t\t\t\t\t</jqxGrid> \n\n\t\t\t\t</div>\n\n\t\t\t</condo-card>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>\n";
+      __webpack_exports__["default"] = "<div class=\"income-journal-wrapper\">\n\n\t<div class=\"main\">\n\n\t\t<h4 class=\"mb-4\">Journal Entries</h4>\n\n\t\t<div class=\"bg-card shadow\">\n\n\t\t\t<form #incomeReportsForm = \"ngForm\" name=\"incomeReportsForm\" (ngSubmit)=\"submitIncomeReportsForm(incomeReportsForm)\"  novalidate>\n\n\t\t\t\t<div class=\"row\">\n\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"Posting Date From\"\n\t\t\t\t\t\t\tfieldName=\"PostingDateFrom\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"date\"\n\t\t\t\t\t\t\t[fieldModel]=\"report.PostingdateFrom\"\n\t\t\t\t\t\t\t(fieldParams)=\"getPostingDateFrom($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"Posting Date To\"\n\t\t\t\t\t\t\tfieldName=\"PostingdateTo\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"date\"\n\t\t\t\t\t\t\t[fieldModel]=\"report.PostingdateTo\"\n\t\t\t\t\t\t\t(fieldParams)=\"getPostingDateTo($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">Generate</button>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t</form>\n\n\t\t</div>\n\n\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded && !isReportSubmitted\">\n\n\t\t\t<condo-card>\n\n\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\t<div class=\"d-flex\">\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<h5>Reports</h5>\n\t\t\t\t\t\t\t<p class=\"text-secondary\">{{totalItems}} results</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"ml-auto mr-3\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"reportsData\" (ngModelChange)=\"onGlSearchFilter()\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div CondoCardBody>\n\n\t\t\t\t\t<jqxGrid \n\t\t\t\t\t\t[theme]=\"'material'\" \n\t\t\t\t\t\t[width]=\"'100%'\"\n\t\t\t\t\t\t[rowsheight]=\"48\"\n\t\t\t\t\t\t[autoheight]=\"true\"\n\t\t\t\t\t\t[pageable]=\"true\" \n\t\t\t\t\t\t[filterable]=\"true\"\n\t\t\t\t\t\t[sortable]=\"true\" \n\t\t\t\t\t\t[source]=\"reportsDataList\"\n\t\t\t\t\t\t[columns]=\"columnData\"\n\t\t\t\t\t\t[columnsresize]=\"true\"\n\t\t\t\t\t\t[enablehover]=\"false\"\n\t\t\t\t\t\t#datagrid>\n\t\t\t\t\t</jqxGrid> \n\n\t\t\t\t</div>\n\n\t\t\t</condo-card>\n\n\t\t</ng-container>\n\n\t</div>\n\n</div>\n";
       /***/
     },
 
@@ -335,9 +335,9 @@
         }, {
           path: 'add-invoice',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | src-app-modules-ams-income-tracker-income-post-invoice-income-post-invoice-module */
-            "default~modules-ams-income-tracker-income-post-invoice-income-post-invoice-module~src-app-modules-am~f6562e12").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("default~modules-ams-assets-assets-module~modules-ams-dashboard-dashboard-module~modules-ams-expense-~0e2774aa"), __webpack_require__.e("default~modules-ams-income-tracker-income-post-invoice-income-post-invoice-module~src-app-modules-am~f6562e12")]).then(__webpack_require__.bind(null,
             /*! src/app/modules/ams/income-tracker/income-post-invoice/income-post-invoice.module */
             "./src/app/modules/ams/income-tracker/income-post-invoice/income-post-invoice.module.ts")).then(function (m) {
               return m.IncomePostInvoiceModule;
@@ -585,37 +585,43 @@
       /* harmony import */
 
 
-      var _income_actions_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/modules/ui/datepicker/datepicker.module */
+      "./src/app/modules/ui/datepicker/datepicker.module.ts");
+      /* harmony import */
+
+
+      var _income_actions_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ./income-actions.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-actions.component.ts");
       /* harmony import */
 
 
-      var _income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./income-customer-advances/income-customer-advances.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-customer-advances/income-customer-advances.component.ts");
       /* harmony import */
 
 
-      var _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! ./income-security-deposit/income-security-deposit.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-security-deposit/income-security-deposit.component.ts");
       /* harmony import */
 
 
-      var _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! ./income-journal/income-journal.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-journal/income-journal.component.ts");
       /* harmony import */
 
 
-      var _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! ./income-add-customer-advance/income-add-customer-advance.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-add-customer-advance/income-add-customer-advance.component.ts");
       /* harmony import */
 
 
-      var _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! ./income-add-security-deposit/income-add-security-deposit.component */
       "./src/app/modules/ams/income-tracker/income-actions/income-add-security-deposit/income-add-security-deposit.component.ts");
 
@@ -624,10 +630,10 @@
       };
 
       IncomeActionsModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_income_actions_component__WEBPACK_IMPORTED_MODULE_9__["IncomeActionsComponent"], _income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_10__["IncomeCustomerAdvancesComponent"], _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_11__["IncomeSecurityDepositComponent"], _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_12__["IncomeJournalComponent"], _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_13__["IncomeAddCustomerAdvanceComponent"], _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_14__["IncomeAddSecurityDepositComponent"]],
-        exports: [_income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_10__["IncomeCustomerAdvancesComponent"], _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_11__["IncomeSecurityDepositComponent"], _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_12__["IncomeJournalComponent"], _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_13__["IncomeAddCustomerAdvanceComponent"], _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_14__["IncomeAddSecurityDepositComponent"]],
-        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(_income_actions_routing_module__WEBPACK_IMPORTED_MODULE_5__["routes"]), src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_6__["CondoCardModule"], src_app_modules_ui_select_select_module__WEBPACK_IMPORTED_MODULE_7__["SelectModule"], src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_8__["ListModule"], _income_actions_routing_module__WEBPACK_IMPORTED_MODULE_5__["IncomeActionsRoutingModule"]],
-        bootstrap: [_income_actions_component__WEBPACK_IMPORTED_MODULE_9__["IncomeActionsComponent"]]
+        declarations: [_income_actions_component__WEBPACK_IMPORTED_MODULE_10__["IncomeActionsComponent"], _income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_11__["IncomeCustomerAdvancesComponent"], _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_12__["IncomeSecurityDepositComponent"], _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_13__["IncomeJournalComponent"], _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_14__["IncomeAddCustomerAdvanceComponent"], _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_15__["IncomeAddSecurityDepositComponent"]],
+        exports: [_income_customer_advances_income_customer_advances_component__WEBPACK_IMPORTED_MODULE_11__["IncomeCustomerAdvancesComponent"], _income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_12__["IncomeSecurityDepositComponent"], _income_journal_income_journal_component__WEBPACK_IMPORTED_MODULE_13__["IncomeJournalComponent"], _income_add_customer_advance_income_add_customer_advance_component__WEBPACK_IMPORTED_MODULE_14__["IncomeAddCustomerAdvanceComponent"], _income_add_security_deposit_income_add_security_deposit_component__WEBPACK_IMPORTED_MODULE_15__["IncomeAddSecurityDepositComponent"]],
+        imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(_income_actions_routing_module__WEBPACK_IMPORTED_MODULE_5__["routes"]), src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_6__["CondoCardModule"], src_app_modules_ui_select_select_module__WEBPACK_IMPORTED_MODULE_7__["SelectModule"], src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_8__["ListModule"], src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_9__["DatepickerModule"].forRoot(), _income_actions_routing_module__WEBPACK_IMPORTED_MODULE_5__["IncomeActionsRoutingModule"]],
+        bootstrap: [_income_actions_component__WEBPACK_IMPORTED_MODULE_10__["IncomeActionsComponent"]]
       })], IncomeActionsModule);
       /***/
     },
@@ -734,6 +740,7 @@
           this.accountsService = accountsService;
           this.sharedService = sharedService;
           this.sessionService = sessionService;
+          this.isDataLoaded = false;
           this.isAdvanceSubmitted = false;
           this.isError = false;
           this.alertMessage = "";
@@ -763,11 +770,17 @@
           key: "goBack",
           value: function goBack() {
             this._incomeCustomerAdvancesComponent._selectPanelOverlayRef.detach();
+
+            if (this.isAdvanceSubmitted) {
+              this._incomeCustomerAdvancesComponent.getCustomerAdvancesData();
+            }
           }
         }, {
           key: "submitAddCustomerAdvanceForm",
           value: function submitAddCustomerAdvanceForm(form) {
             var _this2 = this;
+
+            this.isDataLoaded = false;
 
             if (!this.isEdit) {
               var details = {
@@ -791,19 +804,24 @@
                 custAdvance: details
               };
               this.accountsService.addAdvance(params).subscribe(function (res) {
-                if (res.error == 'Sucess') {
+                _this2.isDataLoaded = true;
+
+                if (res.code == 200) {
                   _this2.isAdvanceSubmitted = true;
-
-                  _this2.sharedService.setAlertMessage("Customer Advance added successfully");
-
-                  _this2.outputParams.emit(true);
 
                   _this2.goBack();
+
+                  _this2.sharedService.openSnackBar("Customer Advance added successfully", 'success');
                 } else {
-                  _this2.isAdvanceSubmitted = true;
+                  _this2.isAdvanceSubmitted = false;
+
+                  _this2.sharedService.openSnackBar(res.message, 'error');
                 }
               }, function (error) {
-                _this2.isAdvanceSubmitted = true;
+                _this2.isDataLoaded = true;
+                _this2.isAdvanceSubmitted = false;
+
+                _this2.sharedService.openSnackBar('Some error occured', 'error');
               });
             } else {
               var _details = {
@@ -829,19 +847,24 @@
                 custAdvance: _details
               };
               this.accountsService.updateAdvance(_params).subscribe(function (res) {
-                if (res) {
+                _this2.isDataLoaded = true;
+
+                if (res.code == 200) {
                   _this2.isAdvanceSubmitted = true;
-
-                  _this2.sharedService.setAlertMessage("Customer Advance updated successfully");
-
-                  _this2.outputParams.emit(true);
 
                   _this2.goBack();
+
+                  _this2.sharedService.openSnackBar("Customer Advance updated successfully", 'success');
                 } else {
-                  _this2.isAdvanceSubmitted = true;
+                  _this2.isAdvanceSubmitted = false;
+
+                  _this2.sharedService.openSnackBar(res.message, 'error');
                 }
               }, function (error) {
-                _this2.isAdvanceSubmitted = true;
+                _this2.isDataLoaded = true;
+                _this2.isAdvanceSubmitted = false;
+
+                _this2.sharedService.openSnackBar('Some error occured', 'error');
               });
             }
           }
@@ -854,12 +877,9 @@
               _this3.glAccountsDataList = res.filter(function (item) {
                 return item.isActive && _this3.sessionService.apartmentId && item.indicator == _this3.glAccountIndicator;
               });
-              _this3.isAdvanceSubmitted = true;
+              _this3.isDataLoaded = true;
             });
           }
-        }, {
-          key: "ngOnChanges",
-          value: function ngOnChanges(changes) {}
         }]);
 
         return IncomeAddCustomerAdvanceComponent;
@@ -980,28 +1000,36 @@
       /* harmony import */
 
 
-      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! src/app/shared/services/shared.service */
+      "./src/app/shared/services/shared.service.ts");
+      /* harmony import */
+
+
+      var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/core/session/session.service */
       "./src/app/core/session/session.service.ts");
       /* harmony import */
 
 
-      var moment_timezone__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! moment-timezone */
       "./node_modules/moment-timezone/index.js");
       /* harmony import */
 
 
-      var moment_timezone__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_6__);
+      var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
 
       var IncomeAddSecurityDepositComponent = /*#__PURE__*/function () {
-        function IncomeAddSecurityDepositComponent(route, _incomeSecurityDepositComponent, accountsService, sessionService) {
+        function IncomeAddSecurityDepositComponent(route, _incomeSecurityDepositComponent, accountsService, sharedService, sessionService) {
           _classCallCheck(this, IncomeAddSecurityDepositComponent);
 
           this.route = route;
           this._incomeSecurityDepositComponent = _incomeSecurityDepositComponent;
           this.accountsService = accountsService;
+          this.sharedService = sharedService;
           this.sessionService = sessionService;
+          this.isDataLoaded = false;
           this.isDepositSubmitted = false;
           this.glAccountIndicator = "Cust_Invoice";
           this.isError = false;
@@ -1018,11 +1046,17 @@
           key: "goBack",
           value: function goBack() {
             this._incomeSecurityDepositComponent._selectPanelOverlayRef.detach();
+
+            if (this.isDepositSubmitted) {
+              this._incomeSecurityDepositComponent.getSecurityDepositData();
+            }
           }
         }, {
           key: "submitAddSecuityDepositForm",
           value: function submitAddSecuityDepositForm(form) {
             var _this4 = this;
+
+            this.isDataLoaded = false;
 
             if (!this.isEdit) {
               var details = {
@@ -1039,7 +1073,7 @@
                 "comment2": this.deposit.comment,
                 "active": true,
                 "insertedBy": parseInt(this.sessionService.userId),
-                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString(),
+                "insertedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString(),
                 "updatedBy": null,
                 "updatedOn": null
               };
@@ -1047,17 +1081,24 @@
                 custSecurity: details
               };
               this.accountsService.addSecurityDeposit(params).subscribe(function (res) {
-                if (res.error = "Sucess") {
-                  _this4.isDepositSubmitted = true;
+                _this4.isDataLoaded = true;
 
-                  _this4.outputParams.emit(true);
+                if (res.code = 200) {
+                  _this4.isDepositSubmitted = true;
 
                   _this4.goBack();
+
+                  _this4.sharedService.openSnackBar("Security Deposit added successfully", 'success');
                 } else {
-                  _this4.isDepositSubmitted = true;
+                  _this4.isDepositSubmitted = false;
+
+                  _this4.sharedService.openSnackBar(res.message, 'error');
                 }
               }, function (error) {
-                _this4.isDepositSubmitted = true;
+                _this4.isDataLoaded = true;
+                _this4.isDepositSubmitted = false;
+
+                _this4.sharedService.openSnackBar("Some error occured", 'error');
               });
             } else {
               var _details2 = {
@@ -1077,23 +1118,30 @@
                 "insertedBy": this.deposit.insertedBy,
                 "insertedOn": this.deposit.insertedOn,
                 "updatedBy": parseInt(this.sessionService.userId),
-                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_6___default()().toISOString()
+                "updatedOn": moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().toISOString()
               };
               var _params2 = {
                 custSecurity: _details2
               };
               this.accountsService.updateSecurityDeposit(_params2).subscribe(function (res) {
-                if (res) {
-                  _this4.isDepositSubmitted = true;
+                _this4.isDataLoaded = true;
 
-                  _this4.outputParams.emit(true);
+                if (res.code = 200) {
+                  _this4.isDepositSubmitted = true;
 
                   _this4.goBack();
+
+                  _this4.sharedService.openSnackBar("Security Deposit updated successfully", 'success');
                 } else {
-                  _this4.isDepositSubmitted = true;
+                  _this4.isDepositSubmitted = false;
+
+                  _this4.sharedService.openSnackBar(res.message, 'error');
                 }
               }, function (error) {
-                _this4.isDepositSubmitted = true;
+                _this4.isDataLoaded = true;
+                _this4.isDepositSubmitted = false;
+
+                _this4.sharedService.openSnackBar("Some error occured", 'error');
               });
             }
           }
@@ -1111,7 +1159,7 @@
               _this5.glAccountsDataList = res.filter(function (item) {
                 return item.isActive && _this5.sessionService.apartmentId && item.indicator == _this5.glAccountIndicator;
               });
-              _this5.isDepositSubmitted = true;
+              _this5.isDataLoaded = true;
             });
           }
         }, {
@@ -1132,7 +1180,9 @@
         }, {
           type: src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_4__["AccountsService"]
         }, {
-          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]
+          type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"]
+        }, {
+          type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]
         }];
       };
 
@@ -1159,7 +1209,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./income-add-security-deposit.component.scss */
         "./src/app/modules/ams/income-tracker/income-actions/income-add-security-deposit/income-add-security-deposit.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_modules_ams_income_tracker_income_actions_income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_3__["IncomeSecurityDepositComponent"], src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_4__["AccountsService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]])], IncomeAddSecurityDepositComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_modules_ams_income_tracker_income_actions_income_security_deposit_income_security_deposit_component__WEBPACK_IMPORTED_MODULE_3__["IncomeSecurityDepositComponent"], src_app_api_controllers_Accounts__WEBPACK_IMPORTED_MODULE_4__["AccountsService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]])], IncomeAddSecurityDepositComponent);
       /***/
     },
 
@@ -1710,6 +1760,16 @@
             this.datagrid.exportdata(event, 'JournalData');
           }
         }, {
+          key: "getPostingDateFrom",
+          value: function getPostingDateFrom(event) {
+            this.report.PostingdateFrom = event;
+          }
+        }, {
+          key: "getPostingDateTo",
+          value: function getPostingDateTo(event) {
+            this.report.PostingdateTo = event;
+          }
+        }, {
           key: "onGlSearchFilter",
           value: function onGlSearchFilter() {
             var _this11 = this;
@@ -1736,7 +1796,8 @@
         }, {
           key: "getDateFormat",
           value: function getDateFormat(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_9__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.date);
+            //date format hard-coded for api purpose
+            return moment__WEBPACK_IMPORTED_MODULE_9__(date).add(this.timeZone.offset, 'hours').format('YYYY/MM/DD');
           }
         }, {
           key: "submitIncomeReportsForm",
@@ -1788,10 +1849,22 @@
             };
 
             this.columnData = [{
+              text: 'Document Number',
+              datafield: 'documentNumber',
+              width: 180,
+              pinned: true,
+              cellsrenderer: cellsrenderer,
+              renderer: columnrenderer
+            }, {
+              text: 'Document Type',
+              datafield: 'gldocumentDesc',
+              width: 180,
+              cellsrenderer: cellsrenderer,
+              renderer: columnrenderer
+            }, {
               text: 'Customer Invoice Id',
               datafield: 'custInvoiceId',
               width: 180,
-              pinned: true,
               cellsrenderer: cellsrenderer,
               renderer: columnrenderer
             }, {
@@ -1829,7 +1902,7 @@
               datafield: 'documentDate',
               width: 180,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this13.timeZone.offset, 'hours').format(_this13.timeZone.time) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this13.timeZone.region).format(_this13.timeZone.time) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -1843,7 +1916,7 @@
               datafield: 'entryDateTime',
               width: 180,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this13.timeZone.offset, 'hours').format(_this13.timeZone.time) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this13.timeZone.region).format(_this13.timeZone.time) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -1851,7 +1924,7 @@
               datafield: 'postingDate',
               width: 180,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this13.timeZone.offset, 'hours').format(_this13.timeZone.time) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this13.timeZone.region).format(_this13.timeZone.time) + '</div>';
               },
               renderer: columnrenderer
             }, {
@@ -1859,7 +1932,7 @@
               datafield: 'clearingDate',
               width: 180,
               cellsrenderer: function cellsrenderer(row, column, value) {
-                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(_this13.timeZone.offset, 'hours').format(_this13.timeZone.time) + '</div>';
+                return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(_this13.timeZone.region).format(_this13.timeZone.time) + '</div>';
               },
               renderer: columnrenderer
             }, {

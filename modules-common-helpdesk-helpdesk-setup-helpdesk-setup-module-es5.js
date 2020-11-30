@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"add-ticket-cateory-wrapper\">\n    <div class=\"main\">\n        <div class=\"bg-card shadow mb-0\">\n            <div class=\"d-flex mb-4\">\n                <h4>\n                    <span *ngIf=\"data.type == 'common'\">COMMON TICKET CATEGORY</span>\n                    <span *ngIf=\"data.type == 'private'\">PRIVATE TICKET CATEGORY</span>\n                </h4>\n                <mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n            </div>\n            <condo-message class=\"mb-3\" *ngIf=\"message\"\n                [appearance]=\"message.appearance\"\n                [showIcon]=\"message.showIcon\"\n                [type]=\"message.type\"\n                [@shake]=\"message.shake\">\n                {{message.content}}\n            </condo-message>\n            <form #ticketCategoryForm=\"ngForm\" name=\"ticketCategoryForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Category Name<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Category Name\" name=\"categoryName\" [(ngModel)]=\"ticketCategoryData.categoryName\" (input)=\"errorMessage=''\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                            labelText=\"Default Supervisor\"\n                            fieldPlaceholder=\"Default Supervisor\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticketCategoryData.staffOne\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"isExistUser($event,'one')\" \n                        ></condo-select>  \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-4\">Esclation Setup (Optional)</h6>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 1 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Days\" name=\"escdayone\" [(ngModel)]=\"ticketCategoryData.escalationDaysOne\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-1 Manager\"\n                        fieldPlaceholder=\"Select Level-1 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffTwo\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'two')\" \n                        ></condo-select> \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 2 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control d-inline-block w-40\" placeholder=\"Days\" name=\"escdaytwo\" [(ngModel)]=\"ticketCategoryData.escalationDaysTwo\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-2 Manager\"\n                        fieldPlaceholder=\"Select Level-2 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffThree\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'three')\" \n                        ></condo-select> \n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'create'\" (click)=\"createCategory()\">Create</submit-button>\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'edit'\" (click)=\"updateCategory()\">Update</submit-button>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n</div>";
+      __webpack_exports__["default"] = "<div class=\"add-ticket-cateory-wrapper\">\n    <div class=\"main\">\n        <div class=\"bg-card shadow mb-0\">\n            <div class=\"d-flex mb-4\">\n                <h4>\n                    <span *ngIf=\"data.type == 'common'\">COMMON TICKET CATEGORY</span>\n                    <span *ngIf=\"data.type == 'private'\">PRIVATE TICKET CATEGORY</span>\n                </h4>\n                <mat-icon class=\"ml-auto link\" [svgIcon]=\"'close'\" (click)=\"closePopUp()\"></mat-icon>\n            </div>\n            <condo-message class=\"mb-3\" *ngIf=\"message\"\n                [appearance]=\"message.appearance\"\n                [showIcon]=\"message.showIcon\"\n                [type]=\"message.type\"\n                [@shake]=\"message.shake\">\n                {{message.content}}\n            </condo-message>\n            <form #ticketCategoryForm=\"ngForm\" name=\"ticketCategoryForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Category Name<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Category Name\" name=\"categoryName\" [(ngModel)]=\"ticketCategoryData.categoryName\" (input)=\"errorMessage=''\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                            labelText=\"Default Supervisor\"\n                            fieldPlaceholder=\"Default Supervisor\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticketCategoryData.staffOne\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"isExistUser($event,'one')\" \n                        ></condo-select>  \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-4\">Esclation Setup (Optional)</h6>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 1 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Days\" name=\"escdayone\" [(ngModel)]=\"ticketCategoryData.escalationDaysOne\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-1 Manager\"\n                        fieldPlaceholder=\"Select Level-1 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffTwo\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'two')\" \n                        ></condo-select> \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 2 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control d-inline-block w-40\" placeholder=\"Days\" name=\"escdaytwo\" [(ngModel)]=\"ticketCategoryData.escalationDaysTwo\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-2 Manager\"\n                        fieldPlaceholder=\"Select Level-2 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffThree\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'three')\" \n                        ></condo-select> \n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'create'\" (click)=\"createCategory()\">Create</submit-button>\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'edit'\" (click)=\"updateCategory()\">Update</submit-button>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n</div>";
       /***/
     },
 
@@ -62,7 +62,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"helpdesk-setup-wrapper\">  \n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">Settings</h4>\n\t\t<!-- Tips -->\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<mat-accordion>\n\t\t\t\t<mat-expansion-panel>\n\t\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t\t<mat-panel-title>Tips</mat-panel-title>\n\t\t\t\t\t</mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-description>\n\t\t\t\t\t\t<div class=\"text-hint\">\n\t\t\t\t\t\t\t<p>Tips :  You have two types of Ticket Category to setup.</p>\n\t\t\t\t\t\t\t<p>Common category refer to the issues related to condo which is at common to all units (For Example : Swimming pool not clean)</p>\n\t\t\t\t\t\t\t<p>Private category refer to the issues inside  the units ( For Example : Plumbing inside the Condo)</p>\n\t\t\t\t\t\t\t<p class=\"mt-4\">We have some standard Common Categories created for you, you can assign a supervisor and assign escalation if you required.</p>\n\t\t\t\t\t\t\t<p>If you have supervisor assigned to a Category , tickets will get assigned to Supervisor automatically. Supervisor will have to re-assign the ticket to Staff.</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-description>\n\t\t\t\t</mat-expansion-panel>\n\t\t\t</mat-accordion>\n\t\t</div>\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<nav mat-tab-nav-bar>\n\t\t\t\t<a mat-tab-link *ngFor=\"let link of navArray\" [routerLink]=\"link.link\" \n\t\t\t\t\trouterLinkActive #rla=\"routerLinkActive\" [active]=\"rla.isActive\">\n\t\t\t\t{{link.name}}\n\t\t\t\t</a>\n\t\t\t</nav>\n\t\t\t<router-outlet></router-outlet>\n\t\t</div>\n\t</div>\n</div>\n\n";
+      __webpack_exports__["default"] = "<div class=\"helpdesk-setup-wrapper\">  \n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">Settings</h4>\n\t\t<!-- Tips -->\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<mat-accordion>\n\t\t\t\t<mat-expansion-panel>\n\t\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t\t<mat-panel-title>Tips</mat-panel-title>\n\t\t\t\t\t</mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-description>\n\t\t\t\t\t\t<div class=\"text-hint\">\n\t\t\t\t\t\t\t<p>Tips :  You have two types of Ticket Category to setup.</p>\n\t\t\t\t\t\t\t<p>Common category refer to the issues related to condo which is at common to all units (For Example : Swimming pool not clean)</p>\n\t\t\t\t\t\t\t<p>Private category refer to the issues inside  the units ( For Example : Plumbing inside the Property)</p>\n\t\t\t\t\t\t\t<p class=\"mt-4\">We have some standard Common Categories created for you, you can assign a supervisor and assign escalation if you required.</p>\n\t\t\t\t\t\t\t<p>If you have supervisor assigned to a Category , tickets will get assigned to Supervisor automatically. Supervisor will have to re-assign the ticket to Staff.</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-description>\n\t\t\t\t</mat-expansion-panel>\n\t\t\t</mat-accordion>\n\t\t</div>\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<nav mat-tab-nav-bar>\n\t\t\t\t<a mat-tab-link *ngFor=\"let link of navArray\" [routerLink]=\"link.link\" \n\t\t\t\t\trouterLinkActive #rla=\"routerLinkActive\" [active]=\"rla.isActive\">\n\t\t\t\t{{link.name}}\n\t\t\t\t</a>\n\t\t\t</nav>\n\t\t\t<router-outlet></router-outlet>\n\t\t</div>\n\t</div>\n</div>\n\n";
       /***/
     },
 
@@ -189,9 +189,15 @@
 
 
       var moment_timezone__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/shared/components/common-confirm-modal/common-confirm-modal.component */
+      "./src/app/shared/components/common-confirm-modal/common-confirm-modal.component.ts");
 
       var AddTicketCategoryComponent = /*#__PURE__*/function () {
-        function AddTicketCategoryComponent(dialogRef, staffService, sessionService, lookupService, ticketService, sharedService, _changeDetectorRef, data) {
+        function AddTicketCategoryComponent(dialogRef, staffService, sessionService, lookupService, ticketService, sharedService, _changeDetectorRef, dialog, data) {
           _classCallCheck(this, AddTicketCategoryComponent);
 
           this.dialogRef = dialogRef;
@@ -201,6 +207,7 @@
           this.ticketService = ticketService;
           this.sharedService = sharedService;
           this._changeDetectorRef = _changeDetectorRef;
+          this.dialog = dialog;
           this.data = data;
           this.ticketCategoryData = {};
           this.staffsList = [];
@@ -270,9 +277,27 @@
             }
           }
         }, {
+          key: "closePopUp",
+          value: function closePopUp() {
+            var _this2 = this;
+
+            var message = "Are you sure, you want to exit the screen ?";
+            var dialogData = new src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmDialogModel"]("Confirm Action", message);
+            var dialogRef = this.dialog.open(src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["CommonConfirmModalComponent"], {
+              panelClass: 'material-dialog-medium',
+              disableClose: true,
+              data: dialogData
+            });
+            dialogRef.afterClosed().subscribe(function (dialogResult) {
+              if (dialogResult) {
+                _this2.dialogRef.close(false);
+              }
+            });
+          }
+        }, {
           key: "createEsclation",
           value: function createEsclation(ticketCategoryId) {
-            var _this2 = this;
+            var _this3 = this;
 
             var addTicket = [];
             var esclator = {
@@ -296,7 +321,7 @@
                   escalationDays: 0
                 };
                 addTicket.push(Object.assign(Object.assign({}, esclator), esclatorMain));
-              } else if (i == 1 && this.ticketCategoryData.staffTwo && this.ticketCategoryData.escalationDaysOne) {
+              } else if (i == 1 && this.ticketCategoryData.staffTwo && this.ticketCategoryData.escalationDaysOne || i == 1 && this.ticketCategoryData.ticketManagerIdOne) {
                 var _esclatorMain = {
                   ticketManagerId: this.data.mode == 'edit' ? this.ticketCategoryData.ticketManagerIdOne : 0,
                   userId: this.ticketCategoryData.staffTwo,
@@ -304,7 +329,7 @@
                   escalationDays: this.ticketCategoryData.escalationDaysOne
                 };
                 addTicket.push(Object.assign(Object.assign({}, esclator), _esclatorMain));
-              } else if (i == 2 && this.ticketCategoryData.staffThree && this.ticketCategoryData.escalationDaysTwo) {
+              } else if (i == 2 && this.ticketCategoryData.staffThree && this.ticketCategoryData.escalationDaysTwo || i == 2 && this.ticketCategoryData.ticketManagerIdTwo) {
                 var _esclatorMain2 = {
                   ticketManagerId: this.data.mode == 'edit' ? this.ticketCategoryData.ticketManagerIdTwo : 0,
                   userId: this.ticketCategoryData.staffThree,
@@ -320,26 +345,26 @@
             };
             this.ticketService.addTicketManagerMultiple(params).subscribe(function (res) {
               if (res.code == 200) {
-                _this2.isTicketSubmitted = false;
+                _this3.isTicketSubmitted = false;
 
-                _this2.sharedService.openSnackBar(res.statusMessage, 'success');
+                _this3.sharedService.openSnackBar(res.statusMessage, 'success');
 
-                _this2.dialogRef.close(true);
+                _this3.dialogRef.close(true);
               } else {
-                _this2.isTicketSubmitted = false;
+                _this3.isTicketSubmitted = false;
 
-                _this2.sharedService.openSnackBar(res.errorMessage, 'error');
+                _this3.sharedService.openSnackBar(res.errorMessage, 'error');
               }
             }, function (error) {
-              _this2.isTicketSubmitted = false;
+              _this3.isTicketSubmitted = false;
 
-              _this2.sharedService.openSnackBar('Server Error', 'error');
+              _this3.sharedService.openSnackBar('Server Error', 'error');
             });
           }
         }, {
           key: "updateCategory",
           value: function updateCategory() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.message = null;
 
@@ -379,18 +404,18 @@
                 };
                 this.lookupService.updateLookupValue(lookupvalue).subscribe(function (res) {
                   if (res.message) {
-                    _this3.sharedService.openSnackBar(res.message, 'success');
+                    _this4.sharedService.openSnackBar(res.message, 'success');
 
-                    _this3.createEsclation(_this3.editData.ticketCategoryId);
+                    _this4.createEsclation(_this4.editData.ticketCategoryId);
                   } else {
-                    _this3.isTicketSubmitted = false;
+                    _this4.isTicketSubmitted = false;
 
-                    _this3.sharedService.openSnackBar(res.errorMessage, 'error');
+                    _this4.sharedService.openSnackBar(res.errorMessage, 'error');
                   }
                 }, function (error) {
-                  _this3.isTicketSubmitted = false;
+                  _this4.isTicketSubmitted = false;
 
-                  _this3.sharedService.openSnackBar('Server Error', 'error');
+                  _this4.sharedService.openSnackBar('Server Error', 'error');
                 });
               } else {
                 this.createEsclation(this.editData.ticketCategoryId);
@@ -400,7 +425,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this4 = this;
+            var _this5 = this;
 
             var staffParms = {
               apartmentId: this.sessionService.apartmentId,
@@ -411,7 +436,7 @@
                 res.forEach(function (ele) {
                   ele.customLabel = "".concat(ele.staffName, ", ").concat(ele.roleName, " - ").concat(ele.staffCategoryName);
                 });
-                _this4.staffsList = res;
+                _this5.staffsList = res;
               }
             }, function (error) {
               console.log(error);
@@ -424,21 +449,21 @@
                 ticketTypeId: this.data.type == 'private' ? 27 : 24
               };
               this.ticketService.getTicketManagerByTicketCategoryId(queryParamBase).subscribe(function (res) {
-                _this4.editData = res[0];
-                _this4.ticketCategoryData.categoryName = res[0].ticketCategoryName;
-                _this4.ticketCategoryData.ticketManagerId = res[0].escalationLevelId0.ticketManagerId;
-                _this4.ticketCategoryData.staffOne = res[0].escalationLevelId0.userId;
+                _this5.editData = res[0];
+                _this5.ticketCategoryData.categoryName = res[0].ticketCategoryName;
+                _this5.ticketCategoryData.ticketManagerId = res[0].escalationLevelId0.ticketManagerId;
+                _this5.ticketCategoryData.staffOne = res[0].escalationLevelId0.userId;
 
                 if (res[0].escalationLevelId1) {
-                  _this4.ticketCategoryData.escalationDaysOne = res[0].escalationLevelId1.escalationDays;
-                  _this4.ticketCategoryData.ticketManagerIdOne = res[0].escalationLevelId1.ticketManagerId;
-                  _this4.ticketCategoryData.staffTwo = res[0].escalationLevelId1.userId;
+                  _this5.ticketCategoryData.escalationDaysOne = res[0].escalationLevelId1.escalationDays;
+                  _this5.ticketCategoryData.ticketManagerIdOne = res[0].escalationLevelId1.ticketManagerId;
+                  _this5.ticketCategoryData.staffTwo = res[0].escalationLevelId1.userId;
                 }
 
                 if (res[0].escalationLevelId2) {
-                  _this4.ticketCategoryData.escalationDaysTwo = res[0].escalationLevelId2.escalationDays;
-                  _this4.ticketCategoryData.ticketManagerIdTwo = res[0].escalationLevelId2.ticketManagerId;
-                  _this4.ticketCategoryData.staffThree = res[0].escalationLevelId2.userId;
+                  _this5.ticketCategoryData.escalationDaysTwo = res[0].escalationLevelId2.escalationDays;
+                  _this5.ticketCategoryData.ticketManagerIdTwo = res[0].escalationLevelId2.ticketManagerId;
+                  _this5.ticketCategoryData.staffThree = res[0].escalationLevelId2.userId;
                 }
               });
             }
@@ -464,6 +489,8 @@
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
         }, {
+          type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]
+        }, {
           type: undefined,
           decorators: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
@@ -488,7 +515,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./add-ticket-category.component.scss */
         "./src/app/modules/common/helpdesk/helpdesk-setup/add-ticket-category/add-ticket-category.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_3__["StaffService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__["LookupService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])], AddTicketCategoryComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"], src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_3__["StaffService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__["LookupService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"], Object])], AddTicketCategoryComponent);
       /***/
     },
 
@@ -585,15 +612,22 @@
       var src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/shared/services/modal.service */
       "./src/app/shared/services/modal.service.ts");
+      /* harmony import */
+
+
+      var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/api/controllers/Lookup */
+      "./src/app/api/controllers/Lookup.ts");
 
       var CommonCategoryComponent = /*#__PURE__*/function () {
-        function CommonCategoryComponent(dialog, sharedService, ticketService, sessionService, injector) {
+        function CommonCategoryComponent(dialog, sharedService, ticketService, sessionService, lookupService, injector) {
           _classCallCheck(this, CommonCategoryComponent);
 
           this.dialog = dialog;
           this.sharedService = sharedService;
           this.ticketService = ticketService;
           this.sessionService = sessionService;
+          this.lookupService = lookupService;
           this.injector = injector;
           this.commonFilter = "";
           this.isDataLoaded = true;
@@ -604,7 +638,7 @@
         _createClass(CommonCategoryComponent, [{
           key: "addTicket",
           value: function addTicket(mode, categoryId) {
-            var _this5 = this;
+            var _this6 = this;
 
             var data = {
               type: 'common',
@@ -613,13 +647,19 @@
             };
             var dialogRef = this.dialog.open(_add_ticket_category_add_ticket_category_component__WEBPACK_IMPORTED_MODULE_5__["AddTicketCategoryComponent"], {
               panelClass: 'material-dialog-medium',
+              disableClose: true,
               data: data
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this5.getCommonCategoryList();
+                _this6.getCommonCategoryList();
               }
             });
+          }
+        }, {
+          key: "getPrintParams",
+          value: function getPrintParams(event) {
+            this.commondatagrid.exportdata(event, 'Common Category');
           }
         }, {
           key: "onCommonCatEdit",
@@ -639,7 +679,7 @@
         }, {
           key: "onGlSearchFilter",
           value: function onGlSearchFilter(event) {
-            var _this6 = this;
+            var _this7 = this;
 
             if (event != "") {
               var filtergroup = new jqx.filter();
@@ -652,7 +692,7 @@
               this.commondatagrid.showfiltercolumnbackground(false);
               this.commonColumns.forEach(function (item) {
                 if (item.datafield != 'Actions') {
-                  _this6.commondatagrid.addfilter(item.datafield, filtergroup, true);
+                  _this7.commondatagrid.addfilter(item.datafield, filtergroup, true);
                 }
               });
               this.commondatagrid.applyfilters();
@@ -663,7 +703,7 @@
         }, {
           key: "getCommonCategoryList",
           value: function getCommonCategoryList() {
-            var _this7 = this;
+            var _this8 = this;
 
             this.isDataLoaded = true;
             var params = {
@@ -672,25 +712,52 @@
             };
             this.ticketService.getAllTicketManagerByApartmentId(params).subscribe(function (res) {
               if (res.length > 0) {
-                _this7.totalItems = res.length;
+                _this8.totalItems = res.length;
                 var data = {
                   localdata: res.reverse(),
-                  datatype: "array"
+                  datatype: "array",
+                  datafields: [{
+                    name: 'ticketCategoryId',
+                    type: 'number'
+                  }, {
+                    name: 'ticketCategoryName',
+                    type: 'string'
+                  }, {
+                    name: 'userNameZero',
+                    type: 'string',
+                    map: 'escalationLevelId0>userName'
+                  }, {
+                    name: 'userNameOne',
+                    type: 'string',
+                    map: 'escalationLevelId1>userName'
+                  }, {
+                    name: 'dayOne',
+                    type: 'number',
+                    map: 'escalationLevelId1>escalationDays'
+                  }, {
+                    name: 'userNameTwo',
+                    type: 'string',
+                    map: 'escalationLevelId2>userName'
+                  }, {
+                    name: 'dayTwo',
+                    type: 'number',
+                    map: 'escalationLevelId2>escalationDays'
+                  }]
                 };
-                _this7.commonListData = new jqx.dataAdapter(data);
+                _this8.commonListData = new jqx.dataAdapter(data);
               }
 
-              _this7.isDataLoaded = false;
+              _this8.isDataLoaded = false;
             }, function (error) {
-              _this7.isDataLoaded = false;
+              _this8.isDataLoaded = false;
 
-              _this7.sharedService.openSnackBar('Server Error', 'error');
+              _this8.sharedService.openSnackBar('Server Error', 'error');
             });
           }
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this8 = this;
+            var _this9 = this;
 
             this.getCommonCategoryList();
 
@@ -711,50 +778,32 @@
               renderer: columnrendererCommon
             }, {
               text: 'Supervisor',
-              datafield: "escalationLevelId0",
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this8.commonListData.loadedData[row].escalationLevelId0;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameZero",
+              cellsrenderer: cellsrendererCommon,
               minwidth: 150,
               renderer: columnrendererCommon
             }, {
               text: 'Level-1',
-              datafield: 'escalationLevelId1',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this8.commonListData.loadedData[row].escalationLevelId1;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameOne",
+              cellsrenderer: cellsrendererCommon,
               minwidth: 150,
               renderer: columnrendererCommon
             }, {
               text: 'L1 escdays',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this8.commonListData.loadedData[row].escalationLevelId1;
-                if (field && field.escalationDays) value = field.escalationDays;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: 'dayOne',
+              cellsrenderer: cellsrendererCommon,
               width: 120,
               renderer: columnrendererCommon
             }, {
               text: 'Level-2',
-              datafield: 'escalationLevelId2',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this8.commonListData.loadedData[row].escalationLevelId2;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameTwo",
+              cellsrenderer: cellsrendererCommon,
               minwidth: 150,
               renderer: columnrendererCommon
             }, {
               text: 'L2 escdays',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this8.commonListData.loadedData[row].escalationLevelId2;
-                if (field && field.escalationDays) value = field.escalationDays;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: 'dayTwo',
+              cellsrenderer: cellsrendererCommon,
               width: 120,
               renderer: columnrendererCommon
             }, {
@@ -770,18 +819,39 @@
 
             this.apiSubscribe = this.sharedService.unitlistdeleteindexcast.subscribe(function (item) {
               if (item != null && item.id) {
-                var params = {
-                  apartmentId: _this8.sessionService.apartmentId,
-                  ticketCategoryId: item.id,
-                  deleteBy: _this8.sessionService.userId
+                var category = {
+                  lookupValueId: item.id,
+                  updateUserId: parseInt(_this9.sessionService.userId)
                 };
 
-                _this8.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe(function (res) {
-                  if (res.message) {
-                    _this8.sharedService.setUnitListDeleteIndex(null);
+                _this9.lookupService.deleteLookupvalue(category).subscribe(function (res) {
+                  _this9.sharedService.setUnitListDeleteIndex(null);
 
-                    _this8.commondatagrid.deleterow(item.index);
+                  if (res.message) {
+                    var params = {
+                      apartmentId: _this9.sessionService.apartmentId,
+                      ticketCategoryId: item.id,
+                      deleteBy: _this9.sessionService.userId
+                    };
+
+                    _this9.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe(function (res) {
+                      if (res.code == 200) {
+                        _this9.getCommonCategoryList();
+
+                        _this9.sharedService.openSnackBar('Common Category Deleted Successfully', 'success');
+                      } else {
+                        _this9.sharedService.openSnackBar(res.statusMessage, 'error');
+                      }
+                    }, function (error) {
+                      _this9.sharedService.setUnitListDeleteIndex(null);
+
+                      _this9.sharedService.openSnackBar('Server Error', 'error');
+                    });
+                  } else {
+                    _this9.sharedService.openSnackBar(res.errorMessage, 'error');
                   }
+                }, function (error) {
+                  _this9.sharedService.openSnackBar('Server Error', 'error');
                 });
               }
             });
@@ -805,6 +875,8 @@
           type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"]
         }, {
           type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]
+        }, {
+          type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]
         }];
@@ -834,7 +906,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./common-category.component.scss */
         "./src/app/modules/common/helpdesk/helpdesk-setup/common-category/common-category.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])], CommonCategoryComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])], CommonCategoryComponent);
 
       function showConfirmDeleteEventCommon(row) {
         var event = new CustomEvent('onCommonCatDelete', {
@@ -1236,14 +1308,21 @@
       var src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/shared/services/modal.service */
       "./src/app/shared/services/modal.service.ts");
+      /* harmony import */
+
+
+      var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/api/controllers/Lookup */
+      "./src/app/api/controllers/Lookup.ts");
 
       var PrivateCategoryComponent = /*#__PURE__*/function () {
-        function PrivateCategoryComponent(dialog, sharedService, ticketService, injector, sessionService) {
+        function PrivateCategoryComponent(dialog, sharedService, ticketService, lookupService, injector, sessionService) {
           _classCallCheck(this, PrivateCategoryComponent);
 
           this.dialog = dialog;
           this.sharedService = sharedService;
           this.ticketService = ticketService;
+          this.lookupService = lookupService;
           this.injector = injector;
           this.sessionService = sessionService;
           this.privateFilter = '';
@@ -1255,7 +1334,7 @@
         _createClass(PrivateCategoryComponent, [{
           key: "addTicket",
           value: function addTicket(mode, categoryId) {
-            var _this9 = this;
+            var _this10 = this;
 
             var data = {
               type: 'private',
@@ -1264,13 +1343,19 @@
             };
             var dialogRef = this.dialog.open(_add_ticket_category_add_ticket_category_component__WEBPACK_IMPORTED_MODULE_5__["AddTicketCategoryComponent"], {
               panelClass: 'material-dialog-medium',
+              disableClose: true,
               data: data
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this9.getPrivateCategoryList();
+                _this10.getPrivateCategoryList();
               }
             });
+          }
+        }, {
+          key: "getPrintParams",
+          value: function getPrintParams(event) {
+            this.privatedatagrid.exportdata(event, 'Private Category');
           }
         }, {
           key: "onPrivateCatEdit",
@@ -1290,7 +1375,7 @@
         }, {
           key: "onGlSearchFilter",
           value: function onGlSearchFilter(event) {
-            var _this10 = this;
+            var _this11 = this;
 
             if (event != "") {
               var filtergroup = new jqx.filter();
@@ -1303,7 +1388,7 @@
               this.privatedatagrid.showfiltercolumnbackground(false);
               this.privateColumns.forEach(function (item) {
                 if (item.datafield != 'Actions') {
-                  _this10.privatedatagrid.addfilter(item.datafield, filtergroup, true);
+                  _this11.privatedatagrid.addfilter(item.datafield, filtergroup, true);
                 }
               });
               this.privatedatagrid.applyfilters();
@@ -1314,7 +1399,7 @@
         }, {
           key: "getPrivateCategoryList",
           value: function getPrivateCategoryList() {
-            var _this11 = this;
+            var _this12 = this;
 
             this.isDataLoaded = true;
             var params = {
@@ -1323,25 +1408,52 @@
             };
             this.ticketService.getAllTicketManagerByApartmentId(params).subscribe(function (res) {
               if (res.length > 0) {
-                _this11.totalItems = res.length;
+                _this12.totalItems = res.length;
                 var data = {
                   localdata: res.reverse(),
-                  datatype: "array"
+                  datatype: "array",
+                  datafields: [{
+                    name: 'ticketCategoryId',
+                    type: 'number'
+                  }, {
+                    name: 'ticketCategoryName',
+                    type: 'string'
+                  }, {
+                    name: 'userNameZero',
+                    type: 'string',
+                    map: 'escalationLevelId0>userName'
+                  }, {
+                    name: 'userNameOne',
+                    type: 'string',
+                    map: 'escalationLevelId1>userName'
+                  }, {
+                    name: 'dayOne',
+                    type: 'number',
+                    map: 'escalationLevelId1>escalationDays'
+                  }, {
+                    name: 'userNameTwo',
+                    type: 'string',
+                    map: 'escalationLevelId2>userName'
+                  }, {
+                    name: 'dayTwo',
+                    type: 'number',
+                    map: 'escalationLevelId2>escalationDays'
+                  }]
                 };
-                _this11.privateListData = new jqx.dataAdapter(data);
+                _this12.privateListData = new jqx.dataAdapter(data);
               }
 
-              _this11.isDataLoaded = false;
+              _this12.isDataLoaded = false;
             }, function (error) {
-              _this11.isDataLoaded = false;
+              _this12.isDataLoaded = false;
 
-              _this11.sharedService.openSnackBar('Server Error', 'error');
+              _this12.sharedService.openSnackBar('Server Error', 'error');
             });
           }
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this12 = this;
+            var _this13 = this;
 
             this.getPrivateCategoryList();
 
@@ -1362,50 +1474,32 @@
               renderer: columnrendererPrivate
             }, {
               text: 'Supervisor',
-              datafield: "escalationLevelId0",
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this12.privateListData.loadedData[row].escalationLevelId0;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameZero",
+              cellsrenderer: cellsrendererPrivate,
               minwidth: 150,
               renderer: columnrendererPrivate
             }, {
               text: 'Level-1',
-              datafield: 'escalationLevelId1',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this12.privateListData.loadedData[row].escalationLevelId1;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameOne",
+              cellsrenderer: cellsrendererPrivate,
               minwidth: 150,
               renderer: columnrendererPrivate
             }, {
               text: 'L1 escdays',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this12.privateListData.loadedData[row].escalationLevelId1;
-                if (field && field.escalationDays) value = field.escalationDays;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: 'dayOne',
+              cellsrenderer: cellsrendererPrivate,
               width: 120,
               renderer: columnrendererPrivate
             }, {
               text: 'Level-2',
-              datafield: 'escalationLevelId2',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this12.privateListData.loadedData[row].escalationLevelId2;
-                if (field && field.userName) value = field.userName;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: "userNameTwo",
+              cellsrenderer: cellsrendererPrivate,
               minwidth: 150,
               renderer: columnrendererPrivate
             }, {
               text: 'L2 escdays',
-              cellsrenderer: function cellsrenderer(row, column, value) {
-                var field = _this12.privateListData.loadedData[row].escalationLevelId2;
-                if (field && field.escalationDays) value = field.escalationDays;else value = '';
-                return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-              },
+              datafield: 'dayTwo',
+              cellsrenderer: cellsrendererPrivate,
               width: 120,
               renderer: columnrendererPrivate
             }, {
@@ -1421,18 +1515,39 @@
 
             this.apiSubscribe = this.sharedService.unitlistdeleteindexcast.subscribe(function (item) {
               if (item != null && item.id) {
-                var params = {
-                  apartmentId: _this12.sessionService.apartmentId,
-                  ticketCategoryId: item.id,
-                  deleteBy: _this12.sessionService.userId
+                var category = {
+                  lookupValueId: item.id,
+                  updateUserId: parseInt(_this13.sessionService.userId)
                 };
 
-                _this12.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe(function (res) {
-                  if (res.message) {
-                    _this12.sharedService.setUnitListDeleteIndex(null);
+                _this13.lookupService.deleteLookupvalue(category).subscribe(function (res) {
+                  _this13.sharedService.setUnitListDeleteIndex(null);
 
-                    _this12.privatedatagrid.deleterow(item.index);
+                  if (res.message) {
+                    var params = {
+                      apartmentId: _this13.sessionService.apartmentId,
+                      ticketCategoryId: item.id,
+                      deleteBy: _this13.sessionService.userId
+                    };
+
+                    _this13.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe(function (res) {
+                      if (res.code == 200) {
+                        _this13.getPrivateCategoryList();
+
+                        _this13.sharedService.openSnackBar('Private Category Deleted Successfully', 'success');
+                      } else {
+                        _this13.sharedService.openSnackBar(res.statusMessage, 'error');
+                      }
+                    }, function (error) {
+                      _this13.sharedService.setUnitListDeleteIndex(null);
+
+                      _this13.sharedService.openSnackBar('Server Error', 'error');
+                    });
+                  } else {
+                    _this13.sharedService.openSnackBar(res.errorMessage, 'error');
                   }
+                }, function (error) {
+                  _this13.sharedService.openSnackBar('Server Error', 'error');
                 });
               }
             });
@@ -1454,6 +1569,8 @@
           type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"]
         }, {
           type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"]
+        }, {
+          type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"]
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]
         }, {
@@ -1485,7 +1602,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./private-category.component.scss */
         "./src/app/modules/common/helpdesk/helpdesk-setup/private-category/private-category.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]])], PrivateCategoryComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"], src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"], src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]])], PrivateCategoryComponent);
 
       function showConfirmDeleteEventPrivate(row) {
         var event = new CustomEvent('onPrivateCatDelete', {

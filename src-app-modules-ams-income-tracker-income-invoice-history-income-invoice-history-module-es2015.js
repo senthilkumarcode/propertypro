@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"bg-card popover-card\">\n\n\t<app-loader *ngIf=\"!isReceiptSubmitted\"></app-loader>\n\n\t<ng-container *ngIf=\"isReceiptSubmitted\">\n\t\t<form #reverseIncomeHistoryForm = \"ngForm\" name=\"reverseIncomeHistoryForm\" (ngSubmit)=\"submitReverseIncomeHistoryForm(reverseIncomeHistoryForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"invoice.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" >Submit</button> \n\t\t\t\t</div>\n\t\n\t\t\t</div>\n\t\n\t\t</form>\n\t</ng-container>\n\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"bg-card popover-card\">\n\n\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t<ng-container *ngIf=\"isDataLoaded\">\n\t\t<form #reverseIncomeHistoryForm = \"ngForm\" name=\"reverseIncomeHistoryForm\" (ngSubmit)=\"submitReverseIncomeHistoryForm(reverseIncomeHistoryForm)\"  novalidate>\n\t\t\t\n\t\t\t<div class=\"d-flex\">\n\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t<button mat-icon-button\n\t\t\t\t\t\t(click)=\"goBack()\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<div class=\"row\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t<label>Comments</label>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"comment\" [(ngModel)]=\"invoice.comment\" required>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\n\t\t\t\t<div class=\"col-sm-12 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" >Submit</button> \n\t\t\t\t</div>\n\t\n\t\t\t</div>\n\t\n\t\t</form>\n\t</ng-container>\n\n</div>\n\n");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"income-tracker-filter-wrapper mb-3\">\n\t<form #incomeFilterForm = \"ngForm\" name=\"incomeFilterForm\" (ngSubmit)=\"submitIncomeFilterForm(incomeFilterForm)\"  novalidate>\n\n\t\t<mat-accordion>\n\t\n\t\t\t<mat-expansion-panel>\n\t\t\n\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-title>\n\t\t\t\t\t\t<div class=\"filter-box\">\n\t\t\t\t\t\t\t<h6><mat-icon svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter By</h6>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-title>\n\t\t\t\t</mat-expansion-panel-header>\n\t\n\t\t\t\t<mat-panel-description>\n\t\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"select-box\">\n\t\t\t\t\t\t\t\t<label>Posted From</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" name=\"PostStartDate\" [owlDateTime]=\"PostStartDate\" [owlDateTimeTrigger]=\"PostStartDate\" placeholder=\"Date\" [(ngModel)]=\"filter.PostStartDate\">\n\t\t\t\t\t\t\t\t<owl-date-time #PostStartDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"PostStartDate\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> \n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"select-box\">\n\t\t\t\t\t\t\t\t<label>Posted To</label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" name=\"PostEndDate\" [owlDateTime]=\"PostEndDate\" [owlDateTimeTrigger]=\"PostEndDate\" placeholder=\"Date\" [(ngModel)]=\"filter.PostEndDate\">\n\t\t\t\t\t\t\t\t<owl-date-time #PostEndDate [pickerType]=\"'calendar'\"></owl-date-time>\n\t\t\t\t\t\t\t\t<div class=\"date-btn\" [owlDateTimeTrigger]=\"PostEndDate\">\n\t\t\t\t\t\t\t\t\t<mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> \n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Bill Number</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"billNo\" \n\t\t\t\t\t\t\t\t[(ngModel)]=\"filter.billNo\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Receipt Number</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"receiptNo\" \n\t\t\t\t\t\t\t\t[(ngModel)]=\"filter.receiptNo\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<ul class=\"list-inline\">\n\t\t\t\t\t\t\t\t<li class=\"list-inline-item mr-5\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"form-check recur-check float-left\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" id=\"isInvoiceCreditNote\" name=\"isInvoiceCreditNote\" [(ngModel)]=\"filter.isCreditNote\" [value]=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"form-check-label text-xs\" for=\"isInvoiceCreditNote\">Is Credit Note</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t<li class=\"list-inline-item\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"form-check recur-check float-left\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" id=\"isInvoiceReverse\" name=\"isInvoiceReverse\" [(ngModel)]=\"filter.isReversed\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"form-check-label text-xs\" for=\"isInvoiceReverse\">Is Reverse</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"!isFilterObjectNull()\">\n\t\t\t\t\t\t\t\t<div class=\"labels\">\n\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let key of Object.keys(filter); let i = index\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"label\" [ngClass]=\"[ isItem(key) ? 'd-inline-block' : 'd-none', setLabelColors(i) ]\">\n\t\t\t\t\t\t\t\t\t\t\t<span class=\"d-inline-block\">{{getFilterData(key)}}</span>\n\t\t\t\t\t\t\t\t\t\t\t<mat-icon class=\"icon-sm\" [svgIcon]=\"'close'\" (click)=\"removeFilterItem(key)\"></mat-icon>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"d-flex justify-content-end mt-4\">\n\t\t\t\t\t\t<button class=\"mr-3\" mat-flat-button [color]=\"'primary'\" [disabled]=\"isFilterObjectNull()\">Apply Filter</button>\n\t\t\t\t\t\t<button mat-button (click)=\"clearFilterItems()\">Clear</button>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t</mat-panel-description>\n\t\n\t\t\t</mat-expansion-panel>\n\t\n\t\t</mat-accordion>\n\t\n\t</form>\n</div>\n\n\n\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("\n<div class=\"income-tracker-filter-wrapper mb-3\">\n\t<form #incomeFilterForm = \"ngForm\" name=\"incomeFilterForm\" (ngSubmit)=\"submitIncomeFilterForm(incomeFilterForm)\"  novalidate>\n\n\t\t<mat-accordion>\n\t\n\t\t\t<mat-expansion-panel>\n\t\t\n\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-title>\n\t\t\t\t\t\t<div class=\"filter-box\">\n\t\t\t\t\t\t\t<h6><mat-icon svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter By</h6>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-title>\n\t\t\t\t</mat-expansion-panel-header>\n\t\n\t\t\t\t<mat-panel-description>\n\t\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"Posted From\"\n\t\t\t\t\t\t\t\tfieldName=\"PostFromDate\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'null'\"\n\t\t\t\t\t\t\t\ttype=\"date\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"filter.PostStartDate\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getFromDate($event)\">\n                            </app-datepicker>\n\n\t\t\t\t\t\t</div> \n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"Posted To\"\n\t\t\t\t\t\t\t\tfieldName=\"PostToDate\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'null'\"\n\t\t\t\t\t\t\t\ttype=\"date\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"filter.PostEndDate\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getToDate($event)\">\n                            </app-datepicker>\n\n\t\t\t\t\t\n\t\t\t\t\t\t</div> \n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Bill Number</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"billNo\" \n\t\t\t\t\t\t\t\t[(ngModel)]=\"filter.billNo\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t\t<div class=\"col-sm-3\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Receipt Number</label>\n\t\t\t\t\t\t\t\t<input type=\"number\" OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Enter text\" name=\"receiptNo\" \n\t\t\t\t\t\t\t\t[(ngModel)]=\"filter.receiptNo\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<ul class=\"list-inline\">\n\t\t\t\t\t\t\t\t<li class=\"list-inline-item mr-5\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"form-check recur-check float-left\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" id=\"isInvoiceCreditNote\" name=\"isInvoiceCreditNote\" [(ngModel)]=\"filter.isCreditNote\" [value]=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"form-check-label text-xs\" for=\"isInvoiceCreditNote\">Is Credit Note</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t\t<li class=\"list-inline-item\">\n\t\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"form-check recur-check float-left\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" class=\"form-check-input\" id=\"isInvoiceReverse\" name=\"isInvoiceReverse\" [(ngModel)]=\"filter.isReversed\">\n\t\t\t\t\t\t\t\t\t\t\t\t<label class=\"form-check-label text-xs\" for=\"isInvoiceReverse\">Is Reverse</label>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</li>\n\t\t\t\t\t\t\t</ul>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<ng-container *ngIf=\"!isFilterObjectNull()\">\n\t\t\t\t\t\t\t\t<div class=\"labels\">\n\t\t\t\t\t\t\t\t\t<ng-container *ngFor=\"let key of Object.keys(filter); let i = index\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"label\" [ngClass]=\"[ isItem(key) ? 'd-inline-block' : 'd-none', setLabelColors(i) ]\">\n\t\t\t\t\t\t\t\t\t\t\t<span class=\"d-inline-block\">{{getFilterData(key)}}</span>\n\t\t\t\t\t\t\t\t\t\t\t<mat-icon class=\"icon-sm\" [svgIcon]=\"'close'\" (click)=\"removeFilterItem(key)\"></mat-icon>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</ng-container>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t\t<div class=\"d-flex justify-content-end mt-4\">\n\t\t\t\t\t\t<button class=\"mr-3\" mat-flat-button [color]=\"'primary'\" [disabled]=\"isFilterObjectNull()\">Apply Filter</button>\n\t\t\t\t\t\t<button mat-button (click)=\"clearFilterItems()\">Clear</button>\n\t\t\t\t\t</div>\n\t\n\t\t\t\t</mat-panel-description>\n\t\n\t\t\t</mat-expansion-panel>\n\t\n\t\t</mat-accordion>\n\t\n\t</form>\n</div>\n\n\n\n\n");
 
 /***/ }),
 
@@ -83,15 +83,17 @@ let IncomeHistoryReverseComponent = class IncomeHistoryReverseComponent {
         this.accountsService = accountsService;
         this.sharedService = sharedService;
         this.sessionService = sessionService;
-        this.isReceiptSubmitted = true;
-        this.isError = false;
-        this.alertMessage = "";
+        this.isDataLoaded = true;
+        this.isReceiptSubmitted = false;
         this.childEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
     goBack() {
         this._incomeInvoiceHistoryComponent._selectPanelOverlayRef.detach();
+        if (this.isReceiptSubmitted)
+            this._incomeInvoiceHistoryComponent.getInvoiceDataList();
     }
     submitReverseIncomeHistoryForm(form) {
+        this.isDataLoaded = false;
         this.isReceiptSubmitted = false;
         let details = {
             "apartmentId": this.sessionService.apartmentId,
@@ -114,24 +116,26 @@ let IncomeHistoryReverseComponent = class IncomeHistoryReverseComponent {
             custTransReversal: details
         };
         this.accountsService.addCustTransReversal(params).subscribe((res) => {
-            if (res.message) {
+            this.isDataLoaded = true;
+            if (res.code == 200) {
                 this.isReceiptSubmitted = true;
-                this.sharedService.setAlertMessage("Invoice reversed successfully");
+                this.sharedService.openSnackBar('Invoice reversed successfully', 'success');
             }
             else {
-                this.isReceiptSubmitted = true;
-                this.isError = true;
-                this.alertMessage = res.errorMessage;
+                let message = res.message;
+                this.isReceiptSubmitted = false;
+                this.sharedService.openSnackBar(message, 'error');
             }
+            this.goBack();
         }, error => {
+            this.isDataLoaded = true;
             this.isReceiptSubmitted = true;
-            this.isError = true;
-            this.alertMessage = "Some error occured";
+            this.sharedService.openSnackBar('Some error occured', 'error');
         }, () => {
-            this.childEvent.emit(true);
         });
     }
     ngOnInit() {
+        this.invoice.comment = "";
     }
 };
 IncomeHistoryReverseComponent.ctorParameters = () => [
@@ -422,6 +426,20 @@ let IncomeInvoiceHistoryComponent = class IncomeInvoiceHistoryComponent {
             }
         });
     }
+    getInvoiceDataList() {
+        this.isInvoiceDataLoaded = false;
+        this.isInvoiceDataFilterLoaded = false;
+        var params = {
+            ApartmentBlockUnitID: this.route.params['value'].id
+        };
+        this.accountsService.getAccountHistoryByApartmentUnitId(params).subscribe((res) => {
+            var invoiceDataList = res;
+            invoiceDataList.forEach(item => {
+                return item.reversalId != null ? item.isReverseIdAvailable = true : item.isReverseIdAvailable = false;
+            });
+            this.getAccountHistoryData(invoiceDataList);
+        });
+    }
     ngOnInit() {
         this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
         this.accountsService.getAllGlAccounts().subscribe((res) => {
@@ -439,16 +457,6 @@ let IncomeInvoiceHistoryComponent = class IncomeInvoiceHistoryComponent {
             });
             this.isAccountDataLoaded = true;
         });
-        var params = {
-            ApartmentBlockUnitID: this.route.params['value'].id
-        };
-        this.accountsService.getAccountHistoryByApartmentUnitId(params).subscribe((res) => {
-            var invoiceDataList = res;
-            invoiceDataList.forEach(item => {
-                return item.reversalId != null ? item.isReverseIdAvailable = true : item.isReverseIdAvailable = false;
-            });
-            this.getAccountHistoryData(invoiceDataList);
-        });
         var cellsrenderer = (row, column, value) => {
             return '<div class="jqx-custom-inner-cell">' + value + '</div>';
         };
@@ -460,7 +468,7 @@ let IncomeInvoiceHistoryComponent = class IncomeInvoiceHistoryComponent {
                 datafield: 'postedDate',
                 width: 120,
                 cellsrenderer: (row, column, value) => {
-                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__(value).add(this.timeZone.offset, 'hours').format(this.timeZone.date) + '</div>';
+                    return '<div class="jqx-custom-inner-cell">' + moment__WEBPACK_IMPORTED_MODULE_9__["utc"](value).tz(this.timeZone.region).format(this.timeZone.date) + '</div>';
                 },
                 renderer: columnrenderer
             }, {
@@ -531,6 +539,7 @@ let IncomeInvoiceHistoryComponent = class IncomeInvoiceHistoryComponent {
                 },
                 renderer: columnrenderer
             }];
+        this.getInvoiceDataList();
     }
 };
 IncomeInvoiceHistoryComponent.ctorParameters = () => [
@@ -569,7 +578,7 @@ let getStatusClassName = value => {
     return value ? 'text-purple-100 bg-purple-500' : 'd-none';
 };
 let getReverseStatus = value => {
-    return value ? 'disabled' : '';
+    return value ? 'disabled op-35' : '';
 };
 let editReverseEvent = row => {
     let event = new CustomEvent('onEditReverse', {
@@ -608,11 +617,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/modules/ui/card/card.module */ "./src/app/modules/ui/card/card.module.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var _income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./income-invoice-history-routing.module */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-invoice-history-routing.module.ts");
-/* harmony import */ var _income_invoice_history_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./income-invoice-history.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-invoice-history.component.ts");
-/* harmony import */ var _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./income-history-reverse/income-history-reverse.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-history-reverse/income-history-reverse.component.ts");
-/* harmony import */ var _income_tracker_filter_income_tracker_filter_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./income-tracker-filter/income-tracker-filter.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-tracker-filter/income-tracker-filter.component.ts");
+/* harmony import */ var src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/modules/ui/datepicker/datepicker.module */ "./src/app/modules/ui/datepicker/datepicker.module.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./income-invoice-history-routing.module */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-invoice-history-routing.module.ts");
+/* harmony import */ var _income_invoice_history_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./income-invoice-history.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-invoice-history.component.ts");
+/* harmony import */ var _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./income-history-reverse/income-history-reverse.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-history-reverse/income-history-reverse.component.ts");
+/* harmony import */ var _income_tracker_filter_income_tracker_filter_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./income-tracker-filter/income-tracker-filter.component */ "./src/app/modules/ams/income-tracker/income-invoice-history/income-tracker-filter/income-tracker-filter.component.ts");
+
 
 
 
@@ -628,17 +639,18 @@ let IncomeInvoiceHistoryModule = class IncomeInvoiceHistoryModule {
 };
 IncomeInvoiceHistoryModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_income_invoice_history_component__WEBPACK_IMPORTED_MODULE_7__["IncomeInvoiceHistoryComponent"], _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_8__["IncomeHistoryReverseComponent"], _income_tracker_filter_income_tracker_filter_component__WEBPACK_IMPORTED_MODULE_9__["IncomeTrackerFilterComponent"]],
+        declarations: [_income_invoice_history_component__WEBPACK_IMPORTED_MODULE_8__["IncomeInvoiceHistoryComponent"], _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_9__["IncomeHistoryReverseComponent"], _income_tracker_filter_income_tracker_filter_component__WEBPACK_IMPORTED_MODULE_10__["IncomeTrackerFilterComponent"]],
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
             src_app_modules_ui_card_card_module__WEBPACK_IMPORTED_MODULE_4__["CondoCardModule"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forChild(_income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_6__["routes"]),
-            _income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_6__["IncomeInvoiceHistoryRoutingModule"]
+            src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_5__["DatepickerModule"].forRoot(),
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterModule"].forChild(_income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_7__["routes"]),
+            _income_invoice_history_routing_module__WEBPACK_IMPORTED_MODULE_7__["IncomeInvoiceHistoryRoutingModule"]
         ],
         bootstrap: [
-            _income_invoice_history_component__WEBPACK_IMPORTED_MODULE_7__["IncomeInvoiceHistoryComponent"],
-            _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_8__["IncomeHistoryReverseComponent"]
+            _income_invoice_history_component__WEBPACK_IMPORTED_MODULE_8__["IncomeInvoiceHistoryComponent"],
+            _income_history_reverse_income_history_reverse_component__WEBPACK_IMPORTED_MODULE_9__["IncomeHistoryReverseComponent"]
         ]
     })
 ], IncomeInvoiceHistoryModule);
@@ -688,6 +700,12 @@ let IncomeTrackerFilterComponent = class IncomeTrackerFilterComponent {
     }
     onFilterFieldChange(data) {
         this.filterDataList = data;
+    }
+    getFromDate(event) {
+        this.filter.PostStartDate = event;
+    }
+    getToDate(event) {
+        this.filter.PostEndDate = event;
     }
     getFilterData(key) {
         if (key == 'PostStartDate') {

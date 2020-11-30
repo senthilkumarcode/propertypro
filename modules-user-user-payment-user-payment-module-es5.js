@@ -292,7 +292,7 @@
 
 
       var src_app_shared_services_window_ref_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! src/app/shared/services//window-ref.service */
+      /*! src/app/shared/services/window-ref.service */
       "./src/app/shared/services/window-ref.service.ts");
       /* harmony import */
 

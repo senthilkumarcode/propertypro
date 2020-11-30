@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"add-ticket-cateory-wrapper\">\n    <div class=\"main\">\n        <div class=\"bg-card shadow mb-0\">\n            <div class=\"d-flex mb-4\">\n                <h4>\n                    <span *ngIf=\"data.type == 'common'\">COMMON TICKET CATEGORY</span>\n                    <span *ngIf=\"data.type == 'private'\">PRIVATE TICKET CATEGORY</span>\n                </h4>\n                <mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n            </div>\n            <condo-message class=\"mb-3\" *ngIf=\"message\"\n                [appearance]=\"message.appearance\"\n                [showIcon]=\"message.showIcon\"\n                [type]=\"message.type\"\n                [@shake]=\"message.shake\">\n                {{message.content}}\n            </condo-message>\n            <form #ticketCategoryForm=\"ngForm\" name=\"ticketCategoryForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Category Name<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Category Name\" name=\"categoryName\" [(ngModel)]=\"ticketCategoryData.categoryName\" (input)=\"errorMessage=''\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                            labelText=\"Default Supervisor\"\n                            fieldPlaceholder=\"Default Supervisor\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticketCategoryData.staffOne\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"isExistUser($event,'one')\" \n                        ></condo-select>  \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-4\">Esclation Setup (Optional)</h6>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 1 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Days\" name=\"escdayone\" [(ngModel)]=\"ticketCategoryData.escalationDaysOne\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-1 Manager\"\n                        fieldPlaceholder=\"Select Level-1 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffTwo\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'two')\" \n                        ></condo-select> \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 2 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control d-inline-block w-40\" placeholder=\"Days\" name=\"escdaytwo\" [(ngModel)]=\"ticketCategoryData.escalationDaysTwo\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-2 Manager\"\n                        fieldPlaceholder=\"Select Level-2 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffThree\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'three')\" \n                        ></condo-select> \n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'create'\" (click)=\"createCategory()\">Create</submit-button>\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'edit'\" (click)=\"updateCategory()\">Update</submit-button>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"add-ticket-cateory-wrapper\">\n    <div class=\"main\">\n        <div class=\"bg-card shadow mb-0\">\n            <div class=\"d-flex mb-4\">\n                <h4>\n                    <span *ngIf=\"data.type == 'common'\">COMMON TICKET CATEGORY</span>\n                    <span *ngIf=\"data.type == 'private'\">PRIVATE TICKET CATEGORY</span>\n                </h4>\n                <mat-icon class=\"ml-auto link\" [svgIcon]=\"'close'\" (click)=\"closePopUp()\"></mat-icon>\n            </div>\n            <condo-message class=\"mb-3\" *ngIf=\"message\"\n                [appearance]=\"message.appearance\"\n                [showIcon]=\"message.showIcon\"\n                [type]=\"message.type\"\n                [@shake]=\"message.shake\">\n                {{message.content}}\n            </condo-message>\n            <form #ticketCategoryForm=\"ngForm\" name=\"ticketCategoryForm\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Category Name<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Category Name\" name=\"categoryName\" [(ngModel)]=\"ticketCategoryData.categoryName\" (input)=\"errorMessage=''\" required>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                            labelText=\"Default Supervisor\"\n                            fieldPlaceholder=\"Default Supervisor\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticketCategoryData.staffOne\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"isExistUser($event,'one')\" \n                        ></condo-select>  \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-4\">Esclation Setup (Optional)</h6>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 1 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Days\" name=\"escdayone\" [(ngModel)]=\"ticketCategoryData.escalationDaysOne\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-1 Manager\"\n                        fieldPlaceholder=\"Select Level-1 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffTwo\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'two')\" \n                        ></condo-select> \n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Auto Esclate to Level 2 After</label>\n                            <div class=\"d-flex\">\n                                <input OnlyNumber=\"true\" class=\"form-control d-inline-block w-40\" placeholder=\"Days\" name=\"escdaytwo\" [(ngModel)]=\"ticketCategoryData.escalationDaysTwo\">\n                                <label class=\"ml-4 align-self-end\">Days</label>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <condo-select \n                        labelText=\"Select Level-2 Manager\"\n                        fieldPlaceholder=\"Select Level-2 Manager\"\n                        [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                        fieldValue=\"customLabel\"\n                        [fieldModel]=\"ticketCategoryData.staffThree\"\n                        fieldId=\"userId\"\n                        (fieldParams)=\"isExistUser($event,'three')\" \n                        ></condo-select> \n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'create'\" (click)=\"createCategory()\">Create</submit-button>\n                        <submit-button class=\"float-right\" [isSubmit]=\"isTicketSubmitted\" *ngIf=\"data.mode == 'edit'\" (click)=\"updateCategory()\">Update</submit-button>\n                    </div>\n                </div>\n            </form>\n        </div>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-setup-wrapper\">  \n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">Settings</h4>\n\t\t<!-- Tips -->\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<mat-accordion>\n\t\t\t\t<mat-expansion-panel>\n\t\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t\t<mat-panel-title>Tips</mat-panel-title>\n\t\t\t\t\t</mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-description>\n\t\t\t\t\t\t<div class=\"text-hint\">\n\t\t\t\t\t\t\t<p>Tips :  You have two types of Ticket Category to setup.</p>\n\t\t\t\t\t\t\t<p>Common category refer to the issues related to condo which is at common to all units (For Example : Swimming pool not clean)</p>\n\t\t\t\t\t\t\t<p>Private category refer to the issues inside  the units ( For Example : Plumbing inside the Condo)</p>\n\t\t\t\t\t\t\t<p class=\"mt-4\">We have some standard Common Categories created for you, you can assign a supervisor and assign escalation if you required.</p>\n\t\t\t\t\t\t\t<p>If you have supervisor assigned to a Category , tickets will get assigned to Supervisor automatically. Supervisor will have to re-assign the ticket to Staff.</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-description>\n\t\t\t\t</mat-expansion-panel>\n\t\t\t</mat-accordion>\n\t\t</div>\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<nav mat-tab-nav-bar>\n\t\t\t\t<a mat-tab-link *ngFor=\"let link of navArray\" [routerLink]=\"link.link\" \n\t\t\t\t\trouterLinkActive #rla=\"routerLinkActive\" [active]=\"rla.isActive\">\n\t\t\t\t{{link.name}}\n\t\t\t\t</a>\n\t\t\t</nav>\n\t\t\t<router-outlet></router-outlet>\n\t\t</div>\n\t</div>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-setup-wrapper\">  \n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">Settings</h4>\n\t\t<!-- Tips -->\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<mat-accordion>\n\t\t\t\t<mat-expansion-panel>\n\t\t\t\t\t<mat-expansion-panel-header>\n\t\t\t\t\t\t<mat-panel-title>Tips</mat-panel-title>\n\t\t\t\t\t</mat-expansion-panel-header>\n\t\t\t\t\t<mat-panel-description>\n\t\t\t\t\t\t<div class=\"text-hint\">\n\t\t\t\t\t\t\t<p>Tips :  You have two types of Ticket Category to setup.</p>\n\t\t\t\t\t\t\t<p>Common category refer to the issues related to condo which is at common to all units (For Example : Swimming pool not clean)</p>\n\t\t\t\t\t\t\t<p>Private category refer to the issues inside  the units ( For Example : Plumbing inside the Property)</p>\n\t\t\t\t\t\t\t<p class=\"mt-4\">We have some standard Common Categories created for you, you can assign a supervisor and assign escalation if you required.</p>\n\t\t\t\t\t\t\t<p>If you have supervisor assigned to a Category , tickets will get assigned to Supervisor automatically. Supervisor will have to re-assign the ticket to Staff.</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</mat-panel-description>\n\t\t\t\t</mat-expansion-panel>\n\t\t\t</mat-accordion>\n\t\t</div>\n\t\t<div class=\"bg-card shadow p-0\">\n\t\t\t<nav mat-tab-nav-bar>\n\t\t\t\t<a mat-tab-link *ngFor=\"let link of navArray\" [routerLink]=\"link.link\" \n\t\t\t\t\trouterLinkActive #rla=\"routerLinkActive\" [active]=\"rla.isActive\">\n\t\t\t\t{{link.name}}\n\t\t\t\t</a>\n\t\t\t</nav>\n\t\t\t<router-outlet></router-outlet>\n\t\t</div>\n\t</div>\n</div>\n\n");
 
 /***/ }),
 
@@ -86,6 +86,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_condo_animations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/@condo/animations */ "./src/@condo/animations/index.ts");
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment-timezone */ "./node_modules/moment-timezone/index.js");
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/shared/components/common-confirm-modal/common-confirm-modal.component */ "./src/app/shared/components/common-confirm-modal/common-confirm-modal.component.ts");
+
 
 
 
@@ -97,7 +99,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AddTicketCategoryComponent = class AddTicketCategoryComponent {
-    constructor(dialogRef, staffService, sessionService, lookupService, ticketService, sharedService, _changeDetectorRef, data) {
+    constructor(dialogRef, staffService, sessionService, lookupService, ticketService, sharedService, _changeDetectorRef, dialog, data) {
         this.dialogRef = dialogRef;
         this.staffService = staffService;
         this.sessionService = sessionService;
@@ -105,6 +107,7 @@ let AddTicketCategoryComponent = class AddTicketCategoryComponent {
         this.ticketService = ticketService;
         this.sharedService = sharedService;
         this._changeDetectorRef = _changeDetectorRef;
+        this.dialog = dialog;
         this.data = data;
         this.ticketCategoryData = {};
         this.staffsList = [];
@@ -169,6 +172,20 @@ let AddTicketCategoryComponent = class AddTicketCategoryComponent {
             });
         }
     }
+    closePopUp() {
+        const message = `Are you sure, you want to exit the screen ?`;
+        const dialogData = new src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmDialogModel"]("Confirm Action", message);
+        const dialogRef = this.dialog.open(src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_10__["CommonConfirmModalComponent"], {
+            panelClass: 'material-dialog-medium',
+            disableClose: true,
+            data: dialogData
+        });
+        dialogRef.afterClosed().subscribe(dialogResult => {
+            if (dialogResult) {
+                this.dialogRef.close(false);
+            }
+        });
+    }
     createEsclation(ticketCategoryId) {
         let addTicket = [];
         let esclator = {
@@ -192,7 +209,7 @@ let AddTicketCategoryComponent = class AddTicketCategoryComponent {
                 };
                 addTicket.push(Object.assign(Object.assign({}, esclator), esclatorMain));
             }
-            else if (i == 1 && this.ticketCategoryData.staffTwo && this.ticketCategoryData.escalationDaysOne) {
+            else if (i == 1 && this.ticketCategoryData.staffTwo && this.ticketCategoryData.escalationDaysOne || (i == 1 && this.ticketCategoryData.ticketManagerIdOne)) {
                 let esclatorMain = {
                     ticketManagerId: this.data.mode == 'edit' ? this.ticketCategoryData.ticketManagerIdOne : 0,
                     userId: this.ticketCategoryData.staffTwo,
@@ -201,7 +218,7 @@ let AddTicketCategoryComponent = class AddTicketCategoryComponent {
                 };
                 addTicket.push(Object.assign(Object.assign({}, esclator), esclatorMain));
             }
-            else if (i == 2 && this.ticketCategoryData.staffThree && this.ticketCategoryData.escalationDaysTwo) {
+            else if (i == 2 && this.ticketCategoryData.staffThree && this.ticketCategoryData.escalationDaysTwo || (i == 2 && this.ticketCategoryData.ticketManagerIdTwo)) {
                 let esclatorMain = {
                     ticketManagerId: this.data.mode == 'edit' ? this.ticketCategoryData.ticketManagerIdTwo : 0,
                     userId: this.ticketCategoryData.staffThree,
@@ -333,6 +350,7 @@ AddTicketCategoryComponent.ctorParameters = () => [
     { type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"] },
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"] },
     { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"],] }] }
 ];
 AddTicketCategoryComponent.propDecorators = {
@@ -352,7 +370,8 @@ AddTicketCategoryComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decora
         src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__["LookupService"],
         src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"],
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"],
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], Object])
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"], Object])
 ], AddTicketCategoryComponent);
 
 
@@ -391,6 +410,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api/controllers/Ticket */ "./src/app/api/controllers/Ticket.ts");
 /* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
 /* harmony import */ var src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/services/modal.service */ "./src/app/shared/services/modal.service.ts");
+/* harmony import */ var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/api/controllers/Lookup */ "./src/app/api/controllers/Lookup.ts");
+
 
 
 
@@ -401,11 +422,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CommonCategoryComponent = class CommonCategoryComponent {
-    constructor(dialog, sharedService, ticketService, sessionService, injector) {
+    constructor(dialog, sharedService, ticketService, sessionService, lookupService, injector) {
         this.dialog = dialog;
         this.sharedService = sharedService;
         this.ticketService = ticketService;
         this.sessionService = sessionService;
+        this.lookupService = lookupService;
         this.injector = injector;
         this.commonFilter = "";
         this.isDataLoaded = true;
@@ -416,6 +438,7 @@ let CommonCategoryComponent = class CommonCategoryComponent {
         let data = { type: 'common', mode, categoryId };
         const dialogRef = this.dialog.open(_add_ticket_category_add_ticket_category_component__WEBPACK_IMPORTED_MODULE_5__["AddTicketCategoryComponent"], {
             panelClass: 'material-dialog-medium',
+            disableClose: true,
             data: data
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -423,6 +446,9 @@ let CommonCategoryComponent = class CommonCategoryComponent {
                 this.getCommonCategoryList();
             }
         });
+    }
+    getPrintParams(event) {
+        this.commondatagrid.exportdata(event, 'Common Category');
     }
     onCommonCatEdit(detail) {
         let dataRecord = this.commondatagrid.getrowdata(detail.rowId);
@@ -464,7 +490,34 @@ let CommonCategoryComponent = class CommonCategoryComponent {
                 this.totalItems = res.length;
                 let data = {
                     localdata: res.reverse(),
-                    datatype: "array"
+                    datatype: "array",
+                    datafields: [{
+                            name: 'ticketCategoryId',
+                            type: 'number'
+                        }, {
+                            name: 'ticketCategoryName',
+                            type: 'string'
+                        }, {
+                            name: 'userNameZero',
+                            type: 'string',
+                            map: 'escalationLevelId0>userName'
+                        }, {
+                            name: 'userNameOne',
+                            type: 'string',
+                            map: 'escalationLevelId1>userName'
+                        }, {
+                            name: 'dayOne',
+                            type: 'number',
+                            map: 'escalationLevelId1>escalationDays'
+                        }, {
+                            name: 'userNameTwo',
+                            type: 'string',
+                            map: 'escalationLevelId2>userName'
+                        }, {
+                            name: 'dayTwo',
+                            type: 'number',
+                            map: 'escalationLevelId2>escalationDays'
+                        }],
                 };
                 this.commonListData = new jqx.dataAdapter(data);
             }
@@ -491,65 +544,32 @@ let CommonCategoryComponent = class CommonCategoryComponent {
                 renderer: columnrendererCommon
             }, {
                 text: 'Supervisor',
-                datafield: "escalationLevelId0",
-                cellsrenderer: (row, column, value) => {
-                    let field = this.commonListData.loadedData[row].escalationLevelId0;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameZero",
+                cellsrenderer: cellsrendererCommon,
                 minwidth: 150,
                 renderer: columnrendererCommon
             }, {
                 text: 'Level-1',
-                datafield: 'escalationLevelId1',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.commonListData.loadedData[row].escalationLevelId1;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameOne",
+                cellsrenderer: cellsrendererCommon,
                 minwidth: 150,
                 renderer: columnrendererCommon
             }, {
                 text: 'L1 escdays',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.commonListData.loadedData[row].escalationLevelId1;
-                    if (field && field.escalationDays)
-                        value = field.escalationDays;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: 'dayOne',
+                cellsrenderer: cellsrendererCommon,
                 width: 120,
                 renderer: columnrendererCommon
             }, {
                 text: 'Level-2',
-                datafield: 'escalationLevelId2',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.commonListData.loadedData[row].escalationLevelId2;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameTwo",
+                cellsrenderer: cellsrendererCommon,
                 minwidth: 150,
                 renderer: columnrendererCommon
             }, {
                 text: 'L2 escdays',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.commonListData.loadedData[row].escalationLevelId2;
-                    if (field && field.escalationDays)
-                        value = field.escalationDays;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: 'dayTwo',
+                cellsrenderer: cellsrendererCommon,
                 width: 120,
                 renderer: columnrendererCommon
             }, {
@@ -565,16 +585,36 @@ let CommonCategoryComponent = class CommonCategoryComponent {
         //Delete Category
         this.apiSubscribe = this.sharedService.unitlistdeleteindexcast.subscribe(item => {
             if (item != null && item.id) {
-                let params = {
-                    apartmentId: this.sessionService.apartmentId,
-                    ticketCategoryId: item.id,
-                    deleteBy: this.sessionService.userId
+                let category = {
+                    lookupValueId: item.id,
+                    updateUserId: parseInt(this.sessionService.userId)
                 };
-                this.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe((res) => {
+                this.lookupService.deleteLookupvalue(category).subscribe((res) => {
+                    this.sharedService.setUnitListDeleteIndex(null);
                     if (res.message) {
-                        this.sharedService.setUnitListDeleteIndex(null);
-                        this.commondatagrid.deleterow(item.index);
+                        let params = {
+                            apartmentId: this.sessionService.apartmentId,
+                            ticketCategoryId: item.id,
+                            deleteBy: this.sessionService.userId
+                        };
+                        this.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe((res) => {
+                            if (res.code == 200) {
+                                this.getCommonCategoryList();
+                                this.sharedService.openSnackBar('Common Category Deleted Successfully', 'success');
+                            }
+                            else {
+                                this.sharedService.openSnackBar(res.statusMessage, 'error');
+                            }
+                        }, (error) => {
+                            this.sharedService.setUnitListDeleteIndex(null);
+                            this.sharedService.openSnackBar('Server Error', 'error');
+                        });
                     }
+                    else {
+                        this.sharedService.openSnackBar(res.errorMessage, 'error');
+                    }
+                }, (error) => {
+                    this.sharedService.openSnackBar('Server Error', 'error');
                 });
             }
         });
@@ -588,6 +628,7 @@ CommonCategoryComponent.ctorParameters = () => [
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"] },
     { type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"] },
     { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"] },
+    { type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] }
 ];
 CommonCategoryComponent.propDecorators = {
@@ -605,6 +646,7 @@ CommonCategoryComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"],
         src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"],
         src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"],
+        src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"]])
 ], CommonCategoryComponent);
 
@@ -815,6 +857,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api/controllers/Ticket */ "./src/app/api/controllers/Ticket.ts");
 /* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
 /* harmony import */ var src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/services/modal.service */ "./src/app/shared/services/modal.service.ts");
+/* harmony import */ var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/api/controllers/Lookup */ "./src/app/api/controllers/Lookup.ts");
+
 
 
 
@@ -825,10 +869,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let PrivateCategoryComponent = class PrivateCategoryComponent {
-    constructor(dialog, sharedService, ticketService, injector, sessionService) {
+    constructor(dialog, sharedService, ticketService, lookupService, injector, sessionService) {
         this.dialog = dialog;
         this.sharedService = sharedService;
         this.ticketService = ticketService;
+        this.lookupService = lookupService;
         this.injector = injector;
         this.sessionService = sessionService;
         this.privateFilter = '';
@@ -840,6 +885,7 @@ let PrivateCategoryComponent = class PrivateCategoryComponent {
         let data = { type: 'private', mode, categoryId };
         const dialogRef = this.dialog.open(_add_ticket_category_add_ticket_category_component__WEBPACK_IMPORTED_MODULE_5__["AddTicketCategoryComponent"], {
             panelClass: 'material-dialog-medium',
+            disableClose: true,
             data: data
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -847,6 +893,9 @@ let PrivateCategoryComponent = class PrivateCategoryComponent {
                 this.getPrivateCategoryList();
             }
         });
+    }
+    getPrintParams(event) {
+        this.privatedatagrid.exportdata(event, 'Private Category');
     }
     onPrivateCatEdit(detail) {
         let dataRecord = this.privatedatagrid.getrowdata(detail.rowId);
@@ -888,7 +937,34 @@ let PrivateCategoryComponent = class PrivateCategoryComponent {
                 this.totalItems = res.length;
                 let data = {
                     localdata: res.reverse(),
-                    datatype: "array"
+                    datatype: "array",
+                    datafields: [{
+                            name: 'ticketCategoryId',
+                            type: 'number'
+                        }, {
+                            name: 'ticketCategoryName',
+                            type: 'string'
+                        }, {
+                            name: 'userNameZero',
+                            type: 'string',
+                            map: 'escalationLevelId0>userName'
+                        }, {
+                            name: 'userNameOne',
+                            type: 'string',
+                            map: 'escalationLevelId1>userName'
+                        }, {
+                            name: 'dayOne',
+                            type: 'number',
+                            map: 'escalationLevelId1>escalationDays'
+                        }, {
+                            name: 'userNameTwo',
+                            type: 'string',
+                            map: 'escalationLevelId2>userName'
+                        }, {
+                            name: 'dayTwo',
+                            type: 'number',
+                            map: 'escalationLevelId2>escalationDays'
+                        }],
                 };
                 this.privateListData = new jqx.dataAdapter(data);
             }
@@ -915,65 +991,32 @@ let PrivateCategoryComponent = class PrivateCategoryComponent {
                 renderer: columnrendererPrivate
             }, {
                 text: 'Supervisor',
-                datafield: "escalationLevelId0",
-                cellsrenderer: (row, column, value) => {
-                    let field = this.privateListData.loadedData[row].escalationLevelId0;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameZero",
+                cellsrenderer: cellsrendererPrivate,
                 minwidth: 150,
                 renderer: columnrendererPrivate
             }, {
                 text: 'Level-1',
-                datafield: 'escalationLevelId1',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.privateListData.loadedData[row].escalationLevelId1;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameOne",
+                cellsrenderer: cellsrendererPrivate,
                 minwidth: 150,
                 renderer: columnrendererPrivate
             }, {
                 text: 'L1 escdays',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.privateListData.loadedData[row].escalationLevelId1;
-                    if (field && field.escalationDays)
-                        value = field.escalationDays;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: 'dayOne',
+                cellsrenderer: cellsrendererPrivate,
                 width: 120,
                 renderer: columnrendererPrivate
             }, {
                 text: 'Level-2',
-                datafield: 'escalationLevelId2',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.privateListData.loadedData[row].escalationLevelId2;
-                    if (field && field.userName)
-                        value = field.userName;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: "userNameTwo",
+                cellsrenderer: cellsrendererPrivate,
                 minwidth: 150,
                 renderer: columnrendererPrivate
             }, {
                 text: 'L2 escdays',
-                cellsrenderer: (row, column, value) => {
-                    let field = this.privateListData.loadedData[row].escalationLevelId2;
-                    if (field && field.escalationDays)
-                        value = field.escalationDays;
-                    else
-                        value = '';
-                    return '<div class="jqx-custom-inner-cell">' + value + '</div>';
-                },
+                datafield: 'dayTwo',
+                cellsrenderer: cellsrendererPrivate,
                 width: 120,
                 renderer: columnrendererPrivate
             }, {
@@ -989,16 +1032,36 @@ let PrivateCategoryComponent = class PrivateCategoryComponent {
         //Delete Category
         this.apiSubscribe = this.sharedService.unitlistdeleteindexcast.subscribe(item => {
             if (item != null && item.id) {
-                let params = {
-                    apartmentId: this.sessionService.apartmentId,
-                    ticketCategoryId: item.id,
-                    deleteBy: this.sessionService.userId
+                let category = {
+                    lookupValueId: item.id,
+                    updateUserId: parseInt(this.sessionService.userId)
                 };
-                this.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe((res) => {
+                this.lookupService.deleteLookupvalue(category).subscribe((res) => {
+                    this.sharedService.setUnitListDeleteIndex(null);
                     if (res.message) {
-                        this.sharedService.setUnitListDeleteIndex(null);
-                        this.privatedatagrid.deleterow(item.index);
+                        let params = {
+                            apartmentId: this.sessionService.apartmentId,
+                            ticketCategoryId: item.id,
+                            deleteBy: this.sessionService.userId
+                        };
+                        this.ticketService.deleteTicketManagerByTicketCategoryId(params).subscribe((res) => {
+                            if (res.code == 200) {
+                                this.getPrivateCategoryList();
+                                this.sharedService.openSnackBar('Private Category Deleted Successfully', 'success');
+                            }
+                            else {
+                                this.sharedService.openSnackBar(res.statusMessage, 'error');
+                            }
+                        }, (error) => {
+                            this.sharedService.setUnitListDeleteIndex(null);
+                            this.sharedService.openSnackBar('Server Error', 'error');
+                        });
                     }
+                    else {
+                        this.sharedService.openSnackBar(res.errorMessage, 'error');
+                    }
+                }, (error) => {
+                    this.sharedService.openSnackBar('Server Error', 'error');
                 });
             }
         });
@@ -1011,6 +1074,7 @@ PrivateCategoryComponent.ctorParameters = () => [
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"] },
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"] },
     { type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"] },
+    { type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"] },
     { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"] }
 ];
@@ -1028,6 +1092,7 @@ PrivateCategoryComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_4__["MatDialog"],
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_7__["SharedService"],
         src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_6__["TicketService"],
+        src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_9__["LookupService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injector"],
         src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"]])
 ], PrivateCategoryComponent);
