@@ -143,6 +143,7 @@ let ApartmentsComponent = class ApartmentsComponent {
         this.sessionService.roleTypeId = condo.roleTypeId;
         this.sessionService.roleTypeName = condo.roleTypeName;
         this.sessionService.staffId = condo.staffId;
+        this.sessionService.layout = 'dense';
         let params = {
             apartmentId: this.sessionService.apartmentId,
             userId: this.sessionService.userId
@@ -171,6 +172,18 @@ let ApartmentsComponent = class ApartmentsComponent {
                                 this.sharedService.setMenuEmptyMessage('');
                             });
                         }
+                    }
+                    if (res.code == 404) {
+                        this.isRouting = false;
+                        this.authService.clearApartmentDetails();
+                        // Show the error message
+                        this.message = {
+                            appearance: 'outline',
+                            content: res.message,
+                            shake: true,
+                            showIcon: true,
+                            type: 'error'
+                        };
                     }
                 }, error => {
                     this.isRouting = false;

@@ -279,6 +279,7 @@
             this.sessionService.roleTypeId = condo.roleTypeId;
             this.sessionService.roleTypeName = condo.roleTypeName;
             this.sessionService.staffId = condo.staffId;
+            this.sessionService.layout = 'dense';
             var params = {
               apartmentId: this.sessionService.apartmentId,
               userId: this.sessionService.userId
@@ -309,6 +310,21 @@
                         _this2.sharedService.setMenuEmptyMessage('');
                       });
                     }
+                  }
+
+                  if (res.code == 404) {
+                    _this2.isRouting = false;
+
+                    _this2.authService.clearApartmentDetails(); // Show the error message
+
+
+                    _this2.message = {
+                      appearance: 'outline',
+                      content: res.message,
+                      shake: true,
+                      showIcon: true,
+                      type: 'error'
+                    };
                   }
                 }, function (error) {
                   _this2.isRouting = false;

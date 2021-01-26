@@ -11629,7 +11629,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"admin-dash-wiget-one row\">\n    <div class=\"col-xs-12 col-sm-4 col-xl-2\" *ngFor= \"let data of widgets\">\n        <div class=\"flip\" #menu *ngIf=\"!data.middle\">\n            <div class=\"front\">\n                <div class=\"bg-card shadow custom-card\">\n                    <div class=\"d-flex justify-content-between\">\n                        <div class=\"left mb-1\">\n                            <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:building\"></mat-icon>\n                        </div>\n                        <div class=\"text-right d-flex flex-column justify-content-between\">\n                            <div>\n                                <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data)\"></mat-icon>\n                                <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"flip(menu)\"></mat-icon>\n                            </div>\n                            <h5>{{data.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"d-flex justify-content-between\">\n                        <p class=\"text-secondary\">{{data.front}}</p>\n                        <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                            <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"appFront\"></i>\n                            <mat-menu #appFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',data.front,data.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',data.front,data.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(data.front,data.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"back\">\n                <div class=\"bg-card shadow custom-card\">\n                    <div class=\"d-flex justify-content-between\">\n                        <div class=\"left mb-1\">\n                            <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:building\"></mat-icon>\n                        </div>\n                        <div class=\"text-right d-flex flex-column justify-content-between\">\n                            <div>\n                                <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\"></mat-icon>\n                                <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"flip(menu)\"></mat-icon>\n                            </div>\n                            <h5>{{data.backValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"d-flex justify-content-between\">\n                        <p class=\"text-secondary\">{{data.back}}</p>\n                        <div class=\"dashboard-dropdown\" *ngIf=\"data.backFooter\">\n                            <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"appBack\"></i>\n                            <mat-menu #appBack=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',data.back,data.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',data.back,data.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(data.back,data.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"admin-wid-one\" *ngIf=\"data.middle\">\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'owner'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='tenants'\"></mat-icon>\n                        </div>\n                        <h5>{{data.frontValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.front}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widront\"></i>\n                        <mat-menu #widFront=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.front,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.front,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.front,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'tenants'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='admin'\"></mat-icon>\n                        </div>\n                        <h5>{{data.middleValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.middle}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widMiddle\"></i>\n                        <mat-menu #widMiddle=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.middle,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.middle,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.middle,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'admin'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='owner'\"></mat-icon>\n                        </div>\n                        <h5>{{data.backValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.back}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widBack\"></i>\n                        <mat-menu #widBack=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.back,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.back,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.back,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #dashboardReportRef>\n\n    <div class=\"info-modal-box vh-80 rel\">\n\t\t<div class=\"d-flex p-3 border-bottom\">\n\t\t\t<mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n       <div class=\"p-4\">\n        <router-outlet></router-outlet>\n       </div>\n    </div>\n\n</ng-template>";
+      __webpack_exports__["default"] = "<div class=\"admin-dash-wiget-one row\">\n    <div class=\"col-xs-12 col-sm-4 col-xl-2\" *ngFor= \"let data of widgets\">\n        <div class=\"flip\" #menu *ngIf=\"!data.middle\">\n            <div class=\"front\">\n                <div class=\"bg-card shadow custom-card\">\n                    <div class=\"d-flex justify-content-between\">\n                        <div class=\"left mb-1\">\n                            <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:building\"></mat-icon>\n                        </div>\n                        <div class=\"text-right d-flex flex-column justify-content-between\">\n                            <div>\n                                <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data, data.front)\"></mat-icon>\n                                <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"data.isFlip ? flip(menu) : ''\"></mat-icon>\n                            </div>\n                            <h5>{{data.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"d-flex justify-content-between\">\n                        <p class=\"text-secondary\">{{data.front}}</p>\n                        <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                            <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"appFront\"></i>\n                            <mat-menu #appFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',data.front,data.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',data.front,data.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(data.front,data.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"back\">\n                <div class=\"bg-card shadow custom-card\">\n                    <div class=\"d-flex justify-content-between\">\n                        <div class=\"left mb-1\">\n                            <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:building\"></mat-icon>\n                        </div>\n                        <div class=\"text-right d-flex flex-column justify-content-between\">\n                            <div>\n                                <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data,data.back )\"></mat-icon>\n                                <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"data.isFlip ? flip(menu) : ''\"></mat-icon>\n                            </div>\n                            <h5>{{data.backValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"d-flex justify-content-between\">\n                        <p class=\"text-secondary\">{{data.back}}</p>\n                        <div class=\"dashboard-dropdown\" *ngIf=\"data.backFooter\">\n                            <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"appBack\"></i>\n                            <mat-menu #appBack=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',data.back,data.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',data.back,data.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(data.back,data.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"admin-wid-one\" *ngIf=\"data.middle\">\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'owner'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data, data.front)\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='tenants'\"></mat-icon>\n                        </div>\n                        <h5>{{data.frontValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.front}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widront\"></i>\n                        <mat-menu #widFront=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.front,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.front,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.front,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'tenants'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data, data.middle)\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='admin'\"></mat-icon>\n                        </div>\n                        <h5>{{data.middleValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.middle}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widMiddle\"></i>\n                        <mat-menu #widMiddle=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.middle,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.middle,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.middle,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n            <div class=\"bg-card shadow custom-card\" *ngIf= \"colType == 'admin'\">\n                <div class=\"d-flex justify-content-between\">\n                    <div class=\"left mb-1\">\n                        <mat-icon class=\"icon-lg\" svgIcon=\"iconsmind:administrator\"></mat-icon>\n                    </div>\n                    <div class=\"text-right d-flex flex-column justify-content-between\">\n                        <div>\n                            <mat-icon svgIcon=\"dripicons:dots-3\" class=\"link\" (click)=\"detailInfo(data, data.back)\"></mat-icon>\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link\" (click)=\"colType='owner'\"></mat-icon>\n                        </div>\n                        <h5>{{data.backValue}}</h5> \n                    </div>\n                </div>\n                <div class=\"d-flex justify-content-between\">\n                    <p class=\"text-secondary\">{{data.back}}</p>\n                    <div class=\"dashboard-dropdown\" *ngIf=\"data.frontFooter\">\n                        <i class=\"icon-md fa fa-caret-down link\" aria-hidden=\"true\" [matMenuTriggerFor]=\"widBack\"></i>\n                        <mat-menu #widBack=\"matMenu\">\n                            <p mat-menu-item (click)=\"filter('today',data.back,data.type)\">Today</p>\n                            <p mat-menu-item (click)=\"filter('yesterday',data.back,data.type)\">Yesterday</p>\n                            <p mat-menu-item (click)=\"calenderPopUp(data.back,data.type)\">Custom</p>\n                        </mat-menu>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #dashboardReportRef>\n\n    <div class=\"info-modal-box vh-80 rel\">\n\t\t<div class=\"d-flex p-3 border-bottom\">\n\t\t\t<mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n       <div class=\"p-4\">\n        <router-outlet></router-outlet>\n       </div>\n    </div>\n\n</ng-template>";
       /***/
     },
 
@@ -11649,7 +11649,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-6 col-xl-3\" *ngFor=\"let label of widgetData\">\n        <div class=\"dash-wiget-three flip dash-space\" #menu>\n            <!-- Front Widget-->\n            <div class=\"front\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 bg-white-widget\">\n                        <div>\n                            <div class=\"mb-2 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\"></mat-icon>\n                            </div>\n                            <div class=\"mb-2 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-2\" (click)=\"flip(menu)\"></mat-icon>\n                            <h5 class=\"text-right font-medium\">{{label.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div>\n                            <p> {{label.front}}</p>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.frontFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.front,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.front,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.front,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n             <!-- Back Widget-->\n             <div class=\"back\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 bg-white-widget\">\n                        <div>\n                            <div class=\"mb-2 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\"></mat-icon>\n                            </div>\n                            <div class=\"mb-2 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-2\" (click)=\"flip(menu)\"></mat-icon>\n                            <h5 class=\"text-right font-medium\">{{label.backValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div>\n                            <p> {{label.back}}</p>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.backFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.back,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.back,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.back,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
+      __webpack_exports__["default"] = "<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-6 col-xl-3\" *ngFor=\"let label of widgetData\">\n        <div class=\"dash-wiget-three flip dash-space\" #menu>\n            <!-- Front Widget-->\n            <div class=\"front\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 bg-white-widget\">\n                        <div>\n                            <div class=\"mb-2 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\" (click)=\"detailInfo(label, label.front)\"></mat-icon>\n                            </div>\n                            <div class=\"mb-2 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-2\" (click)=\"label.isFlip ? flip(menu) : ''\"></mat-icon>\n                            <h5 class=\"text-right font-medium\">{{label.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div>\n                            <p> {{label.front}}</p>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.frontFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.front,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.front,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.front,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n             <!-- Back Widget-->\n             <div class=\"back\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 bg-white-widget\">\n                        <div>\n                            <div class=\"mb-2 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\" (click)=\"detailInfo(label, label.back)\"></mat-icon>\n                            </div>\n                            <div class=\"mb-2 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-2\" (click)=\"label.isFlip ? flip(menu) : ''\"></mat-icon>\n                            <h5 class=\"text-right font-medium\">{{label.backValue}}</h5> \n                        </div>\n                    </div>\n                    <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div>\n                            <p> {{label.back}}</p>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.backFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.back,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.back,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.back,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #dashboardReportRef>\n\n    <div class=\"info-modal-box vh-80 rel\">\n\t\t<div class=\"d-flex p-3 border-bottom\">\n\t\t\t<mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n       <div class=\"p-4\">\n        <router-outlet></router-outlet>\n       </div>\n    </div>\n\n</ng-template>";
       /***/
     },
 
@@ -11669,7 +11669,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-6 col-xl-3\" *ngFor=\"let label of widgetData\">\n        <div class=\"dash-wiget-two flip dash-space\" #menu>\n            <!-- Front Widget-->\n            <div class=\"front\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 gradient-iyal wid-height\">\n                        <div>\n                            <div class=\"mb-3 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\"></mat-icon>\n                            </div>\n                            <div class=\"mb-3 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-3\" (click)=\"flip(menu)\"></mat-icon>\n                            <h6 class=\"mb-3 clear text-right\">{{label.front}}</h6> \n                            <h5 class=\"text-right font-medium mb-3\">{{label.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <!-- <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div class=\"label\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"feather:calendar\"></mat-icon> \n                            <span class=\"align-top\">Last day</span>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.frontFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.front,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.front,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.front,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div> -->\n                </div>\n            </div>\n\n             <!-- Back Widget-->\n            <div class=\"back\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 gradient-iyal wid-height\">\n                        <div>\n                            <div class=\"mb-3 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\"></mat-icon>\n                            </div>\n                            <div class=\"mb-3 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-3\" (click)=\"flip(menu)\"></mat-icon>\n                            <h6 class=\"mb-3 clear\">{{label.back}}</h6> \n                            <h5 class=\"text-right font-medium mb-3\">{{label.backValue}}</h5> \n                        </div>\n                    </div>\n                    <!-- <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div class=\"label\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"feather:calendar\"></mat-icon> \n                            <span class=\"align-top\">Last day</span>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.backFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.back,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.back,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.back,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div> -->\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #datePopup>\n    <div class=\"bg-card shadow mb-0\">\n        <div class=\"text-right\">\n            <mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n        <form #widgetFilter=\"ngForm\">\n            <div class=\"row\">\n                <div class=\"col-sm-6\">\n                    <div class=\"input-box\">\n                        <label>From Date</label>\n                        <input class=\"form-control\" name=\"Startdate\" [owlDateTime]=\"Startdate\"\n                        [owlDateTimeTrigger]=\"Startdate\" [(ngModel)]=\"filterField.fromDate\" placeholder=\"From Date\" autocomplete=\"off\" required>\n                        <owl-date-time #Startdate [pickerType]=\"'calendar'\"></owl-date-time>\n                        <div class=\"date-btn\">\n                            <mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col-sm-6\" *ngIf=\"currentClick != 'alerts'\">\n                    <div class=\"input-box\">\n                        <label>To Date</label>\n                        <input class=\"form-control\" name=\"Enddate\" [owlDateTime]=\"Enddate\"\n                        [owlDateTimeTrigger]=\"Enddate\" [(ngModel)]=\"filterField.toDate\" placeholder=\"To Date\" autocomplete=\"off\" required>\n                        <owl-date-time #Enddate [pickerType]=\"'calendar'\"></owl-date-time>\n                        <div class=\"date-btn\">\n                            <mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-sm-12\">\n                   <div class=\"float-right\">\n                        <button mat-flat-button  [color]=\"'primary'\" [disabled]=\"widgetFilter.invalid\" (click)=\"applyFilter()\">Filter</button>\n                   </div>\n                </div>\n            </div>\n        </form>\n    </div>\n</ng-template>\n\n\n";
+      __webpack_exports__["default"] = "<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-6 col-xl-3\" *ngFor=\"let label of widgetData\">\n        <div class=\"dash-wiget-two flip dash-space\" #menu>\n            <!-- Front Widget-->\n            <div class=\"front\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 gradient-iyal wid-height\">\n                        <div>\n                            <div class=\"mb-3 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\" (click)=\"detailInfo(label, label.front)\"></mat-icon>\n                            </div>\n                            <div class=\"mb-3 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-3\" (click)=\"label.isFlip ? flip(menu) : ''\"></mat-icon>\n                            <h6 class=\"mb-3 clear text-right\">{{label.front}}</h6> \n                            <h5 class=\"text-right font-medium mb-3\">{{label.frontValue}}</h5> \n                        </div>\n                    </div>\n                    <!-- <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div class=\"label\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"feather:calendar\"></mat-icon> \n                            <span class=\"align-top\">Last day</span>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.frontFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.front,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.front,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.front,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div> -->\n                </div>\n            </div>\n\n             <!-- Back Widget-->\n            <div class=\"back\">\n                <div class=\"shadow rounded\">\n                    <div class=\"d-flex p-4 gradient-iyal wid-height\">\n                        <div>\n                            <div class=\"mb-3 icon-left-top\">\n                                <mat-icon svgIcon=\"feather:eye\" (click)=\"detailInfo(label, label.back)\"></mat-icon>\n                            </div>\n                            <div class=\"mb-3 icon-left-bottom\">\n                                <mat-icon svgIcon=\"dripicons:wallet\"></mat-icon>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <mat-icon svgIcon=\":arrow_right\" class=\"link float-right mb-3\" (click)=\"label.isFlip ? flip(menu) : ''\"></mat-icon>\n                            <h6 class=\"mb-3 clear\">{{label.back}}</h6> \n                            <h5 class=\"text-right font-medium mb-3\">{{label.backValue}}</h5> \n                        </div>\n                    </div>\n                    <!-- <div class=\"gradient-isai d-flex pt-3 pb-2 pl-4 pr-4 foot-height\">\n                        <div class=\"label\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"feather:calendar\"></mat-icon> \n                            <span class=\"align-top\">Last day</span>\n                        </div>\n                        <div class=\"dashboard-dropdown ml-auto\" *ngIf=\"label.backFooter\">\n                            <mat-icon [matMenuTriggerFor]=\"appwidgetFront\" svgIcon=\":arrow_drop_down\"></mat-icon>\n                            <mat-menu #appwidgetFront=\"matMenu\">\n                                <p mat-menu-item (click)=\"filter('today',label.back,label.type)\">Today</p>\n                                <p mat-menu-item (click)=\"filter('yesterday',label.back,label.type)\">Yesterday</p>\n                                <p mat-menu-item (click)=\"calenderPopUp(label.back,label.type)\">Custom</p>\n                            </mat-menu>\n                        </div>\n                    </div> -->\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n\n<ng-template #datePopup>\n    <div class=\"bg-card shadow mb-0\">\n        <div class=\"text-right\">\n            <mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n        <form #widgetFilter=\"ngForm\">\n            <div class=\"row\">\n                <div class=\"col-sm-6\">\n                    <div class=\"input-box\">\n                        <label>From Date</label>\n                        <input class=\"form-control\" name=\"Startdate\" [owlDateTime]=\"Startdate\"\n                        [owlDateTimeTrigger]=\"Startdate\" [(ngModel)]=\"filterField.fromDate\" placeholder=\"From Date\" autocomplete=\"off\" required>\n                        <owl-date-time #Startdate [pickerType]=\"'calendar'\"></owl-date-time>\n                        <div class=\"date-btn\">\n                            <mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"col-sm-6\" *ngIf=\"currentClick != 'alerts'\">\n                    <div class=\"input-box\">\n                        <label>To Date</label>\n                        <input class=\"form-control\" name=\"Enddate\" [owlDateTime]=\"Enddate\"\n                        [owlDateTimeTrigger]=\"Enddate\" [(ngModel)]=\"filterField.toDate\" placeholder=\"To Date\" autocomplete=\"off\" required>\n                        <owl-date-time #Enddate [pickerType]=\"'calendar'\"></owl-date-time>\n                        <div class=\"date-btn\">\n                            <mat-icon svgIcon=\"feather:calendar\"></mat-icon>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"row\">\n                <div class=\"col-sm-12\">\n                   <div class=\"float-right\">\n                        <button mat-flat-button  [color]=\"'primary'\" [disabled]=\"widgetFilter.invalid\" (click)=\"applyFilter()\">Filter</button>\n                   </div>\n                </div>\n            </div>\n        </form>\n    </div>\n</ng-template>\n\n\n<ng-template #dashboardReportRef>\n\n    <div class=\"info-modal-box vh-80 rel\">\n\t\t<div class=\"d-flex p-3 border-bottom\">\n\t\t\t<mat-icon class=\"ml-auto\" [svgIcon]=\"'close'\" mat-dialog-close></mat-icon>\n        </div>\n       <div class=\"p-4\">\n        <router-outlet></router-outlet>\n       </div>\n    </div>\n\n</ng-template>";
       /***/
     },
 
@@ -14165,12 +14165,20 @@
       /* harmony import */
 
 
-      var _api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
-      /*! ../../../../../../api/controllers/Apartment */
+      var src_app_api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/api/controllers/Apartment */
       "./src/app/api/controllers/Apartment.ts");
+      /* harmony import */
+
+
+      var _api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! ../../../../../../api/controllers/Staff */
+      "./src/app/api/controllers/Staff.ts");
 
       var AdminDashFirstRowComponent = /*#__PURE__*/function () {
-        function AdminDashFirstRowComponent(dialog, _activatedRoute, _router, dashboardService, userService, sessionService, apartmentService) {
+        function AdminDashFirstRowComponent(dialog, _activatedRoute, _router, dashboardService, userService, sessionService, apartmentService, staffService) {
+          var _this66 = this;
+
           _classCallCheck(this, AdminDashFirstRowComponent);
 
           this.dialog = dialog;
@@ -14180,6 +14188,7 @@
           this.userService = userService;
           this.sessionService = sessionService;
           this.apartmentService = apartmentService;
+          this.staffService = staffService;
           this.widgets = [{
             front: 'Units',
             back: 'Towers',
@@ -14187,7 +14196,8 @@
             backValue: '',
             frontFooter: false,
             backFooter: false,
-            type: ''
+            type: '',
+            isFlip: true
           }, {
             front: 'Owners',
             middle: 'Tenants',
@@ -14198,7 +14208,8 @@
             frontFooter: false,
             middleFooter: false,
             backFooter: false,
-            type: ''
+            type: '',
+            isFlip: true
           }, {
             front: 'Parking Slots',
             back: 'Unassigned Parking',
@@ -14206,7 +14217,8 @@
             backValue: '',
             frontFooter: false,
             backFooter: false,
-            type: 'pending'
+            type: 'pending',
+            isFlip: true
           }, {
             front: 'Rental/Lease Expired',
             back: 'Rental/Lease on Expiry',
@@ -14214,7 +14226,8 @@
             backValue: '',
             frontFooter: true,
             backFooter: true,
-            type: ''
+            type: '',
+            isFlip: true
           }, {
             front: 'Is Living',
             back: 'Is PrimaryContact',
@@ -14222,7 +14235,8 @@
             backValue: '',
             frontFooter: false,
             backFooter: false,
-            type: ''
+            type: '',
+            isFlip: true
           }, {
             front: 'Vacant list',
             back: 'No data',
@@ -14230,9 +14244,14 @@
             backValue: '',
             frontFooter: false,
             backFooter: false,
-            type: ''
+            type: '',
+            isFlip: false
           }];
           this.colType = 'owner';
+
+          this._router.events.subscribe(function (e) {
+            if (e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivationStart"] && e.snapshot.outlet === "primary") _this66.outlet.deactivate();
+          });
         }
 
         _createClass(AdminDashFirstRowComponent, [{
@@ -14251,25 +14270,78 @@
           }
         }, {
           key: "detailInfo",
-          value: function detailInfo(data) {
-            var _this66 = this;
+          value: function detailInfo(data, item) {
+            var _this67 = this;
 
             var dialogRef = this.dialog.open(this.dashboardReportRef, {
               panelClass: 'material-dialog-big'
             });
             dialogRef.afterOpened().subscribe(function (res) {
-              if (data.front === "Vacant list") {
-                var name = "List of Vacant List";
+              if (item === "Vacant list") {
+                var name = "List of Vacant Units";
 
-                _this66._router.navigate(["/ams/dashboard/main/report/reports/".concat(name, "/1039")]);
-              } else {
-                var _name = "List of Expiring Rental  Lease Agreements";
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(name, "/456/true")]);
+              } else if (item === "Towers") {
+                var _name = "List of Blocks / Towers";
+                _name = _name.replace('/', '#');
 
-                _this66._router.navigate(["/ams/dashboard/main/report/reports/".concat(_name, "/338")]);
-              }
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name, "/1034/true")]);
+              } else if (item === "Units") {
+                var _name2 = "List of Units";
+                _name2 = _name2.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name2, "/1035/true")]);
+              } else if (item === "Owners") {
+                var _name3 = "List of Owners";
+                _name3 = _name3.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name3, "/1036/true")]);
+              } else if (item === "Tenants") {
+                var _name4 = "List of Tenants";
+                _name4 = _name4.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name4, "/1037/true")]);
+              } else if (item === "Community Staffs") {
+                var _name5 = "List of Community Staffs";
+                _name5 = _name5.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/staff/reports/true"]);
+              } else if (item === "Parking Slots") {
+                var _name6 = "List of Parking Slots";
+                _name6 = _name6.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/parking/reports/".concat(_name6, "/true")]);
+              } else if (item === "Unassigned Parking") {
+                var _name7 = "List of Unassigned Parking Slots";
+                _name7 = _name7.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/parking/reports/".concat(_name7, "/true")]);
+              } else if (item === "Rental/Lease Expired") {
+                var _name8 = "List of Expiring Rental / Lease Agreements";
+                _name8 = _name8.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name8, "/338/true")]);
+              } else if (item === "Rental/Lease on Expiry") {
+                var _name9 = "Rental / Lease Agreements on expiry soon";
+                _name9 = _name9.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name9, "/2028/true")]);
+              } else if (item === "Is Living") {
+                var _name10 = "List of Living";
+                _name10 = _name10.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name10, "/2030/true")]);
+              } else if (item === "Is PrimaryContact") {
+                var _name11 = "List of PrimaryContact";
+                _name11 = _name11.replace('/', '#');
+
+                _this67._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name11, "/2030/true")]);
+              } else {}
             });
             dialogRef.afterClosed().subscribe(function (res) {
-              _this66._router.navigate(['/ams/dashboard/main']);
+              _this67._router.navigate(['/ams/dashboard/main'], {
+                relativeTo: _this67._activatedRoute
+              });
             });
           }
         }, {
@@ -14337,37 +14409,37 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this67 = this;
+            var _this68 = this;
 
             var params = {
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashTotalunitsbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[0].frontValue = res.totalUnits;
+              _this68.widgets[0].frontValue = res.totalUnits;
             });
             this.dashboardService.getDashTotalTowersbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[0].backValue = res.totalTowers;
+              _this68.widgets[0].backValue = res.totalTowers;
             });
             this.dashboardService.getDashTotalownersbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[1].frontValue = res.totalOwners;
+              _this68.widgets[1].frontValue = res.totalOwners;
             });
             this.dashboardService.getDashTotalTenantsbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[1].middleValue = res.totalTenants;
+              _this68.widgets[1].middleValue = res.totalTenants;
             });
-            this.dashboardService.getDashTotalStaffbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[1].backValue = res.totalStaf;
+            this.staffService.getDashCommunityStaffCountbyApartmentId(params).subscribe(function (res) {
+              _this68.widgets[1].backValue = res;
             });
             this.dashboardService.getDashuptotalparkingslotsbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[2].frontValue = res.totalParkingSlots;
+              _this68.widgets[2].frontValue = res.totalParkingSlots;
             });
             this.dashboardService.getDashuptotalparkingslotsunassignedbyApartmentId(params).subscribe(function (res) {
-              _this67.widgets[2].backValue = res.unassignedParkingSlots;
+              _this68.widgets[2].backValue = res.unassignedParkingSlots;
             });
             var lease = {
               ApartmentID: this.sessionService.apartmentId
             };
             this.userService.getReportExpiredRentLeaseAgreemtbyApartmentIdBlockId(lease).subscribe(function (res) {
-              _this67.widgets[3].frontValue = res.length;
+              _this68.widgets[3].frontValue = res.length;
             });
             var livingParams = {
               apartmentId: this.sessionService.apartmentId,
@@ -14378,8 +14450,8 @@
               staffcategoryIds: "",
               staffSubCategoryIds: ""
             };
-            this.userService.getUsersByFilterNew(livingParams).subscribe(function (res) {
-              _this67.widgets[4].frontValue = res.length;
+            this.userService.getDashTotalislivingusersCountbyApartmenId(livingParams).subscribe(function (res) {
+              _this68.widgets[4].frontValue = res;
             }); // this.unApproveMoveIn(this.today('unapprove'));
             // this.unApproveMoveOut(this.today('unapprove'));
             // this.upcomingMoveIn(this.today('upcoming'));
@@ -14390,7 +14462,7 @@
               BlockID: null
             };
             this.apartmentService.getAllVacantCountunitsByApartmentId(vacantParams).subscribe(function (res) {
-              _this67.widgets[5].frontValue = res;
+              _this68.widgets[5].frontValue = res;
             });
           }
         }]);
@@ -14412,7 +14484,9 @@
         }, {
           type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"]
         }, {
-          type: _api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__["ApartmentService"]
+          type: src_app_api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__["ApartmentService"]
+        }, {
+          type: _api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__["StaffService"]
         }];
       };
 
@@ -14422,6 +14496,10 @@
           args: ["dashboardReportRef", {
             "static": false
           }]
+        }],
+        outlet: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: [_angular_router__WEBPACK_IMPORTED_MODULE_7__["RouterOutlet"]]
         }]
       };
       AdminDashFirstRowComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -14433,7 +14511,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./admin-dash-first-row.component.scss */
         "./src/app/modules/ams/dashboard/components/shared/admin-dash-first-row/admin-dash-first-row.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_4__["DashBoardService"], src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_6__["UserService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"], _api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__["ApartmentService"]])], AdminDashFirstRowComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_4__["DashBoardService"], src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_6__["UserService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_5__["SessionService"], src_app_api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_10__["ApartmentService"], _api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__["StaffService"]])], AdminDashFirstRowComponent);
       /***/
     },
 
@@ -14516,14 +14594,31 @@
 
 
       var moment_timezone__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_5__);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/router */
+      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      /* harmony import */
+
+
+      var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/material/dialog */
+      "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js");
 
       var AdminWidgetThreeComponent = /*#__PURE__*/function () {
-        function AdminWidgetThreeComponent(sessionService, dashboardService, workPermitService) {
+        function AdminWidgetThreeComponent(sessionService, dashboardService, workPermitService, _activatedRoute, _router, dialog) {
+          var _this69 = this;
+
           _classCallCheck(this, AdminWidgetThreeComponent);
 
           this.sessionService = sessionService;
           this.dashboardService = dashboardService;
           this.workPermitService = workPermitService;
+          this._activatedRoute = _activatedRoute;
+          this._router = _router;
+          this.dialog = dialog;
           this.widgetData = [{
             front: 'Visitors Checked-in',
             back: 'Visitors Checked-out',
@@ -14541,7 +14636,7 @@
             frontValue: '',
             backValue: '',
             type: 'visitor-checked',
-            isFlip: true
+            isFlip: false
           }, {
             front: 'Payment Defaulters Customers',
             back: 'No of Credit Notes',
@@ -14597,6 +14692,10 @@
             type: 'workpermit',
             isFlip: true
           }];
+
+          this._router.events.subscribe(function (e) {
+            if (e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivationStart"] && e.snapshot.outlet === "primary") _this69.outlet.deactivate();
+          });
         }
 
         _createClass(AdminWidgetThreeComponent, [{
@@ -14616,7 +14715,7 @@
         }, {
           key: "visitorsCheckedIn",
           value: function visitorsCheckedIn(result) {
-            var _this68 = this;
+            var _this70 = this;
 
             var params = {
               startDate: result.startDate,
@@ -14624,13 +14723,13 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashVisitorsCheckedinbyApartmentId(params).subscribe(function (res) {
-              _this68.widgetData[0].frontValue = res.visitorsCheckIn;
+              _this70.widgetData[0].frontValue = res.visitorsCheckIn;
             });
           }
         }, {
           key: "visitorsCheckedOut",
           value: function visitorsCheckedOut(result) {
-            var _this69 = this;
+            var _this71 = this;
 
             var params = {
               startDate: result.startDate,
@@ -14638,113 +14737,86 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashVisitorsCheckedouttodaybyApartmentId(params).subscribe(function (res) {
-              _this69.widgetData[0].backValue = res.visitorsCheckedouttoday;
+              _this71.widgetData[0].backValue = res.visitorsCheckedouttoday;
             });
           }
         }, {
           key: "visitorsNotChecked",
           value: function visitorsNotChecked() {
-            var _this70 = this;
-
-            var entity = {
-              apartmentId: this.sessionService.apartmentId
-            };
-            this.dashboardService.getDashVisitorsNotcheckedtodaybyApartmentId(entity).subscribe(function (res) {
-              _this70.widgetData[1].frontValue = res.visitorsNotcheckedtoday;
-            });
-          }
-        }, {
-          key: "getPaymentDefaulters",
-          value: function getPaymentDefaulters() {
-            var _this71 = this;
-
-            var entity = {
-              apartmentId: this.sessionService.apartmentId
-            };
-            this.dashboardService.getDashpaymentdefaultersasoftodayybyApartmentId(entity).subscribe(function (res) {
-              _this71.widgetData[2].frontValue = res.returnDefautlers;
-            });
-          }
-        }, {
-          key: "getCreditNote",
-          value: function getCreditNote() {
             var _this72 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId
             };
+            this.dashboardService.getDashVisitorsNotcheckedtodaybyApartmentId(entity).subscribe(function (res) {
+              _this72.widgetData[1].frontValue = res.visitorsNotcheckedtoday;
+            });
+          }
+        }, {
+          key: "getPaymentDefaulters",
+          value: function getPaymentDefaulters() {
+            var _this73 = this;
+
+            var entity = {
+              apartmentId: this.sessionService.apartmentId
+            };
+            this.dashboardService.getDashpaymentdefaultersasoftodayybyApartmentId(entity).subscribe(function (res) {
+              _this73.widgetData[2].frontValue = res.returnDefautlers;
+            });
+          }
+        }, {
+          key: "getCreditNote",
+          value: function getCreditNote() {
+            var _this74 = this;
+
+            var entity = {
+              apartmentId: this.sessionService.apartmentId
+            };
             this.dashboardService.getDashcreditnoteappliedbyApartmentId(entity).subscribe(function (res) {
-              _this72.widgetData[2].backValue = res.creditNotesCount;
+              _this74.widgetData[2].backValue = res.creditNotesCount;
             });
           } // New Row
 
         }, {
           key: "facilityApproved",
           value: function facilityApproved() {
-            var _this73 = this;
+            var _this75 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashufacilitybookingapprovedtodaybyApartmentId(entity).subscribe(function (res) {
-              _this73.widgetData[4].frontValue = res.approvedfaclitiesTodayCount;
+              _this75.widgetData[4].frontValue = res.approvedfaclitiesTodayCount;
             });
           }
         }, {
           key: "facilityUnApproved",
           value: function facilityUnApproved() {
-            var _this74 = this;
+            var _this76 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashufacilitybookingunapprovedbyApartmentId(entity).subscribe(function (res) {
-              _this74.widgetData[4].backValue = res.unapprovedfaclities;
+              _this76.widgetData[4].backValue = res.unapprovedfaclities;
             });
           }
         }, {
           key: "unApproveMoveIn",
           value: function unApproveMoveIn(result) {
-            var _this75 = this;
-
-            var entity = {
-              date: result.date,
-              apartmentId: this.sessionService.apartmentId
-            };
-            this.dashboardService.getDashunapprovedmoveinbyApartmentId(entity).subscribe(function (res) {
-              _this75.widgetData[5].frontValue = res.unapprovedMoveIn;
-            });
-          }
-        }, {
-          key: "upcomingMoveIn",
-          value: function upcomingMoveIn(result) {
-            var _this76 = this;
-
-            var entity = {
-              fromDate: result.startDate,
-              toDate: result.EndDate,
-              apartmentId: this.sessionService.apartmentId
-            };
-            this.dashboardService.getDashupcomingmoveinApartmentId(entity).subscribe(function (res) {
-              _this76.widgetData[5].backValue = res.upcomingWeeklyApprovedMoveInCounts;
-            });
-          }
-        }, {
-          key: "unApproveMoveOut",
-          value: function unApproveMoveOut(result) {
             var _this77 = this;
 
             var entity = {
               date: result.date,
               apartmentId: this.sessionService.apartmentId
             };
-            this.dashboardService.getDashunapprovedmoveoutbyApartmentId(entity).subscribe(function (res) {
-              _this77.widgetData[6].frontValue = res.unapprovedMoveOut;
+            this.dashboardService.getDashunapprovedmoveinbyApartmentId(entity).subscribe(function (res) {
+              _this77.widgetData[5].frontValue = res.unapprovedMoveIn;
             });
           }
         }, {
-          key: "upcomingMoveOut",
-          value: function upcomingMoveOut(result) {
+          key: "upcomingMoveIn",
+          value: function upcomingMoveIn(result) {
             var _this78 = this;
 
             var entity = {
@@ -14752,27 +14824,54 @@
               toDate: result.EndDate,
               apartmentId: this.sessionService.apartmentId
             };
+            this.dashboardService.getDashupcomingmoveinApartmentId(entity).subscribe(function (res) {
+              _this78.widgetData[5].backValue = res.upcomingWeeklyApprovedMoveInCounts;
+            });
+          }
+        }, {
+          key: "unApproveMoveOut",
+          value: function unApproveMoveOut(result) {
+            var _this79 = this;
+
+            var entity = {
+              date: result.date,
+              apartmentId: this.sessionService.apartmentId
+            };
+            this.dashboardService.getDashunapprovedmoveoutbyApartmentId(entity).subscribe(function (res) {
+              _this79.widgetData[6].frontValue = res.unapprovedMoveOut;
+            });
+          }
+        }, {
+          key: "upcomingMoveOut",
+          value: function upcomingMoveOut(result) {
+            var _this80 = this;
+
+            var entity = {
+              fromDate: result.startDate,
+              toDate: result.EndDate,
+              apartmentId: this.sessionService.apartmentId
+            };
             this.dashboardService.getDashupcomingmoveoutApprovedbyApartmentId(entity).subscribe(function (res) {
-              _this78.widgetData[6].backValue = res.upcomingMoveOut;
+              _this80.widgetData[6].backValue = res.upcomingMoveOut;
             });
           }
         }, {
           key: "workpermitsPendingApproval",
           value: function workpermitsPendingApproval() {
-            var _this79 = this;
+            var _this81 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId,
               status: 354
             };
-            this.workPermitService.getWorkPermitsByApartmentIdWorkPermitStatus(entity).subscribe(function (res) {
-              _this79.widgetData[7].frontValue = res.length;
+            this.workPermitService.getDashUnapprovedWorkpermitbyApartmentId(entity).subscribe(function (res) {
+              _this81.widgetData[7].frontValue = res;
             });
           }
         }, {
           key: "upcomingWorkPermits",
           value: function upcomingWorkPermits() {
-            var _this80 = this;
+            var _this82 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId,
@@ -14781,7 +14880,7 @@
               EndDate: moment_timezone__WEBPACK_IMPORTED_MODULE_5___default()().toISOString()
             };
             this.workPermitService.getAllWorkPermitsByStatues(entity).subscribe(function (res) {
-              _this80.widgetData[7].backValue = res.length;
+              _this82.widgetData[7].backValue = res.length;
             });
           }
         }, {
@@ -14789,7 +14888,7 @@
           value: function ngOnInit() {
             var entity = {
               apartmentId: this.sessionService.apartmentId,
-              startDate: moment_timezone__WEBPACK_IMPORTED_MODULE_5___default()().toISOString(),
+              startDate: moment_timezone__WEBPACK_IMPORTED_MODULE_5___default()(new Date("2020-01-01")).format("MM/DD/YYYY"),
               EndDate: moment_timezone__WEBPACK_IMPORTED_MODULE_5___default()().toISOString()
             };
             this.visitorsCheckedIn(entity);
@@ -14810,6 +14909,59 @@
             this.workpermitsPendingApproval();
             this.upcomingWorkPermits();
           }
+        }, {
+          key: "detailInfo",
+          value: function detailInfo(data, item) {
+            var _this83 = this;
+
+            var dialogRef = this.dialog.open(this.dashboardReportRef, {
+              panelClass: 'material-dialog-big'
+            });
+            dialogRef.afterOpened().subscribe(function (res) {
+              if (item === "Visitors Checked-in") {
+                var name = "List of Checked In Visitors";
+
+                _this83._router.navigate(["/ams/dashboard/main/visitor/reports/".concat(name, "/365/true")]);
+              } else if (item === "Visitors Checked-out") {
+                var _name12 = "List of Checked out Visitors";
+
+                _this83._router.navigate(["/ams/dashboard/main/visitor/reports/".concat(_name12, "/366/true")]);
+              } else if (item === "Visitors Not Checked") {
+                var _name13 = "List of Visitors Not Checked";
+
+                _this83._router.navigate(["/ams/dashboard/main/visitor/reports/".concat(_name13, "/364/true")]);
+              } else if (item === "Facility Booking UnApproved") {
+                var _name14 = "Facility booking, approval pending";
+
+                _this83._router.navigate(["/ams/dashboard/main/facility/reports/".concat(_name14, "/135/true")]);
+              } else if (item === "Facility Booking Approved ") {
+                var _name15 = "List of Booked Facilities";
+
+                _this83._router.navigate(["/ams/dashboard/main/facility/reports/".concat(_name15, "/135/true")]);
+              } else if (item === "Unapproved Move In") {
+                var _name16 = "List of Unapproved Move In";
+
+                _this83._router.navigate(["/ams/dashboard/main/movein/reports/".concat(_name16, "/372/true")]);
+              } else if (item === "Unapproved Move Out") {
+                var _name17 = "List of Unapproved Move Out";
+
+                _this83._router.navigate(["/ams/dashboard/main/moveout/reports/".concat(_name17, "/373/true")]);
+              } else if (item === "Workpermits Pending Approval") {
+                var _name18 = "List of Unapproved Move Out";
+
+                _this83._router.navigate(["/ams/dashboard/main/moveout/reports/".concat(_name18, "/373/true")]);
+              } else {
+                var _name19 = "List of Expiring Rental  Lease Agreements";
+
+                _this83._router.navigate(["/ams/dashboard/main/report/reports/".concat(_name19, "/338")]);
+              }
+            });
+            dialogRef.afterClosed().subscribe(function (res) {
+              _this83._router.navigate(['/ams/dashboard/main'], {
+                relativeTo: _this83._activatedRoute
+              });
+            });
+          }
         }]);
 
         return AdminWidgetThreeComponent;
@@ -14822,9 +14974,27 @@
           type: src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_3__["DashBoardService"]
         }, {
           type: src_app_api_controllers_WorkPermit__WEBPACK_IMPORTED_MODULE_4__["WorkPermitService"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]
+        }, {
+          type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__["MatDialog"]
         }];
       };
 
+      AdminWidgetThreeComponent.propDecorators = {
+        dashboardReportRef: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: ["dashboardReportRef", {
+            "static": false
+          }]
+        }],
+        outlet: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: [_angular_router__WEBPACK_IMPORTED_MODULE_6__["RouterOutlet"]]
+        }]
+      };
       AdminWidgetThreeComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-admin-widget-three',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
@@ -14834,7 +15004,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./admin-widget-three.component.scss */
         "./src/app/modules/ams/dashboard/components/shared/admin-widget-three/admin-widget-three.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_3__["DashBoardService"], src_app_api_controllers_WorkPermit__WEBPACK_IMPORTED_MODULE_4__["WorkPermitService"]])], AdminWidgetThreeComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_2__["SessionService"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_3__["DashBoardService"], src_app_api_controllers_WorkPermit__WEBPACK_IMPORTED_MODULE_4__["WorkPermitService"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"], _angular_material_dialog__WEBPACK_IMPORTED_MODULE_7__["MatDialog"]])], AdminWidgetThreeComponent);
       /***/
     },
 
@@ -14933,15 +15103,25 @@
 
 
       var moment_timezone__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/router */
+      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
       var AdminWidgetTwoComponent = /*#__PURE__*/function () {
-        function AdminWidgetTwoComponent(dialog, dashboardService, ticketService, sessionService) {
+        function AdminWidgetTwoComponent(dialog, dashboardService, ticketService, sessionService, _activatedRoute, _router) {
+          var _this84 = this;
+
           _classCallCheck(this, AdminWidgetTwoComponent);
 
           this.dialog = dialog;
           this.dashboardService = dashboardService;
           this.ticketService = ticketService;
           this.sessionService = sessionService;
+          this._activatedRoute = _activatedRoute;
+          this._router = _router;
           this.filterField = {};
           this.isFilterSubmit = false;
           this.widgetData = [{
@@ -14981,6 +15161,10 @@
             type: 'alerts',
             isFlip: true
           }];
+
+          this._router.events.subscribe(function (e) {
+            if (e instanceof _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivationStart"] && e.snapshot.outlet === "primary") _this84.outlet.deactivate();
+          });
         }
 
         _createClass(AdminWidgetTwoComponent, [{
@@ -15036,30 +15220,30 @@
         }, {
           key: "calenderPopUp",
           value: function calenderPopUp(name, type) {
-            var _this81 = this;
+            var _this85 = this;
 
             this.currentClick = type;
             var dialogRef = this.dialog.open(this.datePopup, {
               panelClass: 'material-dialog-medium'
             });
             dialogRef.afterClosed().subscribe(function (result) {
-              if (_this81.isFilterSubmit) {
-                if (_this81.currentClick == 'alerts') {
-                  var date = _this81.filterField.fromDate.toISOString();
+              if (_this85.isFilterSubmit) {
+                if (_this85.currentClick == 'alerts') {
+                  var date = _this85.filterField.fromDate.toISOString();
 
-                  if (name == 'Open Panic Alerts') _this81.openPanicAlerts({
+                  if (name == 'Open Panic Alerts') _this85.openPanicAlerts({
                     date: date
-                  });else if (name == 'Inprogrss Panic Alerts') _this81.inProgressPanicAlerts({
+                  });else if (name == 'Inprogrss Panic Alerts') _this85.inProgressPanicAlerts({
                     date: date
                   });
                 } else {
-                  _this81.filterField.fromDate = _this81.filterField.fromDate.toISOString();
-                  _this81.filterField.toDate = _this81.filterField.toDate.toISOString();
-                  if (name == 'Pending Admins' && type == 'unapproved') _this81.unapprovedPendingAdmins(_this81.filterField);else if (name == 'Pending Users' && type == 'unapproved') _this81.unapprovedPendingUsers(_this81.filterField);else if (name == 'Open Community' && type == 'ticket') _this81.openCommunityTickets(_this81.filterField);else if (name == 'Open Personal' && type == 'ticket') _this81.openPersonalTickets(_this81.filterField);
+                  _this85.filterField.fromDate = _this85.filterField.fromDate.toISOString();
+                  _this85.filterField.toDate = _this85.filterField.toDate.toISOString();
+                  if (name == 'Pending Admins' && type == 'unapproved') _this85.unapprovedPendingAdmins(_this85.filterField);else if (name == 'Pending Users' && type == 'unapproved') _this85.unapprovedPendingUsers(_this85.filterField);else if (name == 'Open Community' && type == 'ticket') _this85.openCommunityTickets(_this85.filterField);else if (name == 'Open Personal' && type == 'ticket') _this85.openPersonalTickets(_this85.filterField);
                 }
 
-                _this81.filterField = {};
-                _this81.isFilterSubmit = false;
+                _this85.filterField = {};
+                _this85.isFilterSubmit = false;
               }
             });
           }
@@ -15072,7 +15256,7 @@
         }, {
           key: "unapprovedPendingAdmins",
           value: function unapprovedPendingAdmins(result) {
-            var _this82 = this;
+            var _this86 = this;
 
             var entity = {
               fromDate: result.fromDate,
@@ -15080,13 +15264,13 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashUnapprovedUsersPendingAdminbyApartmentId(entity).subscribe(function (res) {
-              _this82.widgetData[0].frontValue = res.unapprovedUsersPendingAdmin;
+              _this86.widgetData[0].frontValue = res.unapprovedUsersPendingAdmin;
             });
           }
         }, {
           key: "unapprovedPendingUsers",
           value: function unapprovedPendingUsers(result) {
-            var _this83 = this;
+            var _this87 = this;
 
             var entity = {
               fromDate: result.fromDate,
@@ -15094,13 +15278,13 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashUnapprovedUsersPendingusersbyApartmentId(entity).subscribe(function (res) {
-              _this83.widgetData[0].backValue = res.unapprovedPendingusers;
+              _this87.widgetData[0].backValue = res.unapprovedPendingusers;
             });
           }
         }, {
           key: "openCommunityTickets",
           value: function openCommunityTickets(result) {
-            var _this84 = this;
+            var _this88 = this;
 
             var entity = {
               fromDate: result.fromDate,
@@ -15108,13 +15292,13 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashOpencommticketsbyApartmentId(entity).subscribe(function (res) {
-              _this84.widgetData[1].frontValue = res.openCommunitytickets;
+              _this88.widgetData[1].frontValue = res.openCommunitytickets;
             });
           }
         }, {
           key: "openPersonalTickets",
           value: function openPersonalTickets(result) {
-            var _this85 = this;
+            var _this89 = this;
 
             var entity = {
               fromDate: result.fromDate,
@@ -15122,45 +15306,54 @@
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashOpenpersonalticketsbyApartmentId(entity).subscribe(function (res) {
-              _this85.widgetData[1].backValue = res.openPersonalticket;
+              _this89.widgetData[1].backValue = res.openPersonalticket;
             });
           }
         }, {
           key: "unassignedTickets",
           value: function unassignedTickets() {
-            var _this86 = this;
+            var _this90 = this;
 
             var params = {
-              apartmentId: this.sessionService.apartmentId
+              ApartmentID: this.sessionService.apartmentId,
+              ApartmentBlockID: this.sessionService.apartmentBlockID,
+              StartDate: "2020-01-01",
+              EndDate: moment__WEBPACK_IMPORTED_MODULE_6__(new Date()).format("YYYY-MM-DD").toString(),
+              TicketStatus: null,
+              TicketType: null,
+              TicketRaisedBy: null,
+              AssignedToStaffId: null,
+              StaffCategoryType: null,
+              StaffSubCategoryType: null
             };
-            this.ticketService.getAllUnAssignedTicketsByApartmentId(params).subscribe(function (res) {
-              _this86.widgetData[2].frontValue = res.length;
+            this.ticketService.getDashUnassignedTicketsbyApartmentId(params).subscribe(function (res) {
+              _this90.widgetData[2].frontValue = res;
             });
           }
         }, {
           key: "inProgressPanicAlerts",
           value: function inProgressPanicAlerts(result) {
-            var _this87 = this;
+            var _this91 = this;
 
             var params = {
               fromDate: result.date,
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashinProgressPanicAlertsbyApartmentId(params).subscribe(function (res) {
-              _this87.widgetData[3].frontValue = res.inProgressPanicAlerts;
+              _this91.widgetData[3].frontValue = res.inProgressPanicAlerts;
             });
           }
         }, {
           key: "openPanicAlerts",
           value: function openPanicAlerts(result) {
-            var _this88 = this;
+            var _this92 = this;
 
             var params = {
               fromDate: result.date,
               apartmentId: this.sessionService.apartmentId
             };
             this.dashboardService.getDashOpenPanicAlertsbyApartmentId(params).subscribe(function (res) {
-              _this88.widgetData[3].backValue = res.openPanicAlerts;
+              _this92.widgetData[3].backValue = res.openPanicAlerts;
             });
           }
         }, {
@@ -15178,10 +15371,56 @@
             this.unassignedTickets();
             var params = {
               apartmentId: this.sessionService.apartmentId,
-              date: moment_timezone__WEBPACK_IMPORTED_MODULE_7___default()().subtract(10, 'months').startOf('month').toISOString()
+              date: moment__WEBPACK_IMPORTED_MODULE_6__(new Date("2020-01-01")).format("MM/DD/YYYY") // _moment().subtract(10,'months').startOf('month').toISOString()
+
             };
             this.inProgressPanicAlerts(params);
             this.openPanicAlerts(params);
+          }
+        }, {
+          key: "detailInfo",
+          value: function detailInfo(data, item) {
+            var _this93 = this;
+
+            var dialogRef = this.dialog.open(this.dashboardReportRef, {
+              panelClass: 'material-dialog-big'
+            });
+            dialogRef.afterOpened().subscribe(function (res) {
+              if (item === "Open Community Tickets") {
+                var name = "List of tickets";
+
+                _this93._router.navigate(["/ams/dashboard/main/helpdesk/reports/".concat(name, "/362/true/24/32")]);
+              } else if (item === "Open Personal Tickets") {
+                var _name20 = "List of tickets";
+
+                _this93._router.navigate(["/ams/dashboard/main/helpdesk/reports/".concat(_name20, "/362/true/27/32")]);
+              } else if (item === "Unassigned Tickets") {
+                var _name21 = "List of Unassigned tickets";
+
+                _this93._router.navigate(["/ams/dashboard/main/helpdesk/reports/".concat(_name21, "/364/true")]);
+              } else if (item === "Open Panic Alerts") {
+                var _name22 = "List of Open Panic Alerts";
+
+                _this93._router.navigate(["/ams/dashboard/main/security/reports/".concat(_name22, "/135/true")]);
+              } else if (item === "Inprogrss Panic Alerts") {
+                var _name23 = "List of Inprogrss Panic Alerts";
+
+                _this93._router.navigate(["/ams/dashboard/main/security/reports/".concat(_name23, "/136/true")]);
+              } else if (item === "Unapproved Pending Admins") {
+                var _name24 = "List of Unapproved Unit Users";
+
+                _this93._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name24, "/2026/true")]);
+              } else if (item === "Unapproved Pending Users") {
+                var _name25 = "List of Unapproved Unit Users";
+
+                _this93._router.navigate(["/ams/dashboard/main/unit&user/reports/".concat(_name25, "/2027/true")]);
+              }
+            });
+            dialogRef.afterClosed().subscribe(function (res) {
+              _this93._router.navigate(['/ams/dashboard/main'], {
+                relativeTo: _this93._activatedRoute
+              });
+            });
           }
         }]);
 
@@ -15197,6 +15436,10 @@
           type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_5__["TicketService"]
         }, {
           type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]
         }];
       };
 
@@ -15204,6 +15447,16 @@
         datePopup: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
           args: ["datePopup"]
+        }],
+        dashboardReportRef: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: ["dashboardReportRef", {
+            "static": false
+          }]
+        }],
+        outlet: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: [_angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterOutlet"]]
         }]
       };
       AdminWidgetTwoComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -15215,7 +15468,7 @@
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(
         /*! ./admin-widget-two.component.scss */
         "./src/app/modules/ams/dashboard/components/shared/admin-widget-two/admin-widget-two.component.scss"))["default"]]
-      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_3__["DashBoardService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_5__["TicketService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]])], AdminWidgetTwoComponent);
+      }), Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_2__["MatDialog"], src_app_api_controllers_DashBoard__WEBPACK_IMPORTED_MODULE_3__["DashBoardService"], src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_5__["TicketService"], src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])], AdminWidgetTwoComponent);
       /***/
     },
 
@@ -15339,7 +15592,7 @@
         }, {
           key: "calenderPopUp",
           value: function calenderPopUp(dateType) {
-            var _this89 = this;
+            var _this94 = this;
 
             var dialogRef = this.dialog.open(_date_model_date_model_component__WEBPACK_IMPORTED_MODULE_5__["DateModelComponent"], {
               panelClass: 'material-dialog-small',
@@ -15348,23 +15601,23 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this89.announcementList(result);
+                _this94.announcementList(result);
               }
             });
           }
         }, {
           key: "announcementList",
           value: function announcementList(entity) {
-            var _this90 = this;
+            var _this95 = this;
 
             this.isDataLoaded = true;
             this.dashboardService.getDashlistBroadcastsentbyApartmentId(entity).subscribe(function (res) {
               if (res.length > 0) {
-                _this90.broadCastList = res.reverse().slice(0, 9);
-                _this90.totalItems = _this90.broadCastList.length;
+                _this95.broadCastList = res.reverse().slice(0, 9);
+                _this95.totalItems = _this95.broadCastList.length;
               }
 
-              _this90.isDataLoaded = false;
+              _this95.isDataLoaded = false;
             });
           }
         }, {
@@ -15686,7 +15939,7 @@
         }, {
           key: "calenderPopUp",
           value: function calenderPopUp(dateType) {
-            var _this91 = this;
+            var _this96 = this;
 
             var dialogRef = this.dialog.open(_date_model_date_model_component__WEBPACK_IMPORTED_MODULE_4__["DateModelComponent"], {
               panelClass: 'material-dialog-small',
@@ -15695,29 +15948,29 @@
             });
             dialogRef.afterClosed().subscribe(function (result) {
               if (result) {
-                _this91.scheduledMeeting(result);
+                _this96.scheduledMeeting(result);
               }
             });
           }
         }, {
           key: "scheduledMeeting",
           value: function scheduledMeeting(entity) {
-            var _this92 = this;
+            var _this97 = this;
 
             this.isDataLoaded = true;
             this.dashboardService.getDashlistupcomingmeetingbyApartmentId(entity).subscribe(function (res) {
               if (res.length > 0) {
-                _this92.meetingList = res.reverse().slice(0, 9);
+                _this97.meetingList = res.reverse().slice(0, 9);
 
-                _this92.meetingList.forEach(function (data) {
+                _this97.meetingList.forEach(function (data) {
                   data.fromTime = moment__WEBPACK_IMPORTED_MODULE_6__(data.fromTime, 'HH:mm').format('hh:mm A');
                   data.toTime = moment__WEBPACK_IMPORTED_MODULE_6__(data.toTime, 'HH:mm').format('hh:mm A');
                 });
 
-                _this92.totalItems = _this92.meetingList.length;
+                _this97.totalItems = _this97.meetingList.length;
               }
 
-              _this92.isDataLoaded = false;
+              _this97.isDataLoaded = false;
             });
           }
         }, {
@@ -15886,7 +16139,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this93 = this;
+            var _this98 = this;
 
             this.isDataLoaded = false;
             var params = {
@@ -15895,7 +16148,7 @@
             var amtBilled = this.dashboardService.getDashTotalamtbilledcustomersthismonthbyApartmentId(params);
             var amtReceived = this.dashboardService.getDashTotalamtreceivedcustomersthismonthbyApartmentId(params);
             Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["forkJoin"])([amtBilled, amtReceived]).subscribe(function (res) {
-              _this93.isDataLoaded = true;
+              _this98.isDataLoaded = true;
 
               if (res.length > 0) {
                 var billed, received, unCollected, collectionPercent, unCollectionPercent, chart, amount;
@@ -15915,12 +16168,12 @@
                   localdata: amount,
                   datatype: "array"
                 };
-                _this93.chartList = new jqx.dataAdapter(chart);
+                _this98.chartList = new jqx.dataAdapter(chart);
               }
             }, function (error) {
-              _this93.isDataLoaded = true;
+              _this98.isDataLoaded = true;
 
-              _this93.sharedService.openSnackBar('Pie Chart Server Error', 'error');
+              _this98.sharedService.openSnackBar('Pie Chart Server Error', 'error');
             });
           }
         }]);
@@ -16213,7 +16466,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this94 = this;
+            var _this99 = this;
 
             if (this.isAdmin) {
               var entity = {
@@ -16222,11 +16475,11 @@
               };
               this.alertService.getAllApartmentBlockUnitAlertByApartmentIdStatus(entity).subscribe(function (res) {
                 if (res.length > 0) {
-                  _this94.emergencyAlert = res.reverse().slice(0, 5);
-                  _this94.totalItems = _this94.emergencyAlert.length;
+                  _this99.emergencyAlert = res.reverse().slice(0, 5);
+                  _this99.totalItems = _this99.emergencyAlert.length;
                 }
 
-                _this94.isDataLoaded = false;
+                _this99.isDataLoaded = false;
               });
             } else {
               var params = {
@@ -16234,11 +16487,11 @@
               };
               this.alertService.getAllApartmentBlockUnitAlertByApartmentBlockUnitId(params).subscribe(function (res) {
                 if (res.length > 0) {
-                  _this94.emergencyAlert = res.reverse().slice(0, 5);
-                  _this94.totalItems = _this94.emergencyAlert.length;
+                  _this99.emergencyAlert = res.reverse().slice(0, 5);
+                  _this99.totalItems = _this99.emergencyAlert.length;
                 }
 
-                _this94.isDataLoaded = false;
+                _this99.isDataLoaded = false;
               });
             }
           }
@@ -16398,7 +16651,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this95 = this;
+            var _this100 = this;
 
             this.isDataLoaded = true;
             var entity = {
@@ -16407,11 +16660,11 @@
             };
             this.facilityService.getApartmentFacilityBookingsByApartmentIdStatus(entity).subscribe(function (res) {
               if (res.length > 0) {
-                _this95.facility = res.reverse().slice(0, 9);
-                _this95.totalItems = _this95.facility.length;
+                _this100.facility = res.reverse().slice(0, 9);
+                _this100.totalItems = _this100.facility.length;
               }
 
-              _this95.isDataLoaded = false;
+              _this100.isDataLoaded = false;
             });
           }
         }]);
@@ -16537,7 +16790,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this96 = this;
+            var _this101 = this;
 
             var entity = {
               apartmentId: this.sessionService.apartmentId,
@@ -16545,11 +16798,11 @@
             };
             this.violationService.getAllViolationsByStatus(entity).subscribe(function (res) {
               if (res.length > 0) {
-                _this96.violation = res.reverse().slice(0, 5);
-                _this96.totalItems = _this96.violation.length;
+                _this101.violation = res.reverse().slice(0, 5);
+                _this101.totalItems = _this101.violation.length;
               }
 
-              _this96.isDataLoaded = false;
+              _this101.isDataLoaded = false;
             });
           }
         }]);
@@ -16675,7 +16928,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this97 = this;
+            var _this102 = this;
 
             if (this.isAdmin) {
               var entity = {
@@ -16684,11 +16937,11 @@
               };
               this.workpermitService.getWorkPermitsByApartmentIdStatus(entity).subscribe(function (res) {
                 if (res.length > 0) {
-                  _this97.workPermit = res.reverse().slice(0, 9);
-                  _this97.totalItems = _this97.workPermit.length;
+                  _this102.workPermit = res.reverse().slice(0, 9);
+                  _this102.totalItems = _this102.workPermit.length;
                 }
 
-                _this97.isDataLoaded = false;
+                _this102.isDataLoaded = false;
               });
             } else {
               var params = {
@@ -16697,11 +16950,11 @@
               };
               this.workpermitService.getWorkPermitsByApartmentIdUnitId(params).subscribe(function (res) {
                 if (res.length > 0) {
-                  _this97.workPermit = res.reverse().slice(0, 9);
-                  _this97.totalItems = _this97.workPermit.length;
+                  _this102.workPermit = res.reverse().slice(0, 9);
+                  _this102.totalItems = _this102.workPermit.length;
                 }
 
-                _this97.isDataLoaded = false;
+                _this102.isDataLoaded = false;
               });
             }
           }
@@ -16796,6 +17049,48 @@
       var _components_dashboard_custom_dashboard_custom_dashboard_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ./components/dashboard/custom-dashboard/custom-dashboard.component */
       "./src/app/modules/ams/dashboard/components/dashboard/custom-dashboard/custom-dashboard.component.ts");
+      /* harmony import */
+
+
+      var _staff_manager_components_staff_reports_staff_reports_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../staff-manager/components/staff-reports/staff-reports.component */
+      "./src/app/modules/ams/staff-manager/components/staff-reports/staff-reports.component.ts");
+      /* harmony import */
+
+
+      var _common_helpdesk_helpdesk_reports_helpdesk_reports_data_helpdesk_reports_data_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ../../common/helpdesk/helpdesk-reports/helpdesk-reports-data/helpdesk-reports-data.component */
+      "./src/app/modules/common/helpdesk/helpdesk-reports/helpdesk-reports-data/helpdesk-reports-data.component.ts");
+      /* harmony import */
+
+
+      var _security_components_security_reports_security_reports_data_security_reports_data_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ../security/components/security-reports/security-reports-data/security-reports-data.component */
+      "./src/app/modules/ams/security/components/security-reports/security-reports-data/security-reports-data.component.ts");
+      /* harmony import */
+
+
+      var _common_visitor_visitor_report_visitor_reports_visitor_reports_data_visitor_reports_data_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! ../../common/visitor/visitor-report/visitor-reports/visitor-reports-data/visitor-reports-data.component */
+      "./src/app/modules/common/visitor/visitor-report/visitor-reports/visitor-reports-data/visitor-reports-data.component.ts");
+      /* harmony import */
+
+
+      var _facility_facility_report_facility_reports_facility_report_data_facility_report_data_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! ../facility/facility-report/facility-reports/facility-report-data/facility-report-data.component */
+      "./src/app/modules/ams/facility/facility-report/facility-reports/facility-report-data/facility-report-data.component.ts");
+      /* harmony import */
+
+
+      var _common_moveinout_tracker_components_movein_reports_movein_report_data_movein_report_data_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! ../../common/moveinout-tracker/components/movein-reports/movein-report-data/movein-report-data.component */
+      "./src/app/modules/common/moveinout-tracker/components/movein-reports/movein-report-data/movein-report-data.component.ts");
+      /* harmony import */
+
+
+      var _parking_management_components_parking_management_reports_parking_management_report_data_parking_management_report_data_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! ../parking-management/components/parking-management-reports/parking-management-report-data/parking-management-report-data.component */
+      "./src/app/modules/ams/parking-management/components/parking-management-reports/parking-management-report-data/parking-management-report-data.component.ts");
 
       var routes = [{
         path: '',
@@ -16808,22 +17103,146 @@
           path: 'main',
           component: _components_dashboard_admin_dashboard_admin_dashboard_component__WEBPACK_IMPORTED_MODULE_4__["AdminDashboardComponent"],
           children: [{
-            path: 'report',
+            path: 'unit&user',
             loadChildren: function loadChildren() {
               return Promise.all(
               /*! import() | src-app-modules-ams-unit-users-unit-users-report-unit-users-report-module */
-              [__webpack_require__.e("default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~a9c10c49"), __webpack_require__.e("default~modules-ams-assets-assets-module~modules-ams-broadcast-broadcast-module~modules-ams-document~93a0ca5d"), __webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~e24ef838"), __webpack_require__.e("default~modules-ams-unit-users-unit-users-report-unit-users-report-module~src-app-modules-ams-unit-u~d0e142e4")]).then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("default~modules-ams-unit-users-unit-users-report-unit-users-report-module~src-app-modules-ams-unit-u~d0e142e4")]).then(__webpack_require__.bind(null,
               /*! src/app/modules/ams/unit-users/unit-users-report/unit-users-report.module */
               "./src/app/modules/ams/unit-users/unit-users-report/unit-users-report.module.ts")).then(function (m) {
                 return m.UnitUsersReportModule;
               });
             }
+          }, {
+            path: 'staff',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-ams-staff-manager-staff-manager-module */
+              [__webpack_require__.e("default~modules-ams-income-tracker-income-all-invoices-income-all-invoices-module~modules-ams-income~ec4b3691"), __webpack_require__.e("default~modules-ams-staff-manager-staff-manager-module~src-app-modules-ams-staff-manager-staff-manager-module")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/ams/staff-manager/staff-manager.module */
+              "./src/app/modules/ams/staff-manager/staff-manager.module.ts")).then(function (m) {
+                return m.StaffManagerModule;
+              });
+            },
+            children: [{
+              path: 'reports/:link',
+              component: _staff_manager_components_staff_reports_staff_reports_component__WEBPACK_IMPORTED_MODULE_6__["StaffReportsComponent"]
+            }]
+          }, {
+            path: 'helpdesk',
+            loadChildren: function loadChildren() {
+              return __webpack_require__.e(
+              /*! import() | src-app-modules-common-helpdesk-helpdesk-reports-helpdesk-reports-module */
+              "default~modules-common-helpdesk-helpdesk-reports-helpdesk-reports-module~src-app-modules-common-help~e18471af").then(__webpack_require__.bind(null,
+              /*! src/app/modules/common/helpdesk/helpdesk-reports/helpdesk-reports.module */
+              "./src/app/modules/common/helpdesk/helpdesk-reports/helpdesk-reports.module.ts")).then(function (m) {
+                return m.HelpdeskReportsModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:id/:link/:type/:status',
+              component: _common_helpdesk_helpdesk_reports_helpdesk_reports_data_helpdesk_reports_data_component__WEBPACK_IMPORTED_MODULE_7__["HelpdeskReportsDataComponent"]
+            }, {
+              path: 'reports/:name/:id/:link',
+              component: _common_helpdesk_helpdesk_reports_helpdesk_reports_data_helpdesk_reports_data_component__WEBPACK_IMPORTED_MODULE_7__["HelpdeskReportsDataComponent"]
+            }]
+          }, {
+            path: 'security',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-ams-security-security-module */
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("default~modules-ams-security-security-module~src-app-modules-ams-security-security-module")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/ams/security/security.module */
+              "./src/app/modules/ams/security/security.module.ts")).then(function (m) {
+                return m.SecurityModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:type/:link',
+              component: _security_components_security_reports_security_reports_data_security_reports_data_component__WEBPACK_IMPORTED_MODULE_8__["SecurityReportsDataComponent"]
+            }]
+          }, {
+            path: 'visitor',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-common-visitor-visitor-report-visitor-report-module */
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/common/visitor/visitor-report/visitor-report.module */
+              "./src/app/modules/common/visitor/visitor-report/visitor-report.module.ts")).then(function (m) {
+                return m.VisitorReportModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:id/:link',
+              component: _common_visitor_visitor_report_visitor_reports_visitor_reports_data_visitor_reports_data_component__WEBPACK_IMPORTED_MODULE_9__["VisitorReportsDataComponent"]
+            }]
+          }, {
+            path: 'facility',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-ams-facility-facility-report-facility-report-module */
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("common")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/ams/facility/facility-report/facility-report.module */
+              "./src/app/modules/ams/facility/facility-report/facility-report.module.ts")).then(function (m) {
+                return m.FacilityReportModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:id/:link',
+              component: _facility_facility_report_facility_reports_facility_report_data_facility_report_data_component__WEBPACK_IMPORTED_MODULE_10__["FacilityReportDataComponent"]
+            }]
+          }, {
+            path: 'movein',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-common-moveinout-tracker-moveinout-tracker-module */
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("default~modules-ams-assets-asset-create-asset-create-module~modules-ams-assets-assets-module~modules~49509b3a"), __webpack_require__.e("default~modules-common-moveinout-tracker-moveinout-tracker-module~src-app-modules-common-moveinout-t~47ccd680")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/common/moveinout-tracker/moveinout-tracker.module */
+              "./src/app/modules/common/moveinout-tracker/moveinout-tracker.module.ts")).then(function (m) {
+                return m.MoveinoutTrackerModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:id/:link',
+              component: _common_moveinout_tracker_components_movein_reports_movein_report_data_movein_report_data_component__WEBPACK_IMPORTED_MODULE_11__["MoveinReportDataComponent"]
+            }]
+          }, {
+            path: 'moveout',
+            loadChildren: function loadChildren() {
+              return Promise.all(
+              /*! import() | src-app-modules-common-moveinout-tracker-moveinout-tracker-module */
+              [__webpack_require__.e("default~modules-ams-expense-tracker-expense-actions-expense-actions-module~modules-ams-expense-track~20ad9cce"), __webpack_require__.e("default~modules-ams-assets-asset-create-asset-create-module~modules-ams-assets-assets-module~modules~49509b3a"), __webpack_require__.e("default~modules-common-moveinout-tracker-moveinout-tracker-module~src-app-modules-common-moveinout-t~47ccd680")]).then(__webpack_require__.bind(null,
+              /*! src/app/modules/common/moveinout-tracker/moveinout-tracker.module */
+              "./src/app/modules/common/moveinout-tracker/moveinout-tracker.module.ts")).then(function (m) {
+                return m.MoveinoutTrackerModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:id/:link',
+              component: _common_moveinout_tracker_components_movein_reports_movein_report_data_movein_report_data_component__WEBPACK_IMPORTED_MODULE_11__["MoveinReportDataComponent"]
+            }]
+          }, {
+            path: 'parking',
+            loadChildren: function loadChildren() {
+              return __webpack_require__.e(
+              /*! import() | src-app-modules-ams-parking-management-parking-management-module */
+              "default~modules-ams-parking-management-parking-management-module~src-app-modules-ams-parking-managem~0fbe89f4").then(__webpack_require__.bind(null,
+              /*! src/app/modules/ams/parking-management/parking-management.module */
+              "./src/app/modules/ams/parking-management/parking-management.module.ts")).then(function (m) {
+                return m.ParkingManagementModule;
+              });
+            },
+            children: [{
+              path: 'reports/:name/:link',
+              component: _parking_management_components_parking_management_reports_parking_management_report_data_parking_management_report_data_component__WEBPACK_IMPORTED_MODULE_12__["ParkingManagementReportDataComponent"]
+            }]
           }]
         }, {
           path: 'custom',
           component: _components_dashboard_custom_dashboard_custom_dashboard_component__WEBPACK_IMPORTED_MODULE_5__["CustomDashboardComponent"]
         }]
-      }];
+      } //typeStatus
+      ];
 
       var DashboardRoutingModule = function DashboardRoutingModule() {
         _classCallCheck(this, DashboardRoutingModule);
@@ -16966,18 +17385,18 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this98 = this;
+            var _this103 = this;
 
             // Subscribe to the resolved route data
             this._activatedRoute.parent.parent.data.subscribe(function (data) {
-              _this98.data = data.initialData;
+              _this103.data = data.initialData;
 
-              var dashboardMenu = _this98.data.navigation["default"].filter(function (item) {
+              var dashboardMenu = _this103.data.navigation["default"].filter(function (item) {
                 return item.id == 'DASHBOARD';
               });
 
               if (dashboardMenu.length > 0) {
-                _this98.isCustomAvailable = underscore__WEBPACK_IMPORTED_MODULE_7__["some"](dashboardMenu[0].children, function (item) {
+                _this103.isCustomAvailable = underscore__WEBPACK_IMPORTED_MODULE_7__["some"](dashboardMenu[0].children, function (item) {
                   return item.id == 'CUSTOM';
                 });
               }
@@ -16986,18 +17405,18 @@
             this._router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
               return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"];
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(this._router)).subscribe(function (event) {
-              _this98.customDashBoard = event.url.includes('custom');
-              _this98.dashBoardName = event.url.includes('custom') ? 'Custom' : 'General';
+              _this103.customDashBoard = event.url.includes('custom');
+              _this103.dashBoardName = event.url.includes('custom') ? 'Custom' : 'General';
             });
 
             var params = {
               userid: parseInt(this.sessionService.userId)
             };
             this.userService.getUserById(params).subscribe(function (res) {
-              _this98.userName = res[0].firstName;
+              _this103.userName = res[0].firstName;
             }, function (error) {});
             this.sharedService.apartmentselectedcast.subscribe(function (isSelected) {
-              _this98.isApartmentSelected = isSelected;
+              _this103.isApartmentSelected = isSelected;
             });
           }
         }]);
