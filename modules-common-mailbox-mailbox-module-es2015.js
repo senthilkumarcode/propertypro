@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"mail; else selectMailToRead\">\n\n    <!-- Header -->\n    <div class=\"header\">\n\n        <!-- Toolbar -->\n        <div class=\"toolbar d-flex justify-content-end\">\n\n            <!-- Back button -->\n            <button class=\"d-inline-flex d-xl-none\" mat-icon-button [routerLink]=\"['./']\">\n                <mat-icon [svgIcon]=\"'arrow_back'\"></mat-icon>\n            </button>\n\n\n            <button mat-icon-button class=\"mr-n4\" *ngIf=\"getCurrentFolder() !== 'trash'\" (click)=\"moveToFolder()\">\n                <mat-icon [svgIcon]=\"'delete'\"></mat-icon>\n            </button>\n            \n\n        </div>\n\n        <!-- Info -->\n        <div class=\"info\">\n            <!-- Subject -->\n            <h4 class=\"subject\">{{mail?.subject}}</h4>\n        </div>\n\n    </div>\n\n    <!-- Threads -->\n    <div class=\"threads\">\n\n        <!-- Thread -->\n        <div class=\"thread\">\n\n            <!-- Thread header -->\n            <div class=\"header\">\n\n                <!-- Sender avatar -->\n                <!-- <div class=\"avatar\">\n                    <img [src]=\"mail.from.avatar\">\n                </div> -->\n\n                <!-- Info -->\n                <div class=\"info\">\n\n                    <!-- From -->\n                    <div class=\"from\">{{mail?.sentBy}}</div>\n\n                    <!-- To -->\n                    <div class=\"to\">\n\n                        <div class=\"to-label\">to</div>\n                        <div class=\"me-label\">me</div>\n\n                        <!-- Info details panel button -->\n                        <button class=\"info-details-panel-button\" mat-icon-button (click)=\"openInfoDetailsPanel()\"\n                            #infoDetailsPanelOrigin>\n                            <mat-icon [svgIcon]=\"'arrow_drop_down'\"></mat-icon>\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            <!-- Content -->\n            <div class=\"content d-flex flex-column\" [innerHTML]=\"transFormData(mail.message)\">\n            </div>\n\n            <!-- Attachments -->\n            <!-- <ng-container *ngIf=\"mail.attachments && mail.attachments.length > 0\">\n\n                <div class=\"attachments\">\n\n                    <div class=\"title\">\n                        <mat-icon [svgIcon]=\"'attachment'\"></mat-icon>\n                        <div>{{mail.attachments.length}} Attachments</div>\n                    </div>\n\n                    <div class=\"files\">\n\n                        <div class=\"file\"\n                             *ngFor=\"let attachment of mail.attachments\">\n\n                            <img class=\"preview-image\"\n                                 *ngIf=\"attachment.type.startsWith('image/')\"\n                                 [src]=\"'assets/images/apps/mailbox/' + attachment.preview\">\n\n                            <div class=\"preview-file\"\n                                 *ngIf=\"attachment.type.startsWith('application/')\">\n                                <div class=\"file-type\">{{attachment.type.split('/')[1].trim().toUpperCase()}}</div>\n                            </div>\n\n                            <div class=\"file-info\">\n\n                                <div class=\"file-name\"\n                                     [title]=\"attachment.name\">\n                                    {{attachment.name}}\n                                </div>\n\n                                <div class=\"file-size\"\n                                     [title]=\"attachment.size\">\n                                    {{attachment.size / 1000 | number:'1.0-2'}} KB\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </ng-container> -->\n\n            <!-- Buttons -->\n            <div class=\"buttons\" *ngIf=\"!replyFormActive\">\n\n                <!-- Reply -->\n                <button mat-stroked-button [color]=\"'primary'\" (click)=\"reply()\">\n                    <mat-icon [svgIcon]=\"'reply'\"></mat-icon>\n                    <span>Reply</span>\n                </button>\n\n\n            </div>\n\n            <!-- Reply form -->\n            <form class=\"reply-form\" *ngIf=\"replyFormActive\" #replyForm>\n                <quill-editor [modules]=\"quillModules\" name=\"message\" [(ngModel)]=\"composeMail.message\" ></quill-editor>\n                <div class=\"actions\">\n\n                    <div class=\"formatting\">\n\n                        <!-- Attach file -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'attach_file'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert link -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'link'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert emoji -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'insert_emoticon'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert image -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'image'\"></mat-icon>\n                        </button> -->\n\n                    </div>\n\n                    <div class=\"reply-form-buttons\">\n\n                        <!-- Discard -->\n                        <button mat-flat-button (click)=\"discard()\">\n                            <span>Discard</span>\n                        </button>\n\n                        <!-- Send -->\n                        <button class=\"send-button\" mat-raised-button [color]=\"'primary'\" (click)=\"send()\">\n                            <span>Send</span>\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </form>\n\n        </div>\n\n    </div>\n\n</ng-container>\n\n<!-- Info details panel -->\n<ng-template #infoDetailsPanel>\n\n    <div class=\"mailbox-info-details-panel\">\n\n        <table>\n\n            <tbody>\n\n                <tr>\n                    <td class=\"title\">date:</td>\n                    <td class=\"detail\">{{getDate(mail.insertedOn)}}\n                    </td>\n                </tr>\n\n                <tr>\n                    <td class=\"title\">subject:</td>\n                    <td class=\"detail\">{{mail.subject}}</td>\n                </tr>\n\n            </tbody>\n\n        </table>\n\n    </div>\n\n</ng-template>\n\n<!-- Select mail to read template -->\n<ng-template #selectMailToRead>\n\n    <div class=\"select-mail-to-read\">\n        <mat-icon [svgIcon]=\"'iconsmind:mailbox_empty'\"></mat-icon>\n        <h4>Select a mail to read</h4>\n    </div>\n\n</ng-template>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ng-container *ngIf=\"mail; else selectMailToRead\">\n\n    <!-- Header -->\n    <div class=\"header\">\n\n        <!-- Toolbar -->\n        <div class=\"toolbar d-flex justify-content-end\">\n\n            <!-- Back button -->\n            <button class=\"d-inline-flex d-xl-none\" mat-icon-button [routerLink]=\"['./']\">\n                <mat-icon [svgIcon]=\"'arrow_back'\"></mat-icon>\n            </button>\n\n\n            <button mat-icon-button class=\"mr-n4\" *ngIf=\"getCurrentFolder() !== 'trash'\" (click)=\"moveToFolder()\">\n                <mat-icon [svgIcon]=\"'delete'\"></mat-icon>\n            </button>\n            \n\n        </div>\n\n        <!-- Info -->\n        <div class=\"info\">\n            <!-- Subject -->\n            <h4 class=\"subject\">{{mail?.subject}}</h4>\n        </div>\n\n    </div>\n\n    <!-- Threads -->\n    <div class=\"threads\">\n\n        <!-- Thread -->\n        <div class=\"thread\">\n\n            <!-- Thread header -->\n            <div class=\"header\">\n\n                <!-- Sender avatar -->\n                <!-- <div class=\"avatar\">\n                    <img [src]=\"mail.from.avatar\">\n                </div> -->\n\n                <!-- Info -->\n                <div class=\"info\">\n\n                    <!-- From -->\n                    <div class=\"from\">{{mail?.sentBy}}</div>\n\n                    <!-- To -->\n                    <div class=\"to\">\n\n                        <div class=\"to-label\">to</div>\n                        <div class=\"me-label\">me</div>\n\n                        <!-- Info details panel button -->\n                        <button class=\"info-details-panel-button\" mat-icon-button (click)=\"openInfoDetailsPanel()\"\n                            #infoDetailsPanelOrigin>\n                            <mat-icon [svgIcon]=\"'arrow_drop_down'\"></mat-icon>\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n            <!-- Content -->\n            <div class=\"content d-flex flex-column\" [innerHTML]=\"transFormData(mail.message)\">\n            </div>\n\n            <!-- Attachments -->\n            <!-- <ng-container *ngIf=\"mail.attachments && mail.attachments.length > 0\">\n\n                <div class=\"attachments\">\n\n                    <div class=\"title\">\n                        <mat-icon [svgIcon]=\"'attachment'\"></mat-icon>\n                        <div>{{mail.attachments.length}} Attachments</div>\n                    </div>\n\n                    <div class=\"files\">\n\n                        <div class=\"file\"\n                             *ngFor=\"let attachment of mail.attachments\">\n\n                            <img class=\"preview-image\"\n                                 *ngIf=\"attachment.type.startsWith('image/')\"\n                                 [src]=\"'assets/images/apps/mailbox/' + attachment.preview\">\n\n                            <div class=\"preview-file\"\n                                 *ngIf=\"attachment.type.startsWith('application/')\">\n                                <div class=\"file-type\">{{attachment.type.split('/')[1].trim().toUpperCase()}}</div>\n                            </div>\n\n                            <div class=\"file-info\">\n\n                                <div class=\"file-name\"\n                                     [title]=\"attachment.name\">\n                                    {{attachment.name}}\n                                </div>\n\n                                <div class=\"file-size\"\n                                     [title]=\"attachment.size\">\n                                    {{attachment.size / 1000 | number:'1.0-2'}} KB\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </ng-container> -->\n\n            <!-- Buttons -->\n            <div class=\"buttons\" *ngIf=\"!replyFormActive\">\n\n                <!-- Reply -->\n                <button mat-stroked-button [color]=\"'primary'\" (click)=\"reply()\">\n                    <mat-icon [svgIcon]=\"'reply'\"></mat-icon>\n                    <span>Reply</span>\n                </button>\n\n\n            </div>\n\n            <!-- Reply form -->\n            <form class=\"reply-form\" *ngIf=\"replyFormActive\" #replyForm>\n                <quill-editor [modules]=\"quillModules\" name=\"message\" [(ngModel)]=\"composeMail.message\" ></quill-editor>\n                <div class=\"actions\">\n\n                    <div class=\"formatting\">\n\n                        <!-- Attach file -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'attach_file'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert link -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'link'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert emoji -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'insert_emoticon'\"></mat-icon>\n                        </button> -->\n\n                        <!-- Insert image -->\n                        <!-- <button mat-icon-button>\n                            <mat-icon [svgIcon]=\"'image'\"></mat-icon>\n                        </button> -->\n\n                    </div>\n\n                    <div class=\"reply-form-buttons\">\n\n                        <!-- Discard -->\n                        <button mat-button (click)=\"discard()\">\n                            <span>Discard</span>\n                        </button>\n\n                        <!-- Send -->\n                        <button class=\"send-button\" mat-raised-button [color]=\"'primary'\" (click)=\"send()\">\n                            <span>Send</span>\n                        </button>\n\n                    </div>\n\n                </div>\n\n            </form>\n\n        </div>\n\n    </div>\n\n</ng-container>\n\n<!-- Info details panel -->\n<ng-template #infoDetailsPanel>\n\n    <div class=\"mailbox-info-details-panel\">\n\n        <table>\n\n            <tbody>\n\n                <tr>\n                    <td class=\"title\">date:</td>\n                    <td class=\"detail\">{{getDate(mail.insertedOn)}}\n                    </td>\n                </tr>\n\n                <tr>\n                    <td class=\"title\">subject:</td>\n                    <td class=\"detail\">{{mail.subject}}</td>\n                </tr>\n\n            </tbody>\n\n        </table>\n\n    </div>\n\n</ng-template>\n\n<!-- Select mail to read template -->\n<ng-template #selectMailToRead>\n\n    <div class=\"select-mail-to-read\">\n        <mat-icon [svgIcon]=\"'iconsmind:mailbox_empty'\"></mat-icon>\n        <h4>Select a mail to read</h4>\n    </div>\n\n</ng-template>\n\n");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"list-wrapper\"\n     [ngClass]=\"{'mail-selected': selectedMail && selectedMail.messageId, 'no-mails': !mails || mails.length === 0}\">\n\n    <ng-container *ngIf=\"mails && mails.length > 0; else noMails\">\n\n        <!-- Mail list header -->\n        <div class=\"header\">\n\n            <!-- Header left -->\n            <div class=\"left\">\n\n                <!-- Sidebar toggle button -->\n                <button class=\"sidebar-toggle\"\n                        mat-icon-button\n                        (click)=\"mailboxComponent.drawer.toggle()\">\n                    <mat-icon [svgIcon]=\"'menu'\"></mat-icon>\n                </button>\n\n                <!-- Category name -->\n                <div class=\"category\">{{category.name}}</div>\n\n            </div>\n\n            <!-- Pagination -->\n            <div class=\"pagination\">\n\n                <!-- Pagination information -->\n                <div class=\"info\">\n                    <span>{{pagination.startIndex + 1}}</span>\n                    <span class=\"separator\">-</span>\n                    <span>{{pagination.endIndex}}</span>\n                    <span class=\"separator\">of</span>\n                    <span>{{pagination.totalResults}}</span>\n                </div>\n\n                <!-- Previous page button -->\n                <a class=\"previous-page\"\n                   mat-icon-button\n                   [disabled]=\"pagination.currentPage == 1\"\n                   [routerLink]=\"['../' + ( pagination.currentPage - 1 )]\">\n                    <mat-icon [svgIcon]=\"'arrow_back_ios'\"></mat-icon>\n                </a>\n\n                <!-- Next page button-->\n                <a class=\"next-page\"\n                   mat-icon-button\n                   [disabled]=\"pagination.currentPage == pagination.lastPage\"\n                   [routerLink]=\"['../' + ( pagination.currentPage + 1 )]\">\n                    <mat-icon [svgIcon]=\"'arrow_forward_ios'\"></mat-icon>\n                </a>\n\n            </div>\n\n            <!-- Loading bar -->\n            <mat-progress-bar class=\"loading-progress-bar\"\n                              *ngIf=\"mailsLoading\"\n                              [mode]=\"'indeterminate'\"></mat-progress-bar>\n\n        </div>\n\n        <!-- Mail list -->\n        <div class=\"list\"\n             #mailList>\n\n            <!-- Mail list item loop -->\n            <ng-container *ngFor=\"let mail of mails | slice:pagination.startIndex:pagination.endIndex; let i = index; trackBy: trackByFn\">\n\n                <!-- Mail list item -->\n                <a class=\"item\"\n                   [ngClass]=\"{'selected': (selectedMail && selectedMail.messageId === mail.messageId),'unread': !mail.isRead}\"\n                   [routerLink]=\"[mail.messageId]\"\n                   (click)=\"onMailSelected(mail)\">\n\n                    <div class=\"item-content\">\n\n                        <!-- Info -->\n                        <div class=\"info\">\n\n                            <!-- Sender name -->\n                            <div class=\"name\">\n                                {{mail.sentBy}}\n                            </div>\n\n                            <!-- Date -->\n                            <div class=\"date\">\n                                {{getDate(mail.receivedOn)}}\n                            </div>\n\n                        </div>\n\n                        <!-- Subject -->\n                        <div class=\"subject\">\n\n                            <span>{{mail.subject}}</span>\n\n                            <!-- Indicators -->\n                            <div class=\"indicators\"\n                                 *ngIf=\"mail.attachment1\">\n\n                                <!-- Attachments indicator -->\n                                <mat-icon class=\"attachments-indicator\" [svgIcon]=\"'attachment'\"></mat-icon>\n\n\n                            </div>\n\n                        </div>\n\n                        <div class=\"excerpt\" [innerHTML]=\"mail.message\">\n                            <ng-container *ngIf=\"mail.message.length > 80\">...</ng-container>\n                        </div>\n\n                    </div>\n\n                </a>\n\n            </ng-container>\n\n        </div>\n\n    </ng-container>\n\n    <!-- No mails template -->\n    <ng-template #noMails>\n\n        <div class=\"p-3 ml-1\">\n            <!-- Sidebar toggle button -->\n        <button class=\"sidebar-toggle\"\n        mat-icon-button\n        (click)=\"mailboxComponent.drawer.toggle()\">\n        <mat-icon [svgIcon]=\"'menu'\"></mat-icon>\n    </button>\n\n        </div>\n\n        <div class=\"no-mails\">\n            <mat-icon [svgIcon]=\"'iconsmind:mailbox_empty'\"></mat-icon>\n            <h4>There are no e-mails</h4>\n        </div>\n\n    </ng-template>\n\n</div>\n\n<!-- Mail details -->\n<router-outlet *ngIf=\"mails && mails.length > 0\"></router-outlet>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"list-wrapper\"\n     [ngClass]=\"{'mail-selected': selectedMail && selectedMail.messageId, 'no-mails': !mails || mails.length === 0}\">\n\n    <ng-container *ngIf=\"mails && mails.length > 0; else noMails\">\n\n        <!-- Mail list header -->\n        <div class=\"header\">\n\n            <!-- Header left -->\n            <div class=\"left\">\n\n                <!-- Sidebar toggle button -->\n                <button class=\"sidebar-toggle\"\n                        mat-icon-button\n                        (click)=\"mailboxComponent.drawer.toggle()\">\n                    <mat-icon [svgIcon]=\"'menu'\"></mat-icon>\n                </button>\n\n                <!-- Category name -->\n                <div class=\"category\">{{category.name}}</div>\n\n            </div>\n\n            <!-- Pagination -->\n            <div class=\"pagination\">\n\n                <!-- Pagination information -->\n                <div class=\"info\">\n                    <span>{{pagination.startIndex + 1}}</span>\n                    <span class=\"separator\">-</span>\n                    <span>{{pagination.endIndex}}</span>\n                    <span class=\"separator\">of</span>\n                    <span>{{pagination.totalResults}}</span>\n                </div>\n\n                <!-- Previous page button -->\n                <a class=\"previous-page\"\n                   mat-icon-button\n                   [disabled]=\"pagination.currentPage == 1\"\n                   [routerLink]=\"['../' + ( pagination.currentPage - 1 )]\">\n                    <mat-icon [svgIcon]=\"'arrow_back_ios'\"></mat-icon>\n                </a>\n\n                <!-- Next page button-->\n                <a class=\"next-page\"\n                   mat-icon-button\n                   [disabled]=\"pagination.currentPage == pagination.lastPage\"\n                   [routerLink]=\"['../' + ( pagination.currentPage + 1 )]\">\n                    <mat-icon [svgIcon]=\"'arrow_forward_ios'\"></mat-icon>\n                </a>\n\n            </div>\n\n            <!-- Loading bar -->\n            <mat-progress-bar class=\"loading-progress-bar\"\n                              *ngIf=\"mailsLoading\"\n                              [mode]=\"'indeterminate'\"></mat-progress-bar>\n\n        </div>\n\n        <!-- Mail list -->\n        <div class=\"list\"\n             #mailList>\n\n            <!-- Mail list item loop -->\n            <ng-container *ngFor=\"let mail of mails | slice:pagination.startIndex:pagination.endIndex; let i = index; trackBy: trackByFn\">\n\n                <!-- Mail list item -->\n                <a class=\"item\"\n                   [ngClass]=\"{'selected': (selectedMail && selectedMail.messageId === mail.messageId),'unread': !mail.isRead}\"\n                   [routerLink]=\"[mail.messageId]\"\n                   (click)=\"onMailSelected(mail)\">\n\n                    <div class=\"item-content\">\n\n                        <!-- Info -->\n                        <div class=\"info\">\n\n                            <!-- Sender name -->\n                            <div class=\"name\">\n                                {{mail.sentBy}}\n                            </div>\n\n                            <!-- Date -->\n                            <div class=\"date\">\n                               {{getDate(mail.receivedOn)}}\n                            </div>\n\n                        </div>\n\n                        <!-- Subject -->\n                        <div class=\"subject\">\n\n                            <span>{{mail.subject}}</span>\n\n                            <!-- Indicators -->\n                            <div class=\"indicators\"\n                                 *ngIf=\"mail.attachment1\">\n\n                                <!-- Attachments indicator -->\n                                <mat-icon class=\"attachments-indicator\" [svgIcon]=\"'attachment'\"></mat-icon>\n\n\n                            </div>\n\n                        </div>\n\n                        <div class=\"excerpt\" [innerHTML]=\"mail.message\">\n                            <ng-container *ngIf=\"mail.message.length > 80\">...</ng-container>\n                        </div>\n\n                    </div>\n\n                </a>\n\n            </ng-container>\n\n        </div>\n\n    </ng-container>\n\n    <!-- No mails template -->\n    <ng-template #noMails>\n\n        <div class=\"p-3 ml-1\">\n            <!-- Sidebar toggle button -->\n        <button class=\"sidebar-toggle\"\n        mat-icon-button\n        (click)=\"mailboxComponent.drawer.toggle()\">\n        <mat-icon [svgIcon]=\"'menu'\"></mat-icon>\n    </button>\n\n        </div>\n\n        <div class=\"no-mails\">\n            <mat-icon [svgIcon]=\"'iconsmind:mailbox_empty'\"></mat-icon>\n            <h4>There are no e-mails</h4>\n        </div>\n\n    </ng-template>\n\n</div>\n\n<!-- Mail details -->\n<router-outlet *ngIf=\"mails && mails.length > 0\"></router-outlet>\n\n");
 
 /***/ }),
 
@@ -253,11 +253,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js");
 /* harmony import */ var src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/api/controllers/User */ "./src/app/api/controllers/User.ts");
 /* harmony import */ var _angular_material_autocomplete__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/autocomplete */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/autocomplete.js");
-/* harmony import */ var src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api/controllers/MessageInbox */ "./src/app/api/controllers/MessageInbox.ts");
-/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
-/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
-/* harmony import */ var src_condo_animations__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/@condo/animations */ "./src/@condo/animations/index.ts");
-/* harmony import */ var src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/api/controllers/Staff */ "./src/app/api/controllers/Staff.ts");
+/* harmony import */ var src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/modules/common/mailbox/mailbox.service */ "./src/app/modules/common/mailbox/mailbox.service.ts");
+/* harmony import */ var src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api/controllers/MessageInbox */ "./src/app/api/controllers/MessageInbox.ts");
+/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
+/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+/* harmony import */ var src_condo_animations__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/@condo/animations */ "./src/@condo/animations/index.ts");
+/* harmony import */ var src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/api/controllers/Staff */ "./src/app/api/controllers/Staff.ts");
+
 
 
 
@@ -276,9 +278,10 @@ let MailboxComposeComponent = class MailboxComposeComponent {
      * @param {MatDialogRef} matDialogRef
      * @param {FormBuilder} _formBuilder
      */
-    constructor(matDialogRef, _formBuilder, userService, messageInbox, sessionService, sharedService, staffService, _changeDetectorRef) {
+    constructor(matDialogRef, _formBuilder, _mailboxService, userService, messageInbox, sessionService, sharedService, staffService, _changeDetectorRef) {
         this.matDialogRef = matDialogRef;
         this._formBuilder = _formBuilder;
+        this._mailboxService = _mailboxService;
         this.userService = userService;
         this.messageInbox = messageInbox;
         this.sessionService = sessionService;
@@ -451,6 +454,8 @@ let MailboxComposeComponent = class MailboxComposeComponent {
                 InboxCollection: this.composeMail
             };
             this.messageInbox.addMessageInbox(param).subscribe(resp => {
+                // Update unread mail count
+                this._mailboxService.updateUnreadMailCount();
                 this.sharedService.openSnackBar('Mail Sent Successfully', 'success');
                 this.matDialogRef.close();
             });
@@ -460,11 +465,12 @@ let MailboxComposeComponent = class MailboxComposeComponent {
 MailboxComposeComponent.ctorParameters = () => [
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"] },
+    { type: src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_6__["MailboxService"] },
     { type: src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
-    { type: src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_6__["MessageInboxService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_7__["SessionService"] },
-    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_8__["SharedService"] },
-    { type: src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_10__["StaffService"] },
+    { type: src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__["MessageInboxService"] },
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"] },
+    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"] },
+    { type: src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__["StaffService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
 ];
 MailboxComposeComponent.propDecorators = {
@@ -476,18 +482,70 @@ MailboxComposeComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
         selector: 'mailbox-compose',
         template: Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! raw-loader!./compose.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/modules/common/mailbox/compose/compose.component.html")).default,
         encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
-        animations: src_condo_animations__WEBPACK_IMPORTED_MODULE_9__["CondoAnimations"],
+        animations: src_condo_animations__WEBPACK_IMPORTED_MODULE_10__["CondoAnimations"],
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./compose.component.scss */ "./src/app/modules/common/mailbox/compose/compose.component.scss")).default]
     }),
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_3__["MatDialogRef"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+        src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_6__["MailboxService"],
         src_app_api_controllers_User__WEBPACK_IMPORTED_MODULE_4__["UserService"],
-        src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_6__["MessageInboxService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_7__["SessionService"],
-        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_8__["SharedService"],
-        src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_10__["StaffService"],
+        src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_7__["MessageInboxService"],
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_8__["SessionService"],
+        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_9__["SharedService"],
+        src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_11__["StaffService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]])
 ], MailboxComposeComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/common/mailbox/compose/compose.module.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/modules/common/mailbox/compose/compose.module.ts ***!
+  \******************************************************************/
+/*! exports provided: ComposeModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ComposeModule", function() { return ComposeModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/modules/ui/message/message.module */ "./src/app/modules/ui/message/message.module.ts");
+/* harmony import */ var ngx_quill__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-quill */ "./node_modules/ngx-quill/__ivy_ngcc__/fesm2015/ngx-quill.js");
+/* harmony import */ var src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/modules/ui/help-tooltip/help-tooltip.module */ "./src/app/modules/ui/help-tooltip/help-tooltip.module.ts");
+/* harmony import */ var _compose_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./compose.component */ "./src/app/modules/common/mailbox/compose/compose.component.ts");
+
+
+
+
+
+
+
+
+let ComposeModule = class ComposeModule {
+};
+ComposeModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [_compose_component__WEBPACK_IMPORTED_MODULE_7__["MailboxComposeComponent"]],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
+            src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_4__["CondoMessageModule"],
+            ngx_quill__WEBPACK_IMPORTED_MODULE_5__["QuillModule"],
+            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_6__["HelpTooltipModule"]
+        ],
+        exports: [
+            _compose_component__WEBPACK_IMPORTED_MODULE_7__["MailboxComposeComponent"]
+        ],
+        bootstrap: [
+            _compose_component__WEBPACK_IMPORTED_MODULE_7__["MailboxComposeComponent"]
+        ]
+    })
+], ComposeModule);
 
 
 
@@ -1020,53 +1078,6 @@ let MailboxListComponent = class MailboxListComponent {
     getDate(value) {
         return moment__WEBPACK_IMPORTED_MODULE_4__["utc"](value).tz(this.timeZone.region).format(this.timeZone.time);
     }
-    ngOnInit() {
-        this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
-        // Category
-        this._mailboxService.category$
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
-            .subscribe((category) => {
-            this.category = category;
-        });
-        // Mails
-        this._mailboxService.mails$
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
-            .subscribe((mails) => {
-            this.mails = mails;
-        });
-        // Mails loading
-        this._mailboxService.mailsLoading$
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
-            .subscribe((mailsLoading) => {
-            this.mailsLoading = mailsLoading;
-            // If the mail list element is available & the mails are loaded...
-            if (this.mailList && !mailsLoading) {
-                // Reset the mail list element scroll position to top
-                this.mailList.nativeElement.scrollTo(0, 0);
-            }
-        });
-        // Pagination
-        this._mailboxService.pagination$
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
-            .subscribe((pagination) => {
-            this.pagination = pagination;
-        });
-        // Selected mail
-        this._mailboxService.mail$
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
-            .subscribe((mail) => {
-            this.selectedMail = mail;
-            console.log(this.selectedMail);
-        });
-    }
-    /**
-     * On destroy
-     */
-    ngOnDestroy() {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
-    }
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
@@ -1087,32 +1098,8 @@ let MailboxListComponent = class MailboxListComponent {
                 if (res.message) {
                     // Update the mail object
                     mail.isRead = true;
-                    //get mailbox unread messages
-                    this._mailboxService.getUnreadMessages().subscribe((res) => {
-                        var count;
-                        if (res.message)
-                            count = 0;
-                        else
-                            count = res[0].totalUnreadMessage;
-                        // Get the component -> navigation data -> item
-                        const mainNavigationComponent = this._condoNavigationService.getComponent('mainNavigation');
-                        // If the main navigation component exists...
-                        if (mainNavigationComponent) {
-                            var menuItemId;
-                            if (this.sessionService.isAdmin()) {
-                                menuItemId = 'Admin_Main_inbox';
-                            }
-                            else {
-                                menuItemId = 'Mail Box';
-                            }
-                            const mainNavigation = mainNavigationComponent.navigation;
-                            const menuItem = this._condoNavigationService.getItem(menuItemId, mainNavigation);
-                            // Update the badge title of the item
-                            menuItem.badge.title = count + '';
-                            // Refresh the navigation
-                            mainNavigationComponent.refresh();
-                        }
-                    });
+                    // Update unread mail count
+                    this._mailboxService.updateUnreadMailCount();
                 }
             });
         }
@@ -1180,6 +1167,52 @@ let MailboxListComponent = class MailboxListComponent {
      */
     trackByFn(index, item) {
         return item.id || index;
+    }
+    ngOnInit() {
+        this.sharedService.timezonecast.subscribe(timeZone => { this.timeZone = timeZone; });
+        // Category
+        this._mailboxService.category$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
+            .subscribe((category) => {
+            this.category = category;
+        });
+        // Mails
+        this._mailboxService.mails$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
+            .subscribe((mails) => {
+            this.mails = mails;
+        });
+        // Mails loading
+        this._mailboxService.mailsLoading$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
+            .subscribe((mailsLoading) => {
+            this.mailsLoading = mailsLoading;
+            // If the mail list element is available & the mails are loaded...
+            if (this.mailList && !mailsLoading) {
+                // Reset the mail list element scroll position to top
+                this.mailList.nativeElement.scrollTo(0, 0);
+            }
+        });
+        // Pagination
+        this._mailboxService.pagination$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
+            .subscribe((pagination) => {
+            this.pagination = pagination;
+        });
+        // Selected mail
+        this._mailboxService.mail$
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this._unsubscribeAll))
+            .subscribe((mail) => {
+            this.selectedMail = mail;
+        });
+    }
+    /**
+     * On destroy
+     */
+    ngOnDestroy() {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
     }
 };
 MailboxListComponent.ctorParameters = () => [
@@ -1472,22 +1505,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 /* harmony import */ var src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/shared/shared.module */ "./src/app/shared/shared.module.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
-/* harmony import */ var src_app_modules_common_mailbox_mailbox_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/modules/common/mailbox/mailbox-routing.module */ "./src/app/modules/common/mailbox/mailbox-routing.module.ts");
-/* harmony import */ var src_condo_pipes_find_by_key__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/@condo/pipes/find-by-key */ "./src/@condo/pipes/find-by-key/index.ts");
-/* harmony import */ var src_app_layout_regulars_regulars_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/layout/regulars/regulars.module */ "./src/app/layout/regulars/regulars.module.ts");
-/* harmony import */ var src_condo_directives_scrollbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/@condo/directives/scrollbar */ "./src/@condo/directives/scrollbar/index.ts");
-/* harmony import */ var _mailbox_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./mailbox.component */ "./src/app/modules/common/mailbox/mailbox.component.ts");
-/* harmony import */ var src_app_modules_common_mailbox_compose_compose_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/modules/common/mailbox/compose/compose.component */ "./src/app/modules/common/mailbox/compose/compose.component.ts");
+/* harmony import */ var src_app_modules_common_mailbox_compose_compose_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/modules/common/mailbox/compose/compose.module */ "./src/app/modules/common/mailbox/compose/compose.module.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+/* harmony import */ var _mailbox_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mailbox-routing.module */ "./src/app/modules/common/mailbox/mailbox-routing.module.ts");
+/* harmony import */ var src_condo_pipes_find_by_key__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/@condo/pipes/find-by-key */ "./src/@condo/pipes/find-by-key/index.ts");
+/* harmony import */ var src_app_layout_regulars_navigation_navigation_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/layout/regulars/navigation/navigation.module */ "./src/app/layout/regulars/navigation/navigation.module.ts");
+/* harmony import */ var src_condo_directives_scrollbar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/@condo/directives/scrollbar */ "./src/@condo/directives/scrollbar/index.ts");
+/* harmony import */ var _mailbox_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./mailbox.component */ "./src/app/modules/common/mailbox/mailbox.component.ts");
 /* harmony import */ var src_app_modules_common_mailbox_details_details_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/modules/common/mailbox/details/details.component */ "./src/app/modules/common/mailbox/details/details.component.ts");
 /* harmony import */ var src_app_modules_common_mailbox_list_list_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/modules/common/mailbox/list/list.component */ "./src/app/modules/common/mailbox/list/list.component.ts");
 /* harmony import */ var src_app_modules_common_mailbox_settings_settings_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/modules/common/mailbox/settings/settings.component */ "./src/app/modules/common/mailbox/settings/settings.component.ts");
 /* harmony import */ var src_app_modules_common_mailbox_sidebar_sidebar_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/modules/common/mailbox/sidebar/sidebar.component */ "./src/app/modules/common/mailbox/sidebar/sidebar.component.ts");
-/* harmony import */ var _angular_material_chips__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/chips */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/chips.js");
-/* harmony import */ var ngx_quill__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ngx-quill */ "./node_modules/ngx-quill/__ivy_ngcc__/fesm2015/ngx-quill.js");
-/* harmony import */ var src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/modules/ui/help-tooltip/help-tooltip.module */ "./src/app/modules/ui/help-tooltip/help-tooltip.module.ts");
-/* harmony import */ var src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! src/app/modules/ui/message/message.module */ "./src/app/modules/ui/message/message.module.ts");
-
+/* harmony import */ var ngx_quill__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-quill */ "./node_modules/ngx-quill/__ivy_ngcc__/fesm2015/ngx-quill.js");
+/* harmony import */ var src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! src/app/modules/ui/help-tooltip/help-tooltip.module */ "./src/app/modules/ui/help-tooltip/help-tooltip.module.ts");
+/* harmony import */ var src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! src/app/modules/ui/message/message.module */ "./src/app/modules/ui/message/message.module.ts");
 
 
 
@@ -1511,8 +1542,7 @@ let MailboxModule = class MailboxModule {
 MailboxModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [
-            _mailbox_component__WEBPACK_IMPORTED_MODULE_9__["MailboxComponent"],
-            src_app_modules_common_mailbox_compose_compose_component__WEBPACK_IMPORTED_MODULE_10__["MailboxComposeComponent"],
+            _mailbox_component__WEBPACK_IMPORTED_MODULE_10__["MailboxComponent"],
             src_app_modules_common_mailbox_details_details_component__WEBPACK_IMPORTED_MODULE_11__["MailboxDetailsComponent"],
             src_app_modules_common_mailbox_list_list_component__WEBPACK_IMPORTED_MODULE_12__["MailboxListComponent"],
             src_app_modules_common_mailbox_settings_settings_component__WEBPACK_IMPORTED_MODULE_13__["MailboxSettingsComponent"],
@@ -1521,18 +1551,16 @@ MailboxModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             src_app_shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
-            src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_18__["CondoMessageModule"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(src_app_modules_common_mailbox_mailbox_routing_module__WEBPACK_IMPORTED_MODULE_5__["mailboxRoutes"]),
-            src_condo_pipes_find_by_key__WEBPACK_IMPORTED_MODULE_6__["CondoFindByKeyPipeModule"],
-            src_app_layout_regulars_regulars_module__WEBPACK_IMPORTED_MODULE_7__["RegularsModule"],
-            _angular_material_chips__WEBPACK_IMPORTED_MODULE_15__["MatChipsModule"],
-            src_condo_directives_scrollbar__WEBPACK_IMPORTED_MODULE_8__["CondoScrollbarModule"],
-            ngx_quill__WEBPACK_IMPORTED_MODULE_16__["QuillModule"],
-            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_17__["HelpTooltipModule"]
+            src_app_modules_common_mailbox_compose_compose_module__WEBPACK_IMPORTED_MODULE_4__["ComposeModule"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"].forChild(_mailbox_routing_module__WEBPACK_IMPORTED_MODULE_6__["mailboxRoutes"]),
+            src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_17__["CondoMessageModule"],
+            src_condo_pipes_find_by_key__WEBPACK_IMPORTED_MODULE_7__["CondoFindByKeyPipeModule"],
+            src_app_layout_regulars_navigation_navigation_module__WEBPACK_IMPORTED_MODULE_8__["NavigationModule"],
+            src_condo_directives_scrollbar__WEBPACK_IMPORTED_MODULE_9__["CondoScrollbarModule"],
+            ngx_quill__WEBPACK_IMPORTED_MODULE_15__["QuillModule"],
+            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_16__["HelpTooltipModule"]
         ],
-        bootstrap: [
-            _mailbox_component__WEBPACK_IMPORTED_MODULE_9__["MailboxComponent"]
-        ]
+        providers: []
     })
 ], MailboxModule);
 
@@ -1791,442 +1819,6 @@ MailboxMailResolver = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [src_app_modules_common_mailbox_mailbox_service__WEBPACK_IMPORTED_MODULE_5__["MailboxService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
 ], MailboxMailResolver);
-
-
-
-/***/ }),
-
-/***/ "./src/app/modules/common/mailbox/mailbox.service.ts":
-/*!***********************************************************!*\
-  !*** ./src/app/modules/common/mailbox/mailbox.service.ts ***!
-  \***********************************************************/
-/*! exports provided: MailboxService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MailboxService", function() { return MailboxService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api/controllers/MessageInbox */ "./src/app/api/controllers/MessageInbox.ts");
-/* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
-
-
-
-
-
-
-
-let MailboxService = class MailboxService {
-    /**
-     * Constructor
-     *
-     * @param {HttpClient} _httpClient
-     */
-    constructor(_httpClient, messageInbox, sessionService) {
-        this._httpClient = _httpClient;
-        this.messageInbox = messageInbox;
-        this.sessionService = sessionService;
-        // Set the private defaults
-        this._category = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._filters = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._folders = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._labels = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._mails = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._mailsLoading = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
-        this._mail = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._pagination = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-        this._unReadMessage = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](0);
-        // Set the defaults
-        this.selectedMailChanged = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](null);
-    }
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
-    /**
-     * Getter for category
-     */
-    get category$() {
-        return this._category.asObservable();
-    }
-    /**
-     * Getter for filters
-     */
-    get filters$() {
-        return this._filters.asObservable();
-    }
-    /**
-     * Getter for folders
-     */
-    get folders$() {
-        return this._folders.asObservable();
-    }
-    /**
-     * Getter for labels
-     */
-    get labels$() {
-        return this._labels.asObservable();
-    }
-    /**
-     * Getter for mails
-     */
-    get mails$() {
-        return this._mails.asObservable();
-    }
-    /**
-     * Getter for mails loading
-     */
-    get mailsLoading$() {
-        return this._mailsLoading.asObservable();
-    }
-    /**
-     * Getter for mail
-     */
-    get mail$() {
-        return this._mail.asObservable();
-    }
-    /**
-     * Getter for pagination
-     */
-    get pagination$() {
-        return this._pagination.asObservable();
-    }
-    get unReadMessage$() {
-        return this._unReadMessage.asObservable();
-    }
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-    /**
-     * Get filters
-     */
-    getFilters() {
-        return this._httpClient.get('api/common/mailbox/filters').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-            this._filters.next(response);
-        }));
-    }
-    /**
-     * Get folders
-     */
-    getFolders() {
-        return this._httpClient.get('api/common/mailbox/folders').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-            this._folders.next(response);
-        }));
-    }
-    /**
-     * Get labels
-     */
-    getLabels() {
-        return this._httpClient.get('api/common/mailbox/labels').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-            this._labels.next(response);
-        }));
-    }
-    /**
-     * Get mails by filter
-     */
-    getMailsByFilter(filter, page = '1') {
-        // Execute the mails loading with true
-        this._mailsLoading.next(true);
-        return this._httpClient.get('api/common/mailbox/mails', {
-            params: {
-                filter,
-                page
-            }
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-            this._category.next({
-                type: 'filter',
-                name: filter
-            });
-            this._mails.next(response.mails);
-            this._pagination.next(response.pagination);
-            this._mailsLoading.next(false);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((response) => {
-            if (response.mails === null) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])({
-                    message: 'Requested page is not available!',
-                    pagination: response.pagination
-                });
-            }
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(response);
-        }));
-    }
-    /**
-     * Get mails by folder
-     */
-    getMailsByFolder(folder, page = '1') {
-        // Execute the mails loading with true
-        this._mailsLoading.next(true);
-        let params = {
-            apartmentId: this.sessionService.apartmentId,
-            userId: this.sessionService.userId,
-            RoleId: this.sessionService.roleId
-        };
-        var pagination;
-        var totalRecords;
-        var startIndex = 0;
-        var endIndex = -1;
-        var lastPage = 0;
-        var resultsPerPage = 4;
-        var results;
-        if (folder == 'inbox') {
-            return this.messageInbox.getMessageInboxReceivedByUserIdAndRole(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-                this._category.next({
-                    type: 'folder',
-                    name: folder
-                });
-                if (response.message) {
-                    results = null;
-                    totalRecords = 0;
-                }
-                else {
-                    results = response[0].inboxResult;
-                    totalRecords = results.length;
-                }
-                if (Number(page) > 1) {
-                    startIndex = (resultsPerPage * Number(page)) - resultsPerPage;
-                }
-                else {
-                    startIndex = 0;
-                }
-                lastPage = Math.ceil(totalRecords / resultsPerPage);
-                if (totalRecords < resultsPerPage) {
-                    lastPage = 1;
-                }
-                endIndex = resultsPerPage * Number(page);
-                if (endIndex > totalRecords)
-                    endIndex = totalRecords;
-                pagination = {
-                    totalResults: totalRecords,
-                    startIndex: startIndex,
-                    endIndex: endIndex,
-                    currentPage: Number(page),
-                    lastPage: lastPage,
-                    resultsPerPage: resultsPerPage
-                };
-                this._mails.next(results);
-                this._pagination.next(pagination);
-                this._mailsLoading.next(false);
-            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((response) => {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(response);
-            }));
-        }
-        else if (folder == 'sent') {
-            return this.messageInbox.getMessageInboxSendByUserId(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-                this._category.next({
-                    type: 'folder',
-                    name: folder
-                });
-                if (response.message) {
-                    results = null;
-                    totalRecords = 0;
-                }
-                else {
-                    results = response[0].inboxResult;
-                    totalRecords = results.length;
-                }
-                if (Number(page) > 1) {
-                    startIndex = (resultsPerPage * Number(page)) - resultsPerPage;
-                }
-                else {
-                    startIndex = 0;
-                }
-                lastPage = Math.ceil(totalRecords / resultsPerPage);
-                if (totalRecords < resultsPerPage) {
-                    lastPage = 1;
-                }
-                endIndex = resultsPerPage * Number(page);
-                if (endIndex > totalRecords)
-                    endIndex = totalRecords;
-                pagination = {
-                    totalResults: totalRecords,
-                    startIndex: startIndex,
-                    endIndex: endIndex,
-                    currentPage: Number(page),
-                    lastPage: lastPage,
-                    resultsPerPage: resultsPerPage
-                };
-                this._mails.next(results);
-                this._pagination.next(pagination);
-                this._mailsLoading.next(false);
-            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((response) => {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(response);
-            }));
-        }
-        else {
-            return this.messageInbox.getMessageInboxTrashedByUserIdAndRole(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((response) => {
-                this._category.next({
-                    type: 'folder',
-                    name: folder
-                });
-                if (response.message) {
-                    results = null;
-                    totalRecords = 0;
-                }
-                else {
-                    results = response[0].inboxResult;
-                    totalRecords = results.length;
-                }
-                if (Number(page) > 1) {
-                    startIndex = (resultsPerPage * Number(page)) - resultsPerPage;
-                }
-                else {
-                    startIndex = 0;
-                }
-                lastPage = Math.ceil(totalRecords / resultsPerPage);
-                if (totalRecords < resultsPerPage) {
-                    lastPage = 1;
-                }
-                endIndex = resultsPerPage * Number(page);
-                if (endIndex > totalRecords)
-                    endIndex = totalRecords;
-                pagination = {
-                    totalResults: totalRecords,
-                    startIndex: startIndex,
-                    endIndex: endIndex,
-                    currentPage: Number(page),
-                    lastPage: lastPage,
-                    resultsPerPage: resultsPerPage
-                };
-                this._mails.next(results);
-                this._pagination.next(pagination);
-                this._mailsLoading.next(false);
-            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((response) => {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(response);
-            }));
-        }
-    }
-    getUnreadMessages() {
-        let params = {
-            apartmentId: this.sessionService.apartmentId,
-            userId: this.sessionService.userId,
-            RoleId: this.sessionService.roleId
-        };
-        return this.messageInbox.getMessageInboxReceivedByUserIdAndRole(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])((res) => {
-            if (res.message)
-                this._unReadMessage.next(0);
-            else
-                this._unReadMessage.next(res[0].totalUnreadMessage);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((response) => {
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(response);
-        }));
-    }
-    /**
-     * Get mail by id
-     */
-    getMailById(id) {
-        return this._mails.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((mails) => {
-            // Find the mail
-            const mail = mails.filter(item => {
-                return item.messageId == id;
-            });
-            // Update the mail
-            if (mail == undefined || mail.length == 0) {
-                this._mail.next(null);
-            }
-            else {
-                this._mail.next(mail[0]);
-            }
-            // Return the mail
-            return mail;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])((mail) => {
-            if (!mail) {
-                return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])('Could not found mail with id of ' + id + '!');
-            }
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(mail);
-        }));
-    }
-    /**
-     * Update mail
-     *
-     * @param id
-     * @param mail
-     */
-    updateMail(id, mail) {
-        return this._httpClient.patch('api/common/mailbox/mail', {
-            id,
-            mail
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => {
-            // Re-fetch the folders on mail update
-            // to get the updated counts on the sidebar
-            this.getFolders().subscribe();
-        }));
-    }
-    /**
-     * Reset the current mail
-     */
-    resetMail() {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(true).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["tap"])(() => {
-            this._mail.next(null);
-        }));
-    }
-    /**
-     * Add label
-     *
-     * @param label
-     */
-    addLabel(label) {
-        return this.labels$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(labels => this._httpClient.put('api/common/mailbox/label', { label }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((newLabel) => {
-            // Update the labels with the new label
-            this._labels.next([...labels, newLabel]);
-            // Return the new label
-            return newLabel;
-        }))));
-    }
-    /**
-     * Update label
-     *
-     * @param id
-     * @param label
-     */
-    updateLabel(id, label) {
-        return this.labels$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(labels => this._httpClient.patch('api/common/mailbox/label', {
-            id,
-            label
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((updatedLabel) => {
-            // Find the index of the updated label within the labels
-            const index = labels.findIndex(item => item.id === id);
-            // Update the label
-            labels[index] = updatedLabel;
-            // Update the labels
-            this._labels.next(labels);
-            // Return the updated label
-            return updatedLabel;
-        }))));
-    }
-    /**
-     * Delete label
-     *
-     * @param id
-     */
-    deleteLabel(id) {
-        return this.labels$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["switchMap"])(labels => this._httpClient.delete('api/common/mailbox/label', { params: { id } }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((isDeleted) => {
-            // Find the index of the deleted label within the labels
-            const index = labels.findIndex(item => item.id === id);
-            // Delete the label
-            labels.splice(index, 1);
-            // Update the labels
-            this._labels.next(labels);
-            // Return the deleted status
-            return isDeleted;
-        }))));
-    }
-};
-MailboxService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
-    { type: src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_5__["MessageInboxService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"] }
-];
-MailboxService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
-        src_app_api_controllers_MessageInbox__WEBPACK_IMPORTED_MODULE_5__["MessageInboxService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_6__["SessionService"]])
-], MailboxService);
 
 
 
@@ -2676,7 +2268,6 @@ let MailboxSidebarComponent = class MailboxSidebarComponent {
         });
         dialogRef.afterClosed()
             .subscribe(result => {
-            console.log('Compose dialog was closed!');
         });
     }
 };

@@ -286,7 +286,6 @@
             };
             this.isRouting = true;
             this.staffService.getStaffByUserId(params).subscribe(function (res) {
-              //console.log(res);
               if (!isNaN(_this2.sessionService.secLevelId)) {
                 _this2.sessionService.secLevelId = res[0].secLevelId; // Hide the message
 
@@ -385,6 +384,7 @@
             this.sessionService.roleName = block.roleName;
             this.sessionService.roleTypeId = block.roleTypeId;
             this.sessionService.roleTypeName = block.roleTypeName;
+            this.sessionService.layout = 'dense';
             this.sessionService.apartmentBlockID = block.apartmentBlockId;
             this.sessionService.apartmentBlockUnitID = block.apartmentBlockUnitId;
             this.sessionService.apartmentBlockUnitUserId = block.apartmentBlockUnitUserId; // Hide the message

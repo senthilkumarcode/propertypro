@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeComponent", function() { return QRCodeComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QRCodeModule", function() { return QRCodeModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qrcode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/browser.js");
+/* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! qrcode */ "./node_modules/qrcode/lib/browser.js");
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(qrcode__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -331,35 +331,196 @@ QRCodeModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjec
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/isarray/index.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/isarray/index.js ***!
-  \********************************************************************/
+/***/ "./node_modules/dijkstrajs/dijkstra.js":
+/*!*********************************************!*\
+  !*** ./node_modules/dijkstrajs/dijkstra.js ***!
+  \*********************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var toString = {}.toString;
+"use strict";
 
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
+
+/******************************************************************************
+ * Created 2008-08-19.
+ *
+ * Dijkstra path-finding functions. Adapted from the Dijkstar Python project.
+ *
+ * Copyright (C) 2008
+ *   Wyatt Baldwin <self@wyattbaldwin.com>
+ *   All rights reserved
+ *
+ * Licensed under the MIT license.
+ *
+ *   http://www.opensource.org/licenses/mit-license.php
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *****************************************************************************/
+var dijkstra = {
+  single_source_shortest_paths: function(graph, s, d) {
+    // Predecessor map for each node that has been encountered.
+    // node ID => predecessor node ID
+    var predecessors = {};
+
+    // Costs of shortest paths from s to all nodes encountered.
+    // node ID => cost
+    var costs = {};
+    costs[s] = 0;
+
+    // Costs of shortest paths from s to all nodes encountered; differs from
+    // `costs` in that it provides easy access to the node that currently has
+    // the known shortest path from s.
+    // XXX: Do we actually need both `costs` and `open`?
+    var open = dijkstra.PriorityQueue.make();
+    open.push(s, 0);
+
+    var closest,
+        u, v,
+        cost_of_s_to_u,
+        adjacent_nodes,
+        cost_of_e,
+        cost_of_s_to_u_plus_cost_of_e,
+        cost_of_s_to_v,
+        first_visit;
+    while (!open.empty()) {
+      // In the nodes remaining in graph that have a known cost from s,
+      // find the node, u, that currently has the shortest path from s.
+      closest = open.pop();
+      u = closest.value;
+      cost_of_s_to_u = closest.cost;
+
+      // Get nodes adjacent to u...
+      adjacent_nodes = graph[u] || {};
+
+      // ...and explore the edges that connect u to those nodes, updating
+      // the cost of the shortest paths to any or all of those nodes as
+      // necessary. v is the node across the current edge from u.
+      for (v in adjacent_nodes) {
+        if (adjacent_nodes.hasOwnProperty(v)) {
+          // Get the cost of the edge running from u to v.
+          cost_of_e = adjacent_nodes[v];
+
+          // Cost of s to u plus the cost of u to v across e--this is *a*
+          // cost from s to v that may or may not be less than the current
+          // known cost to v.
+          cost_of_s_to_u_plus_cost_of_e = cost_of_s_to_u + cost_of_e;
+
+          // If we haven't visited v yet OR if the current known cost from s to
+          // v is greater than the new cost we just found (cost of s to u plus
+          // cost of u to v across e), update v's cost in the cost list and
+          // update v's predecessor in the predecessor list (it's now u).
+          cost_of_s_to_v = costs[v];
+          first_visit = (typeof costs[v] === 'undefined');
+          if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
+            costs[v] = cost_of_s_to_u_plus_cost_of_e;
+            open.push(v, cost_of_s_to_u_plus_cost_of_e);
+            predecessors[v] = u;
+          }
+        }
+      }
+    }
+
+    if (typeof d !== 'undefined' && typeof costs[d] === 'undefined') {
+      var msg = ['Could not find a path from ', s, ' to ', d, '.'].join('');
+      throw new Error(msg);
+    }
+
+    return predecessors;
+  },
+
+  extract_shortest_path_from_predecessor_list: function(predecessors, d) {
+    var nodes = [];
+    var u = d;
+    var predecessor;
+    while (u) {
+      nodes.push(u);
+      predecessor = predecessors[u];
+      u = predecessors[u];
+    }
+    nodes.reverse();
+    return nodes;
+  },
+
+  find_path: function(graph, s, d) {
+    var predecessors = dijkstra.single_source_shortest_paths(graph, s, d);
+    return dijkstra.extract_shortest_path_from_predecessor_list(
+      predecessors, d);
+  },
+
+  /**
+   * A very naive priority queue implementation.
+   */
+  PriorityQueue: {
+    make: function (opts) {
+      var T = dijkstra.PriorityQueue,
+          t = {},
+          key;
+      opts = opts || {};
+      for (key in T) {
+        if (T.hasOwnProperty(key)) {
+          t[key] = T[key];
+        }
+      }
+      t.queue = [];
+      t.sorter = opts.sorter || T.default_sorter;
+      return t;
+    },
+
+    default_sorter: function (a, b) {
+      return a.cost - b.cost;
+    },
+
+    /**
+     * Add a new item to the queue and ensure the highest priority element
+     * is at the front of the queue.
+     */
+    push: function (value, cost) {
+      var item = {value: value, cost: cost};
+      this.queue.push(item);
+      this.queue.sort(this.sorter);
+    },
+
+    /**
+     * Return the highest priority element in the queue.
+     */
+    pop: function () {
+      return this.queue.shift();
+    },
+
+    empty: function () {
+      return this.queue.length === 0;
+    }
+  }
 };
+
+
+// node.js module exports
+if (true) {
+  module.exports = dijkstra;
+}
 
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/browser.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/browser.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/qrcode/lib/browser.js":
+/*!********************************************!*\
+  !*** ./node_modules/qrcode/lib/browser.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var canPromise = __webpack_require__(/*! ./can-promise */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/can-promise.js")
+var canPromise = __webpack_require__(/*! ./can-promise */ "./node_modules/qrcode/lib/can-promise.js")
 
-var QRCode = __webpack_require__(/*! ./core/qrcode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/qrcode.js")
-var CanvasRenderer = __webpack_require__(/*! ./renderer/canvas */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/canvas.js")
-var SvgRenderer = __webpack_require__(/*! ./renderer/svg-tag.js */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/svg-tag.js")
+var QRCode = __webpack_require__(/*! ./core/qrcode */ "./node_modules/qrcode/lib/core/qrcode.js")
+var CanvasRenderer = __webpack_require__(/*! ./renderer/canvas */ "./node_modules/qrcode/lib/renderer/canvas.js")
+var SvgRenderer = __webpack_require__(/*! ./renderer/svg-tag.js */ "./node_modules/qrcode/lib/renderer/svg-tag.js")
 
 function renderCanvas (renderFunc, canvas, text, opts, cb) {
   var args = [].slice.call(arguments, 1)
@@ -434,10 +595,10 @@ exports.toString = renderCanvas.bind(null, function (data, _, opts) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/can-promise.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/can-promise.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/qrcode/lib/can-promise.js":
+/*!************************************************!*\
+  !*** ./node_modules/qrcode/lib/can-promise.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -452,10 +613,10 @@ module.exports = function () {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alignment-pattern.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alignment-pattern.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/alignment-pattern.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/alignment-pattern.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -469,7 +630,7 @@ module.exports = function () {
  * and their number depends on the symbol version.
  */
 
-var getSymbolSize = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js").getSymbolSize
+var getSymbolSize = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js").getSymbolSize
 
 /**
  * Calculate the row/column coordinates of the center module of each alignment pattern
@@ -546,14 +707,14 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alphanumeric-data.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alphanumeric-data.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/alphanumeric-data.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/alphanumeric-data.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
 
 /**
  * Array of characters available in alphanumeric mode
@@ -616,10 +777,10 @@ module.exports = AlphanumericData
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-buffer.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-buffer.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/bit-buffer.js":
+/*!****************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/bit-buffer.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -664,14 +825,14 @@ module.exports = BitBuffer
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-matrix.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-matrix.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/bit-matrix.js":
+/*!****************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/bit-matrix.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
 
 /**
  * Helper class to handle QR Code symbol modules
@@ -744,15 +905,15 @@ module.exports = BitMatrix
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/byte-data.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/byte-data.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/byte-data.js":
+/*!***************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/byte-data.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
 
 function ByteData (data) {
   this.mode = Mode.BYTE
@@ -782,14 +943,14 @@ module.exports = ByteData
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-code.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-code.js ***!
-  \********************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/error-correction-code.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/error-correction-code.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-level.js")
+var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/qrcode/lib/core/error-correction-level.js")
 
 var EC_BLOCKS_TABLE = [
 // L  M  Q  H
@@ -928,10 +1089,10 @@ exports.getTotalCodewordsCount = function getTotalCodewordsCount (version, error
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-level.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-level.js ***!
-  \*********************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/error-correction-level.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/error-correction-level.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -989,14 +1150,14 @@ exports.from = function from (value, defaultValue) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/finder-pattern.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/finder-pattern.js ***!
-  \*************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/finder-pattern.js":
+/*!********************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/finder-pattern.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getSymbolSize = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js").getSymbolSize
+var getSymbolSize = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js").getSymbolSize
 var FINDER_PATTERN_SIZE = 7
 
 /**
@@ -1022,14 +1183,14 @@ exports.getPositions = function getPositions (version) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/format-info.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/format-info.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/format-info.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/format-info.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js")
 
 var G15 = (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0)
 var G15_MASK = (1 << 14) | (1 << 12) | (1 << 10) | (1 << 4) | (1 << 1)
@@ -1062,14 +1223,14 @@ exports.getEncodedBits = function getEncodedBits (errorCorrectionLevel, mask) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/galois-field.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/galois-field.js ***!
-  \***********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/galois-field.js":
+/*!******************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/galois-field.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
 
 var EXP_TABLE
 var LOG_TABLE
@@ -1152,15 +1313,15 @@ exports.mul = function mul (x, y) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/kanji-data.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/kanji-data.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/kanji-data.js":
+/*!****************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/kanji-data.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js")
 
 function KanjiData (data) {
   this.mode = Mode.KANJI
@@ -1217,10 +1378,10 @@ module.exports = KanjiData
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mask-pattern.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mask-pattern.js ***!
-  \***********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/mask-pattern.js":
+/*!******************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/mask-pattern.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1462,15 +1623,15 @@ exports.getBestMask = function getBestMask (data, setupFormatFunc) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/mode.js":
+/*!**********************************************!*\
+  !*** ./node_modules/qrcode/lib/core/mode.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var VersionCheck = __webpack_require__(/*! ./version-check */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version-check.js")
-var Regex = __webpack_require__(/*! ./regex */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/regex.js")
+var VersionCheck = __webpack_require__(/*! ./version-check */ "./node_modules/qrcode/lib/core/version-check.js")
+var Regex = __webpack_require__(/*! ./regex */ "./node_modules/qrcode/lib/core/regex.js")
 
 /**
  * Numeric mode encodes data from the decimal digit set (0 - 9)
@@ -1640,14 +1801,14 @@ exports.from = function from (value, defaultValue) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/numeric-data.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/numeric-data.js ***!
-  \***********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/numeric-data.js":
+/*!******************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/numeric-data.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
 
 function NumericData (data) {
   this.mode = Mode.NUMERIC
@@ -1694,15 +1855,15 @@ module.exports = NumericData
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/polynomial.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/polynomial.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/polynomial.js":
+/*!****************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/polynomial.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
-var GF = __webpack_require__(/*! ./galois-field */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/galois-field.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var GF = __webpack_require__(/*! ./galois-field */ "./node_modules/qrcode/lib/core/galois-field.js")
 
 /**
  * Multiplies two polynomials inside Galois Field
@@ -1769,28 +1930,28 @@ exports.generateECPolynomial = function generateECPolynomial (degree) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/qrcode.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/qrcode.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/qrcode.js":
+/*!************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/qrcode.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js")
-var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-level.js")
-var BitBuffer = __webpack_require__(/*! ./bit-buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-buffer.js")
-var BitMatrix = __webpack_require__(/*! ./bit-matrix */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/bit-matrix.js")
-var AlignmentPattern = __webpack_require__(/*! ./alignment-pattern */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alignment-pattern.js")
-var FinderPattern = __webpack_require__(/*! ./finder-pattern */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/finder-pattern.js")
-var MaskPattern = __webpack_require__(/*! ./mask-pattern */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mask-pattern.js")
-var ECCode = __webpack_require__(/*! ./error-correction-code */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-code.js")
-var ReedSolomonEncoder = __webpack_require__(/*! ./reed-solomon-encoder */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/reed-solomon-encoder.js")
-var Version = __webpack_require__(/*! ./version */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version.js")
-var FormatInfo = __webpack_require__(/*! ./format-info */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/format-info.js")
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
-var Segments = __webpack_require__(/*! ./segments */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/segments.js")
-var isArray = __webpack_require__(/*! isarray */ "./node_modules/angularx-qrcode/node_modules/isarray/index.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js")
+var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/qrcode/lib/core/error-correction-level.js")
+var BitBuffer = __webpack_require__(/*! ./bit-buffer */ "./node_modules/qrcode/lib/core/bit-buffer.js")
+var BitMatrix = __webpack_require__(/*! ./bit-matrix */ "./node_modules/qrcode/lib/core/bit-matrix.js")
+var AlignmentPattern = __webpack_require__(/*! ./alignment-pattern */ "./node_modules/qrcode/lib/core/alignment-pattern.js")
+var FinderPattern = __webpack_require__(/*! ./finder-pattern */ "./node_modules/qrcode/lib/core/finder-pattern.js")
+var MaskPattern = __webpack_require__(/*! ./mask-pattern */ "./node_modules/qrcode/lib/core/mask-pattern.js")
+var ECCode = __webpack_require__(/*! ./error-correction-code */ "./node_modules/qrcode/lib/core/error-correction-code.js")
+var ReedSolomonEncoder = __webpack_require__(/*! ./reed-solomon-encoder */ "./node_modules/qrcode/lib/core/reed-solomon-encoder.js")
+var Version = __webpack_require__(/*! ./version */ "./node_modules/qrcode/lib/core/version.js")
+var FormatInfo = __webpack_require__(/*! ./format-info */ "./node_modules/qrcode/lib/core/format-info.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
+var Segments = __webpack_require__(/*! ./segments */ "./node_modules/qrcode/lib/core/segments.js")
+var isArray = __webpack_require__(/*! isarray */ "./node_modules/qrcode/node_modules/isarray/index.js")
 
 /**
  * QRCode for JavaScript
@@ -2279,15 +2440,15 @@ exports.create = function create (data, options) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/reed-solomon-encoder.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/reed-solomon-encoder.js ***!
-  \*******************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/reed-solomon-encoder.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/reed-solomon-encoder.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js")
-var Polynomial = __webpack_require__(/*! ./polynomial */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/polynomial.js")
+var Buffer = __webpack_require__(/*! ../utils/buffer */ "./node_modules/qrcode/lib/utils/typedarray-buffer.js")
+var Polynomial = __webpack_require__(/*! ./polynomial */ "./node_modules/qrcode/lib/core/polynomial.js")
 
 function ReedSolomonEncoder (degree) {
   this.genPoly = undefined
@@ -2349,10 +2510,10 @@ module.exports = ReedSolomonEncoder
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/regex.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/regex.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/regex.js":
+/*!***********************************************!*\
+  !*** ./node_modules/qrcode/lib/core/regex.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2391,20 +2552,20 @@ exports.testAlphanumeric = function testAlphanumeric (str) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/segments.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/segments.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/segments.js":
+/*!**************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/segments.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
-var NumericData = __webpack_require__(/*! ./numeric-data */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/numeric-data.js")
-var AlphanumericData = __webpack_require__(/*! ./alphanumeric-data */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/alphanumeric-data.js")
-var ByteData = __webpack_require__(/*! ./byte-data */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/byte-data.js")
-var KanjiData = __webpack_require__(/*! ./kanji-data */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/kanji-data.js")
-var Regex = __webpack_require__(/*! ./regex */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/regex.js")
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
+var NumericData = __webpack_require__(/*! ./numeric-data */ "./node_modules/qrcode/lib/core/numeric-data.js")
+var AlphanumericData = __webpack_require__(/*! ./alphanumeric-data */ "./node_modules/qrcode/lib/core/alphanumeric-data.js")
+var ByteData = __webpack_require__(/*! ./byte-data */ "./node_modules/qrcode/lib/core/byte-data.js")
+var KanjiData = __webpack_require__(/*! ./kanji-data */ "./node_modules/qrcode/lib/core/kanji-data.js")
+var Regex = __webpack_require__(/*! ./regex */ "./node_modules/qrcode/lib/core/regex.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js")
 var dijkstra = __webpack_require__(/*! dijkstrajs */ "./node_modules/dijkstrajs/dijkstra.js")
 
 /**
@@ -2732,10 +2893,10 @@ exports.rawSplit = function rawSplit (data) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/utils.js":
+/*!***********************************************!*\
+  !*** ./node_modules/qrcode/lib/core/utils.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2806,10 +2967,10 @@ exports.toSJIS = function toSJIS (kanji) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version-check.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version-check.js ***!
-  \************************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/version-check.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/version-check.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2826,19 +2987,19 @@ exports.isValid = function isValid (version) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/qrcode/lib/core/version.js":
+/*!*************************************************!*\
+  !*** ./node_modules/qrcode/lib/core/version.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/utils.js")
-var ECCode = __webpack_require__(/*! ./error-correction-code */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-code.js")
-var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/error-correction-level.js")
-var Mode = __webpack_require__(/*! ./mode */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/mode.js")
-var VersionCheck = __webpack_require__(/*! ./version-check */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/core/version-check.js")
-var isArray = __webpack_require__(/*! isarray */ "./node_modules/angularx-qrcode/node_modules/isarray/index.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/core/utils.js")
+var ECCode = __webpack_require__(/*! ./error-correction-code */ "./node_modules/qrcode/lib/core/error-correction-code.js")
+var ECLevel = __webpack_require__(/*! ./error-correction-level */ "./node_modules/qrcode/lib/core/error-correction-level.js")
+var Mode = __webpack_require__(/*! ./mode */ "./node_modules/qrcode/lib/core/mode.js")
+var VersionCheck = __webpack_require__(/*! ./version-check */ "./node_modules/qrcode/lib/core/version-check.js")
+var isArray = __webpack_require__(/*! isarray */ "./node_modules/qrcode/node_modules/isarray/index.js")
 
 // Generator polynomial used to encode version information
 var G18 = (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0)
@@ -3001,14 +3162,14 @@ exports.getEncodedBits = function getEncodedBits (version) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/canvas.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/canvas.js ***!
-  \*********************************************************************************/
+/***/ "./node_modules/qrcode/lib/renderer/canvas.js":
+/*!****************************************************!*\
+  !*** ./node_modules/qrcode/lib/renderer/canvas.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/utils.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/renderer/utils.js")
 
 function clearCanvas (ctx, canvas, size) {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -3075,14 +3236,14 @@ exports.renderToDataURL = function renderToDataURL (qrData, canvas, options) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/svg-tag.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/svg-tag.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/qrcode/lib/renderer/svg-tag.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/qrcode/lib/renderer/svg-tag.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(/*! ./utils */ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/utils.js")
+var Utils = __webpack_require__(/*! ./utils */ "./node_modules/qrcode/lib/renderer/utils.js")
 
 function getColorAttrib (color, attrib) {
   var alpha = color.a / 255
@@ -3167,10 +3328,10 @@ exports.render = function render (qrData, options, cb) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/utils.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/renderer/utils.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/qrcode/lib/renderer/utils.js":
+/*!***************************************************!*\
+  !*** ./node_modules/qrcode/lib/renderer/utils.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -3275,10 +3436,10 @@ exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
 
 /***/ }),
 
-/***/ "./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/angularx-qrcode/node_modules/qrcode/lib/utils/typedarray-buffer.js ***!
-  \*****************************************************************************************/
+/***/ "./node_modules/qrcode/lib/utils/typedarray-buffer.js":
+/*!************************************************************!*\
+  !*** ./node_modules/qrcode/lib/utils/typedarray-buffer.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3292,7 +3453,7 @@ exports.qrToImageData = function qrToImageData (imgData, qr, opts) {
 
 
 
-var isArray = __webpack_require__(/*! isarray */ "./node_modules/angularx-qrcode/node_modules/isarray/index.js")
+var isArray = __webpack_require__(/*! isarray */ "./node_modules/qrcode/node_modules/isarray/index.js")
 
 function typedArraySupport () {
   // Can typed array instances be augmented?
@@ -3799,179 +3960,18 @@ module.exports = Buffer
 
 /***/ }),
 
-/***/ "./node_modules/dijkstrajs/dijkstra.js":
-/*!*********************************************!*\
-  !*** ./node_modules/dijkstrajs/dijkstra.js ***!
-  \*********************************************/
+/***/ "./node_modules/qrcode/node_modules/isarray/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/qrcode/node_modules/isarray/index.js ***!
+  \***********************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
+var toString = {}.toString;
 
-
-/******************************************************************************
- * Created 2008-08-19.
- *
- * Dijkstra path-finding functions. Adapted from the Dijkstar Python project.
- *
- * Copyright (C) 2008
- *   Wyatt Baldwin <self@wyattbaldwin.com>
- *   All rights reserved
- *
- * Licensed under the MIT license.
- *
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *****************************************************************************/
-var dijkstra = {
-  single_source_shortest_paths: function(graph, s, d) {
-    // Predecessor map for each node that has been encountered.
-    // node ID => predecessor node ID
-    var predecessors = {};
-
-    // Costs of shortest paths from s to all nodes encountered.
-    // node ID => cost
-    var costs = {};
-    costs[s] = 0;
-
-    // Costs of shortest paths from s to all nodes encountered; differs from
-    // `costs` in that it provides easy access to the node that currently has
-    // the known shortest path from s.
-    // XXX: Do we actually need both `costs` and `open`?
-    var open = dijkstra.PriorityQueue.make();
-    open.push(s, 0);
-
-    var closest,
-        u, v,
-        cost_of_s_to_u,
-        adjacent_nodes,
-        cost_of_e,
-        cost_of_s_to_u_plus_cost_of_e,
-        cost_of_s_to_v,
-        first_visit;
-    while (!open.empty()) {
-      // In the nodes remaining in graph that have a known cost from s,
-      // find the node, u, that currently has the shortest path from s.
-      closest = open.pop();
-      u = closest.value;
-      cost_of_s_to_u = closest.cost;
-
-      // Get nodes adjacent to u...
-      adjacent_nodes = graph[u] || {};
-
-      // ...and explore the edges that connect u to those nodes, updating
-      // the cost of the shortest paths to any or all of those nodes as
-      // necessary. v is the node across the current edge from u.
-      for (v in adjacent_nodes) {
-        if (adjacent_nodes.hasOwnProperty(v)) {
-          // Get the cost of the edge running from u to v.
-          cost_of_e = adjacent_nodes[v];
-
-          // Cost of s to u plus the cost of u to v across e--this is *a*
-          // cost from s to v that may or may not be less than the current
-          // known cost to v.
-          cost_of_s_to_u_plus_cost_of_e = cost_of_s_to_u + cost_of_e;
-
-          // If we haven't visited v yet OR if the current known cost from s to
-          // v is greater than the new cost we just found (cost of s to u plus
-          // cost of u to v across e), update v's cost in the cost list and
-          // update v's predecessor in the predecessor list (it's now u).
-          cost_of_s_to_v = costs[v];
-          first_visit = (typeof costs[v] === 'undefined');
-          if (first_visit || cost_of_s_to_v > cost_of_s_to_u_plus_cost_of_e) {
-            costs[v] = cost_of_s_to_u_plus_cost_of_e;
-            open.push(v, cost_of_s_to_u_plus_cost_of_e);
-            predecessors[v] = u;
-          }
-        }
-      }
-    }
-
-    if (typeof d !== 'undefined' && typeof costs[d] === 'undefined') {
-      var msg = ['Could not find a path from ', s, ' to ', d, '.'].join('');
-      throw new Error(msg);
-    }
-
-    return predecessors;
-  },
-
-  extract_shortest_path_from_predecessor_list: function(predecessors, d) {
-    var nodes = [];
-    var u = d;
-    var predecessor;
-    while (u) {
-      nodes.push(u);
-      predecessor = predecessors[u];
-      u = predecessors[u];
-    }
-    nodes.reverse();
-    return nodes;
-  },
-
-  find_path: function(graph, s, d) {
-    var predecessors = dijkstra.single_source_shortest_paths(graph, s, d);
-    return dijkstra.extract_shortest_path_from_predecessor_list(
-      predecessors, d);
-  },
-
-  /**
-   * A very naive priority queue implementation.
-   */
-  PriorityQueue: {
-    make: function (opts) {
-      var T = dijkstra.PriorityQueue,
-          t = {},
-          key;
-      opts = opts || {};
-      for (key in T) {
-        if (T.hasOwnProperty(key)) {
-          t[key] = T[key];
-        }
-      }
-      t.queue = [];
-      t.sorter = opts.sorter || T.default_sorter;
-      return t;
-    },
-
-    default_sorter: function (a, b) {
-      return a.cost - b.cost;
-    },
-
-    /**
-     * Add a new item to the queue and ensure the highest priority element
-     * is at the front of the queue.
-     */
-    push: function (value, cost) {
-      var item = {value: value, cost: cost};
-      this.queue.push(item);
-      this.queue.sort(this.sorter);
-    },
-
-    /**
-     * Return the highest priority element in the queue.
-     */
-    pop: function () {
-      return this.queue.shift();
-    },
-
-    empty: function () {
-      return this.queue.length === 0;
-    }
-  }
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
 };
-
-
-// node.js module exports
-if (true) {
-  module.exports = dijkstra;
-}
 
 
 /***/ }),
@@ -3985,7 +3985,7 @@ if (true) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"checkin-visitor-wrapper\">\n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">\n            <span *ngIf=\"urlType == 'frequent-visitor-create'\">{{isEdit ? 'Edit' : 'Create'}} Frequent Visitor</span>\n            <span *ngIf=\"urlType == 'vendor-pass-create'\">{{isEdit ? 'Edit' : 'Create'}} Vendor Pass</span>\n        </h4>\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\t\t<condo-message class=\"mb-3\" *ngIf=\"message\"\n\t\t\t[appearance]=\"message.appearance\"\n\t\t\t[showIcon]=\"message.showIcon\"\n\t\t\t[type]=\"message.type\"\n\t\t\t[@shake]=\"message.shake\">\n                    {{message.content}}\n\t\t</condo-message>\n\t\t<form #expectedVisitorForm=\"ngForm\" *ngIf=\"isDataLoaded\">\n\t\t\t<div class=\"bg-card shadow\" *ngIf=\"isAdmin\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"Expected Visit Type\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Visit\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"visitTypeList\"\n\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitTypeId\"\n\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedVisitType($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Unit Visitor -->\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 50\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"Tower No\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Tower\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"towerList\"\n\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\tfieldId=\"block_Id\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedBlock($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"block.blockId && visitor.visitTypeId && visitor.visitTypeId == 50\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"Unit No\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Unit\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"unitList\"\n\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.apartmentUnitId\"\n\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedBlockUnit($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.apartmentUnitId\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>Primary Name</label>\n\t\t\t\t\t\t\t<input type=\"text\" [disabled]=\"true\" class=\"form-control\" placeholder=\"Primary Name\" [value]=\"block.primaryName\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Community Visitor -->\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 51\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"Staff\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Staff\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"staffsList\"\n\t\t\t\t\t\t\tfieldValue=\"staffName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.tomeetStaffId\"\n\t\t\t\t\t\t\tfieldId=\"staffId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedStaff($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"bg-card shadow\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}} Visitor Name<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Visitor Name\" name=\"visitorName\" [(ngModel)]=\"visitor.expectedVisitorName\" required>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}}  Visitor Count<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Visitor Count\" name=\"visitorCount\" [(ngModel)]=\"visitor.expectedVisitorCount\" required>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> \n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}}  Phone/Mobile No<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<ngx-intl-tel-input [inputId]=\"'userMobile'\"\n\t\t\t\t\t\t\t[preferredCountries]=\"preferredCountries\"\n\t\t\t\t\t\t\t[enableAutoCountrySelect]=\"true\" [enablePlaceholder]=\"true\"\n\t\t\t\t\t\t\t[searchCountryFlag]=\"true\"\n\t\t\t\t\t\t\t[searchCountryField]=\"[SearchCountryField.Iso2, SearchCountryField.Name]\"\n\t\t\t\t\t\t\t[selectFirstCountry]=\"false\"\n\t\t\t\t\t\t\t[selectedCountryISO]=\"selectedCountryISO\" [maxLength]=\"15\"\n\t\t\t\t\t\t\t[phoneValidation]=\"false\" [separateDialCode]=\"separateDialCode\"\n\t\t\t\t\t\t\t[(ngModel)]=\"visitor.expectedVisitorPhone\" name=\"phone\">\n\t\t\t\t\t\t</ngx-intl-tel-input>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"urlType == 'vendor-pass-create'\">\n\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"{{type}} Time of Visit\"\n\t\t\t\t\t\t\tfieldName=\"visitorInTime\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"time\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorInTime\"\n\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorInTime($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"urlType == 'vendor-pass-create'\">\n\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"{{type}} Out-Time\"\n\t\t\t\t\t\t\tfieldName=\"visitorOutTime\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"time\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorOutTime\"\n\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorOutTime($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{type}} Visit Category\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Category\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"visitCategoryList | orderBy : 'lookupValueName'\"\n\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitorCategoryId\"\n\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedCategory($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>Reason for Visit<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<textarea  type=\"text\" class=\"form-control purpose-box\" placeholder=\"Enter purpose\" name=\"visitorpurpose\" [(ngModel)]=\"visitor.purpose\" required></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"text-right\">\n\t\t\t\t\t\t<button *ngIf=\"!isEdit\" mat-flat-button [color]=\"'primary'\" (click)=\"createExpectedVisitor()\">Submit</button>\n\t\t\t\t\t\t<button *ngIf=\"isEdit\" mat-flat-button [color]=\"'primary'\" (click)=\"updateExpectedVisitor()\">Update</button>\n\t\t\t\t\t\t<button class=\"ml-2\" mat-stroked-button (click)=\"back()\">Cancel</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</form>\n\t</div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"checkin-visitor-wrapper\">\n\t<div class=\"main\">\n\t\t<h4 class=\"mb-4\">\n            <span *ngIf=\"urlType == 'frequent-visitor-create'\">{{isEdit ? 'Edit' : 'Create'}} {{'VISITOR.FREQUENTVISITOR.TITLE' | translate}}</span>\n            <span *ngIf=\"urlType == 'vendor-pass-create'\">{{isEdit ? 'Edit' : 'Create'}} {{'VISITOR.FREQUENTVISITOR.VENDORPASS' | translate}}</span>\n        </h4>\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\t\t<condo-message class=\"mb-3\" *ngIf=\"message\"\n\t\t\t[appearance]=\"message.appearance\"\n\t\t\t[showIcon]=\"message.showIcon\"\n\t\t\t[type]=\"message.type\"\n\t\t\t[@shake]=\"message.shake\">\n                    {{message.content}}\n\t\t</condo-message>\n\t\t<form #expectedVisitorForm=\"ngForm\" *ngIf=\"isDataLoaded\">\n\t\t\t<div class=\"bg-card shadow\" *ngIf=\"isAdmin\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.FREQUENTVISITOR.EXPECTEDVISITTYPE' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.VISIT' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"visitTypeList\"\n\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitTypeId\"\n\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedVisitType($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Unit Visitor -->\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 50\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.FREQUENTVISITOR.TOWERNO' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.TOWER' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"towerList\"\n\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\tfieldId=\"block_Id\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedBlock($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"block.blockId && visitor.visitTypeId && visitor.visitTypeId == 50\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.FREQUENTVISITOR.UNITNO' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.UNIT' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"unitList\"\n\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.apartmentUnitId\"\n\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedBlockUnit($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.apartmentUnitId\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{'VISITOR.FREQUENTVISITOR.PRIMARYNAME' | translate}}</label>\n\t\t\t\t\t\t\t<input type=\"text\" [disabled]=\"true\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.PRIMARYNAME' | translate}}\" [value]=\"block.primaryName\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Community Visitor -->\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 51\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.FREQUENTVISITOR.STAFF' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.STAFFLABEL' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"staffsList\"\n\t\t\t\t\t\t\tfieldValue=\"staffName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.tomeetStaffId\"\n\t\t\t\t\t\t\tfieldId=\"staffId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedStaff($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"bg-card shadow\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}} {{'VISITOR.FREQUENTVISITOR.VISITORNAME' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.VISITORNAME' | translate}}\" name=\"visitorName\" [(ngModel)]=\"visitor.expectedVisitorName\" required>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}}  {{'VISITOR.FREQUENTVISITOR.VISITORCOUNT' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.VISITORCOUNT' | translate}}\" name=\"visitorCount\" [(ngModel)]=\"visitor.expectedVisitorCount\" required>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> \n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{type}} {{'VISITOR.FREQUENTVISITOR.MOBILENO' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<ngx-intl-tel-input [inputId]=\"'userMobile'\"\n\t\t\t\t\t\t\t[preferredCountries]=\"preferredCountries\"\n\t\t\t\t\t\t\t[enableAutoCountrySelect]=\"true\" [enablePlaceholder]=\"true\"\n\t\t\t\t\t\t\t[searchCountryFlag]=\"true\"\n\t\t\t\t\t\t\t[searchCountryField]=\"[SearchCountryField.Iso2, SearchCountryField.Name]\"\n\t\t\t\t\t\t\t[selectFirstCountry]=\"false\"\n\t\t\t\t\t\t\t[selectedCountryISO]=\"selectedCountryISO\" [maxLength]=\"15\"\n\t\t\t\t\t\t\t[phoneValidation]=\"false\" [separateDialCode]=\"separateDialCode\"\n\t\t\t\t\t\t\t[(ngModel)]=\"visitor.expectedVisitorPhone\" name=\"phone\">\n\t\t\t\t\t\t</ngx-intl-tel-input>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"urlType == 'vendor-pass-create'\">\n\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"{{type}} {{'VISITOR.FREQUENTVISITOR.TIMEOFVISIT' | translate}}\"\n\t\t\t\t\t\t\tfieldName=\"visitorInTime\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"time\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorInTime\"\n\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorInTime($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"urlType == 'vendor-pass-create'\">\n\n\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\tlabelText=\"{{type}}  {{'VISITOR.FREQUENTVISITOR.OUTTIME' | translate}}\"\n\t\t\t\t\t\t\tfieldName=\"visitorOutTime\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\ttype=\"time\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorOutTime\"\n\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorOutTime($event)\">\n\t\t\t\t\t\t</app-datepicker>\n\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\tlabelText=\"{{type}} {{'VISITOR.FREQUENTVISITOR.VISITCATEGORY' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.CATEGORY' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"visitCategoryList | orderBy : 'lookupValueName'\"\n\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitorCategoryId\"\n\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setSelectedCategory($event)\" \n\t\t\t\t\t\t></condo-select>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{'VISITOR.FREQUENTVISITOR.REASONFORVISIT' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t<textarea  type=\"text\" class=\"form-control purpose-box\" placeholder=\"{{'PLACEHOLDER.ENTERPURPOSE' | translate}}\" name=\"visitorpurpose\" [(ngModel)]=\"visitor.purpose\" required></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t<div class=\"text-right\">\n\t\t\t\t\t\t<button *ngIf=\"!isEdit\" mat-flat-button [color]=\"'primary'\" (click)=\"createExpectedVisitor()\">{{'BUTTONS.SUBMITBUTTON' | translate}}</button>\n\t\t\t\t\t\t<button *ngIf=\"isEdit\" mat-flat-button [color]=\"'primary'\" (click)=\"updateExpectedVisitor()\">{{'BUTTONS.UPDATEBUTTON' | translate}}</button>\n\t\t\t\t\t\t<button class=\"ml-2\" mat-stroked-button (click)=\"back()\">{{'BUTTONS.CANCELBUTTON' | translate}}</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</form>\n\t</div>\n</div>");
 
 /***/ }),
 
@@ -3998,7 +3998,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"currently-checked-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">Currently Checked-In Visitors</h4>\n                    <p class=\"text-secondary mb-1\">{{totalItems}} results</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchData\">\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" routerLink=\"/ams/visitor/checkin\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Visitor</span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.visitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.visitorPhone}}</span>\n                                    <span class=\"d-md-inline-block d-none\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.passNumber}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                            <div class=\"icon\" (click)=\"checkOut(item.visitorId)\">\n                                <img width=\"35\" class=\"svg\" src=\"assets/images/checkout-icon.svg\" />\n                            </div>\n                            <div class=\"actions d-flex mt-3\">\n                                <mat-icon [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.visitorId)\"></mat-icon>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">Pass ID</p>\n                                <p class=\"right\">{{item.passNumber}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">IN Time</p>\n                                <p class=\"right\">{{getDateTime(item.visitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">Expected Out</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">Visit Type</p>\n                                <p class=\"right\">{{item.visitTypeName}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">Tower & Unit</p>\n                                <p class=\"right\">{{item.block_Unit}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length > 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"currently-checked-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">{{'VISITOR.CURRENTLYCHECKEDIN.TITLE' | translate}}</h4>\n                    <p class=\"text-secondary mb-1\">{{totalItems}} {{'VISITOR.CURRENTLYCHECKEDIN.TOTALRESULTS' | translate}}</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <app-table-search [input]=\"groupData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" routerLink=\"/ams/visitor/checkin\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">{{'BUTTONS.VISITOR' | translate}}</span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow\" *ngIf=\"visitorList.length == 0\">\n                <h6 class=\"text-secondary\">{{'VISITOR.CURRENTLYCHECKEDIN.NORESULTS' | translate}}</h6>\n            </div>\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.visitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.visitorPhone}}</span>\n                                    <span class=\"d-md-inline-block d-none\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.passNumber}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                            <div class=\"icon\" (click)=\"checkOut(item.visitorId)\">\n                                <img width=\"35\" class=\"svg\" src=\"assets/images/checkout-icon.svg\" />\n                            </div>\n                            <div class=\"actions d-flex mt-3\">\n                                <mat-icon [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.visitorId)\"></mat-icon>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">{{'VISITOR.CURRENTLYCHECKEDIN.PASSID' | translate}}</p>\n                                <p class=\"right\">{{item.passNumber}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.CURRENTLYCHECKEDIN.PASSID' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.visitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.CURRENTLYCHECKEDIN.EXPECTEDOUT' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.CURRENTLYCHECKEDIN.VISITTYPE' | translate}</p>\n                                <p class=\"right\">{{item.visitTypeName}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.CURRENTLYCHECKEDIN.TOWERUNIT' | translate}</p>\n                                <p class=\"right\">{{item.block_Unit}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length > 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -4011,7 +4011,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"expected-user-visitor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        \n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n\n                <div>\n                    <h4 class=\"mb-2\">Expected Visitors</h4>\n                    <p class=\"text-secondary mb-1\" *ngIf=\"visitorList.length != 0\">{{totalItems}} results</p>\n                </div>\n\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchData\">\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Expected Visitor</span>\n                        </button>\n                    </div>\n                </div>\n\n            </div>\n\n        \n\n            <div class=\"bg-card shadow\" *ngIf=\"visitorList.length == 0\">\n                <h6 class=\"text-secondary\">No Results found</h6>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                    <span (click)=\"viewPass(item.expectedVisitorId)\" class=\"d-md-inline-block d-none text-primary link\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto actions d-flex align-items-center\">\n                            <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                            <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">Pass ID</p>\n                                <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">Expected IN</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">Expected OUT</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">Visit Type</p>\n                                <p class=\"right\">{{item.visitType_Label}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length != 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"expected-user-visitor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        \n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n\n                <div>\n                    <h4 class=\"mb-2\">{{'VISITOR.EXPECTEDVISITORS.TITLE' | translate}}</h4>\n                    <p class=\"text-secondary mb-1\" *ngIf=\"visitorList.length != 0\">{{totalItems}} {{'VISITOR.EXPECTEDVISITORS.TOTALRESULTS' | translate}}</p>\n                </div>\n\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchData\">\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">{{'BUTTONS.EXPECTEDVISITOR' | translate}}</span>\n                        </button>\n                    </div>\n                </div>\n\n            </div>\n\n        \n\n            <div class=\"bg-card shadow\" *ngIf=\"visitorList.length == 0\">\n                <h6 class=\"text-secondary\">{{'VISITOR.EXPECTEDVISITORS.NORESULTS' | translate}}</h6>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                    <span (click)=\"viewPass(item.expectedVisitorId)\" class=\"d-md-inline-block d-none text-primary link\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        <div class=\"ml-auto actions d-flex align-items-center\">\n                            <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                            <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">{{'VISITOR.EXPECTEDVISITORS.PASSID' | translate}}</p>\n                                <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'VISITOR.EXPECTEDVISITORS.EXPECTEDIN' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'VISITOR.EXPECTEDVISITORS.EXPECTEDOUT' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'VISITOR.EXPECTEDVISITORS.VISITTYPE' | translate}}</p>\n                                <p class=\"right\">{{item.visitType_Label}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length != 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -4037,7 +4037,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"checkin-visitor-wrapper\">\n\t<div class=\"main\">\n\t\t\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t\t<condo-message class=\"mb-5\" *ngIf=\"message\"\n\t\t\t[appearance]=\"message.appearance\"\n\t\t\t[showIcon]=\"message.showIcon\"\n\t\t\t[type]=\"message.type\"\n\t\t\t[@shake]=\"message.shake\">\n                    {{message.content}}\n\t\t\t</condo-message>\n\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<h4>\n\t\t\t\t\t<span *ngIf=\"!isEdit\">Create Expected Visitor</span>\n\t\t\t\t\t<span *ngIf=\"isEdit\">Edit Expected Visitor</span>\n\t\t\t\t</h4>\n\t\t\t\t<!-- <a class=\"ml-auto\" mat-button (click)=\"back()\" [color]=\"'primary'\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'arrow_back'\"></mat-icon>\n\t\t\t\t\t<span>Back</span>\n\t\t\t\t</a> -->\n\t\t\t</div>\n\n\t\t\t<form #expectedVisitorForm=\"ngForm\"  name=\"expectedVisitorForm\" (ngSubmit)=\"submitExpectedVisitorForm(expectedVisitorForm)\" novalidate>\n\t\t\t\t\n\t\t\t\t<div class=\"bg-card shadow\" *ngIf=\"isAdmin()\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Expected Visit Type\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Visit\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"visitTypeList\"\n\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitTypeId\"\n\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedVisitType($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- Unit Visitor -->\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 50\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Tower No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Tower\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"towerList\"\n\t\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\t\tfieldId=\"block_Id\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlock($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"block.blockId && visitor.visitTypeId && visitor.visitTypeId == 50\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Unit No\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Unit\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"unitList\"\n\t\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.apartmentUnitId\"\n\t\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlockUnit($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.apartmentUnitId\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Primary Name</label>\n\t\t\t\t\t\t\t\t<input type=\"text\" [disabled]=\"true\" class=\"form-control\" placeholder=\"Primary Name\" [value]=\"block.primaryName\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- Community Visitor -->\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 51\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Staff\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Staff\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"staffsList\"\n\t\t\t\t\t\t\t\tfieldValue=\"staffName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.tomeetStaffId\"\n\t\t\t\t\t\t\t\tfieldId=\"staffId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedStaff($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"bg-card shadow\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Expected Visitor Name<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Visitor Name\" name=\"visitorName\" [(ngModel)]=\"visitor.expectedVisitorName\" required>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Expected Visitor Count<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"Visitor Count\" name=\"visitorCount\" [(ngModel)]=\"visitor.expectedVisitorCount\" required>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> \n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Expected Phone/Mobile No<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<ngx-intl-tel-input [inputId]=\"'userMobile'\"\n\t\t\t\t\t\t\t\t[preferredCountries]=\"preferredCountries\"\n\t\t\t\t\t\t\t\t[enableAutoCountrySelect]=\"true\" [enablePlaceholder]=\"true\"\n\t\t\t\t\t\t\t\t[searchCountryFlag]=\"true\"\n\t\t\t\t\t\t\t\t[searchCountryField]=\"[SearchCountryField.Iso2, SearchCountryField.Name]\"\n\t\t\t\t\t\t\t\t[selectFirstCountry]=\"false\"\n\t\t\t\t\t\t\t\t[selectedCountryISO]=\"selectedCountryISO\" [maxLength]=\"15\"\n\t\t\t\t\t\t\t\t[phoneValidation]=\"false\" [separateDialCode]=\"separateDialCode\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"visitor.expectedVisitorPhone\" name=\"phone\">\n\t\t\t\t\t\t\t\t</ngx-intl-tel-input>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"Expected Date/Time of Visit\"\n\t\t\t\t\t\t\t\tfieldName=\"visitorInTime\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\ttype=\"dateTime\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorInTime\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorInDate($event)\">\n\t\t\t\t\t\t\t</app-datepicker>\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"Expected Out/Time of Visit\"\n\t\t\t\t\t\t\t\tfieldName=\"visitorOutTime\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\ttype=\"dateTime\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorOutTime\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorOutDate($event)\">\n\t\t\t\t\t\t\t</app-datepicker>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Expected Duration of Visit<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" placeholder=\"Duration Info\" name=\"durationInfo\" [value]=\"expectedDurationInfo\" [disabled]=\"true\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"Expected Visit Category\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"Select Category\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"visitCategoryList | orderBy : 'lookupValueName'\"\n\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitorCategoryId\"\n\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedCategory($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>Reason for Visit<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<textarea  type=\"text\" class=\"form-control purpose-box\" placeholder=\"Enter purpose\" name=\"visitorpurpose\" [(ngModel)]=\"visitor.purpose\" required></textarea>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"mt-4 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">\n\t\t\t\t\t\t<span *ngIf=\"!isEdit\">Submit</span>\n\t\t\t\t\t\t<span *ngIf=\"isEdit\">Update</span>\n\t\t\t\t\t</button>\n\t\t\t\t\t<a class=\"ml-2\" mat-button (click)=\"back()\">Cancel</a>\n\t\t\t\t</div>\n\t\t\t</form>\n\n\t\t</ng-container>\n\t\n\n\t</div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"checkin-visitor-wrapper\">\n\t<div class=\"main\">\n\t\t\n\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n\t\t<ng-container *ngIf=\"isDataLoaded\">\n\n\t\t\t<condo-message class=\"mb-5\" *ngIf=\"message\"\n\t\t\t[appearance]=\"message.appearance\"\n\t\t\t[showIcon]=\"message.showIcon\"\n\t\t\t[type]=\"message.type\"\n\t\t\t[@shake]=\"message.shake\">\n                    {{message.content}}\n\t\t\t</condo-message>\n\n\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t<h4>\n\t\t\t\t\t<span *ngIf=\"!isEdit\">{{'VISITOR.CREATEVISITOR.CREATETITLE' | translate}}</span>\n\t\t\t\t\t<span *ngIf=\"isEdit\">{{'VISITOR.CREATEVISITOR.EDITTITLE' | translate}}</span>\n\t\t\t\t</h4>\n\t\t\t\t<!-- <a class=\"ml-auto\" mat-button (click)=\"back()\" [color]=\"'primary'\">\n\t\t\t\t\t<mat-icon [svgIcon]=\"'arrow_back'\"></mat-icon>\n\t\t\t\t\t<span>Back</span>\n\t\t\t\t</a> -->\n\t\t\t</div>\n\n\t\t\t<form #expectedVisitorForm=\"ngForm\"  name=\"expectedVisitorForm\" (ngSubmit)=\"submitExpectedVisitorForm(expectedVisitorForm)\" novalidate>\n\t\t\t\t\n\t\t\t\t<div class=\"bg-card shadow\" *ngIf=\"isAdmin()\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.EXPECTEDVISITTYPE' | translate}}\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.VISIT' | translate}}\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"visitTypeList\"\n\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitTypeId\"\n\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedVisitType($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- Unit Visitor -->\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 50\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.TOWERNO' | translate}}\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.TOWER' | translate}}\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"towerList\"\n\t\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\t\tfieldId=\"block_Id\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlock($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"block.blockId && visitor.visitTypeId && visitor.visitTypeId == 50\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.UNITNO' | translate}}\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.UNIT' | translate}}\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"unitList\"\n\t\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.apartmentUnitId\"\n\t\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedBlockUnit($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.apartmentUnitId\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.PRIMARYNAME' | translate}}</label>\n\t\t\t\t\t\t\t\t<input type=\"text\" [disabled]=\"true\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.PRIMARYNAME' | translate}}\" [value]=\"block.primaryName\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- Community Visitor -->\n\t\t\t\t\t\t<div class=\"col-sm-4\" *ngIf=\"visitor.visitTypeId && visitor.visitTypeId == 51\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.STAFF' | translate}}\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.STAFF' | translate}}\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"staffsList\"\n\t\t\t\t\t\t\t\tfieldValue=\"staffName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.tomeetStaffId\"\n\t\t\t\t\t\t\t\tfieldId=\"staffId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedStaff($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"bg-card shadow\">\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.EXPECTEDVISITORNAME' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.VISITORNAME' | translate}}\" name=\"visitorName\" [(ngModel)]=\"visitor.expectedVisitorName\" required>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.EXPECTEDVISITORCOUNT' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input OnlyNumber=\"true\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.VISITORCOUNT' | translate}}\" name=\"visitorCount\" [(ngModel)]=\"visitor.expectedVisitorCount\" required>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> \n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.EXPECTEDMOBILENO' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<ngx-intl-tel-input [inputId]=\"'userMobile'\"\n\t\t\t\t\t\t\t\t[preferredCountries]=\"preferredCountries\"\n\t\t\t\t\t\t\t\t[enableAutoCountrySelect]=\"true\" [enablePlaceholder]=\"true\"\n\t\t\t\t\t\t\t\t[searchCountryFlag]=\"true\"\n\t\t\t\t\t\t\t\t[searchCountryField]=\"[SearchCountryField.Iso2, SearchCountryField.Name]\"\n\t\t\t\t\t\t\t\t[selectFirstCountry]=\"false\"\n\t\t\t\t\t\t\t\t[selectedCountryISO]=\"selectedCountryISO\" [maxLength]=\"15\"\n\t\t\t\t\t\t\t\t[phoneValidation]=\"false\" [separateDialCode]=\"separateDialCode\"\n\t\t\t\t\t\t\t\t[(ngModel)]=\"visitor.expectedVisitorPhone\" name=\"phone\">\n\t\t\t\t\t\t\t\t</ngx-intl-tel-input>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.EXPECTEDVISITDATETIME' | translate}}\"\n\t\t\t\t\t\t\t\tfieldName=\"visitorInTime\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\ttype=\"dateTime\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorInTime\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorInDate($event)\">\n\t\t\t\t\t\t\t</app-datepicker>\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<app-datepicker\n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.EXPECTEDVISITOUTTIME' | translate}}\"\n\t\t\t\t\t\t\t\tfieldName=\"visitorOutTime\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\ttype=\"dateTime\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.expectedVisitorOutTime\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getExpectedVisitorOutDate($event)\">\n\t\t\t\t\t\t\t</app-datepicker>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.EXPECTEDDURATIONVISIT' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<input class=\"form-control\" placeholder=\"{{'PLACEHOLDER.DURATIONINFO' | translate}}\" name=\"durationInfo\" [value]=\"expectedDurationInfo\" [disabled]=\"true\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\n\t\t\t\t\t\t\t<condo-select \n\t\t\t\t\t\t\t\tlabelText=\"{{'VISITOR.CREATEVISITOR.EXPECTEDVISITCATEGORY' | translate}}\"\n\t\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.CATEGORY' | translate}}\"\n\t\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t\t[fieldList]=\"visitCategoryList | orderBy : 'lookupValueName'\"\n\t\t\t\t\t\t\t\tfieldValue=\"lookupValueName\"\n\t\t\t\t\t\t\t\t[fieldModel]=\"visitor.visitorCategoryId\"\n\t\t\t\t\t\t\t\tfieldId=\"lookupValueId\"\n\t\t\t\t\t\t\t\t(fieldParams)=\"getSelectedCategory($event)\" \n\t\t\t\t\t\t\t></condo-select>\n\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-4\">\n\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t<label>{{'VISITOR.CREATEVISITOR.REASONFORVISIT' | translate}}<span class=\"required\">*</span></label>\n\t\t\t\t\t\t\t\t<textarea  type=\"text\" class=\"form-control purpose-box\" placeholder=\"{{'PLACEHOLDER.ENTERPURPOSE' | translate}}\" name=\"visitorpurpose\" [(ngModel)]=\"visitor.purpose\" required></textarea>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"mt-4 text-right\">\n\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\">\n\t\t\t\t\t\t<span *ngIf=\"!isEdit\">{{'BUTTONS.SUBMITBUTTON' | translate}}</span>\n\t\t\t\t\t\t<span *ngIf=\"isEdit\">{{'BUTTONS.UPDATEBUTTON' | translate}}</span>\n\t\t\t\t\t</button>\n\t\t\t\t\t<a class=\"ml-2\" mat-button (click)=\"back()\">{{'BUTTONS.CANCELBUTTON' | translate}}</a>\n\t\t\t\t</div>\n\t\t\t</form>\n\n\t\t</ng-container>\n\t\n\n\t</div>\n</div>");
 
 /***/ }),
 
@@ -4050,7 +4050,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"expected-visitor-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"expected-visitor-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4> Filter </h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<form>\n\t\t\t\t\t<div class=\"row\">\n                        <div class=\"col-sm-12\">\n                            <app-datepicker\n                                labelText=\"From Date\"\n                                fieldName=\"eventDateFrom\"\n                                [fieldRequired]=\"'null'\"\n                                type=\"date\"\n                                [fieldModel]=\"filterField.fromDate\"\n                                (fieldParams)=\"getFromDate($event)\">\n                            </app-datepicker>\n                        </div>\n                        <div class=\"col-sm-12\">\n                            <app-datepicker\n                                labelText=\"To Date\"\n                                fieldName=\"eventDateTo\"\n                                [fieldRequired]=\"'null'\"\n                                type=\"date\"\n                                [fieldModel]=\"filterField.toDate\"\n                                (fieldParams)=\"getToDate($event)\">\n                            </app-datepicker>\n                        </div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Clear</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n            <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n\t\t\t<div class=\"main\">\n                \n               <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n                    <div class=\"d-flex mb-4\">\n                        <div>\n                            <h4 class=\"mb-2\">Expected Visitors</h4>\n                            <p class=\"text-secondary mb-1\">{{totalItems}} results from {{getDate(filterField.fromDate)}} to {{getDate(filterField.toDate)}}</p>\n                        </div>\n                    </div>\n\n                    <div class=\"d-flex mb-4\">\n                        <div class=\"d-flex ml-auto\">\n                            <div class=\"mr-3\">\n                                <input type=\"text\" class=\"form-control\" [formControl]=\"searchData\" placeholder=\"Search...\" >\n                            </div>\n                            <div class=\"mr-3 ml-auto\">\n                                <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                                    <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Expected Visitor</span>\n                                </button>\n                            </div>\n                            <div>\n                                <button mat-flat-button [color]=\"'accent'\" (click)=\"filter.toggle()\">\n                                    <mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon><span class=\"button-name\">Filter</span>\n                                </button>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"bg-card shadow\" *ngIf=\"totalItems == 0\">\n                        <h6 class=\"text-secondary\">No Results found</h6>\n                    </div>\n\n                    <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList$ | async | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                        <div class=\"visitor-item\">\n                            <div class=\"d-flex\">\n                                <div class=\"media\">\n                                    <div class=\"icon\">\n                                        <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                                    </div>\n                                    <div class=\"media-body\">\n                                        <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                        <p class=\"pb-1 text-secondary others\">\n                                            <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                            <span (click)=\"viewPass(item.expectedVisitorId)\" class=\"d-md-inline-block d-none link text-primary\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                        </p>\n                                    </div>\n                                </div>\n                                <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                                    <div class=\"icon\" (click)=\"checkIn(item)\">\n                                        <img width=\"35\" class=\"svg\" src=\"assets/images/checkin-icon.svg\" />\n                                    </div>\n                                    <div class=\"actions d-flex mt-3\">\n                                        <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                                        <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"border-top visitor-extras\">\n                                <div class=\"row\">\n                                    <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                        <p class=\"font-medium\">Pass ID</p>\n                                        <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Expected IN</p>\n                                        <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                                    </div>\n                                    <div class=\"ccol-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Expected OUT</p>\n                                        <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Visit Type</p>\n                                        <p class=\"right\">{{item.visitType_Label}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Tower & Unit</p>\n                                        <p class=\"right\">{{item.block_Unit}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n                    </div>\n                    \n                    \n\n                    <div class=\"bg-card shadow p-0\" *ngIf=\"totalItems != 0\">\n                        <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                                [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n                    </app-pagination>\n                    </div>\n\n               </ng-container>\n\n            </div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"expected-visitor-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"expected-visitor-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4> Filter </h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<form>\n\t\t\t\t\t<div class=\"row\">\n                        <div class=\"col-sm-12\">\n                            <app-datepicker\n                                labelText=\"From Date\"\n                                fieldName=\"eventDateFrom\"\n                                [fieldRequired]=\"'null'\"\n                                type=\"date\"\n                                [fieldModel]=\"filterField.fromDate\"\n                                (fieldParams)=\"getFromDate($event)\">\n                            </app-datepicker>\n                        </div>\n                        <div class=\"col-sm-12\">\n                            <app-datepicker\n                                labelText=\"To Date\"\n                                fieldName=\"eventDateTo\"\n                                [fieldRequired]=\"'null'\"\n                                type=\"date\"\n                                [fieldModel]=\"filterField.toDate\"\n                                (fieldParams)=\"getToDate($event)\">\n                            </app-datepicker>\n                        </div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Clear</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n            <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n\t\t\t<div class=\"main\">\n                \n               <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n                    <div class=\"d-flex mb-4\">\n                        <div>\n                            <h4 class=\"mb-2\">Expected Visitors</h4>\n                            <p class=\"text-secondary mb-1\">{{totalItems}} results from {{getDate(filterField.fromDate)}} to {{getDate(filterField.toDate)}}</p>\n                        </div>\n                    </div>\n\n                    <div class=\"d-flex mb-4\">\n                        <div class=\"d-flex ml-auto\">\n                            <div class=\"mr-3\">\n                                <app-table-search [input]=\"search\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                            </div>\n                            <div class=\"mr-3 ml-auto\">\n                                <button mat-flat-button class=\"d-none d-md-block\" [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                                    <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Expected Visitor</span>\n                                </button>\n                                <button mat-flat-button class=\"d-block d-md-none\" [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                                        <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\"></span>\n                                    </button>\n                            </div>\n                            <div>\n                                <button mat-flat-button class=\"d-none d-md-block\" [color]=\"'accent'\" (click)=\"filter.toggle()\">\n                                    <mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon><span class=\"button-name\">Filter</span>\n                                </button>\n                                <button mat-flat-button class=\"d-block d-md-none\" [color]=\"'accent'\" (click)=\"filter.toggle()\">\n                                        <mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon><span class=\"button-name\"></span>\n                                    </button>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"bg-card shadow\" *ngIf=\"totalItems == 0\">\n                        <h6 class=\"text-secondary\">No Results found</h6>\n                    </div>\n\n                    <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList$ | async | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                        <div class=\"visitor-item\">\n                            <div class=\"d-flex\">\n                                <div class=\"media\">\n                                    <div class=\"icon\">\n                                        <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                                    </div>\n                                    <div class=\"media-body\">\n                                        <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                        <p class=\"pb-1 text-secondary others\">\n                                            <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                            <span (click)=\"viewPass(item.expectedVisitorId)\" class=\"d-md-inline-block d-none link text-primary\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                        </p>\n                                    </div>\n                                </div>\n                                <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                                    <div class=\"icon\" (click)=\"checkIn(item)\">\n                                        <img width=\"35\" class=\"svg\" src=\"assets/images/checkin-icon.svg\" />\n                                    </div>\n                                    <div class=\"actions d-flex mt-3\">\n                                        <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                                        <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"border-top visitor-extras\">\n                                <div class=\"row\">\n                                    <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                        <p class=\"font-medium\">Pass ID</p>\n                                        <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Expected IN</p>\n                                        <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                                    </div>\n                                    <div class=\"ccol-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Expected OUT</p>\n                                        <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Visit Type</p>\n                                        <p class=\"right\">{{item.visitType_Label}}</p>\n                                    </div>\n                                    <div class=\"col-sm-12 col-md-3 item\">\n                                        <p class=\"font-medium\">Tower & Unit</p>\n                                        <p class=\"right\">{{item.block_Unit}}</p>\n                                    </div>\n                                </div>\n                            </div>\n                        </div>\n\n                    </div>\n                    \n                    \n\n                    <div class=\"bg-card shadow p-0\" *ngIf=\"totalItems != 0\">\n                        <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                                [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n                    </app-pagination>\n                    </div>\n\n               </ng-container>\n\n            </div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n");
 
 /***/ }),
 
@@ -4063,7 +4063,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"frequent-vendor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">\n                        <span *ngIf=\"urlType == 'frequent-visitor-list'\">Frequent Visitor List</span>\n                        <span *ngIf=\"urlType == 'vendor-pass-list'\">Vendor Pass List</span>\n                    </h4>\n                    <p class=\"text-secondary mb-1\">{{totalItems}} results</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"searchData\">\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon>\n                            <span class=\"button-name\" *ngIf=\"urlType == 'frequent-visitor-list'\">Frequent Visitor</span>\n                            <span class=\"button-name\" *ngIf=\"urlType == 'vendor-pass-list'\">Vendor Pass</span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow\" *ngIf=\"visitorList.length == 0\">\n                <h6 class=\"text-secondary\">No Results found</h6>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                    <span class=\"d-md-inline-block d-none link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        \n                        <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                            <div class=\"icon\" (click)=\"checkIn(item)\" *ngIf=\"isAdmin\">\n                                <img width=\"35\" class=\"svg\" src=\"assets/images/checkin-icon.svg\" />\n                            </div>\n                            <div class=\"actions d-flex mt-3\">\n                                <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                                <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">Pass ID</p>\n                                <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\" *ngIf=\"urlType == 'vendor-pass-list'\">\n                                <p class=\"font-medium\">Expected IN</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-3 item\" *ngIf=\"urlType == 'vendor-pass-list'\">\n                                <p class=\"font-medium\">Expected OUT</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">Visit Type</p>\n                                <p class=\"right\">{{item.visitType_Label}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">Tower & Unit</p>\n                                <p class=\"right\">{{item.block_Unit}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length > 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"frequent-vendor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <ng-container *ngIf=\"isVisitorDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">\n                        <span *ngIf=\"urlType == 'frequent-visitor-list'\">{{'VISITOR.FREQUENTVISITORLIST.TITLE' | translate}}</span>\n                        <span *ngIf=\"urlType == 'vendor-pass-list'\">{{'VISITOR.FREQUENTVISITORLIST.TITLE' | translate}}</span>\n                    </h4>\n                    <p class=\"text-secondary mb-1\">{{totalItems}} {{'VISITOR.FREQUENTVISITORLIST.TOTALRESULTS' | translate}}</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <app-table-search [input]=\"groupData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon>\n                            <span class=\"button-name\" *ngIf=\"urlType == 'frequent-visitor-list'\">{{'VISITOR.FREQUENTVISITOR.FREQUENTVISITOR' | translate}}</span>\n                            <span class=\"button-name\" *ngIf=\"urlType == 'vendor-pass-list'\">{{'VISITOR.FREQUENTVISITOR.VENDORPASS' | translate}}</span>\n                        </button>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow\" *ngIf=\"visitorList.length == 0\">\n                <h6 class=\"text-secondary\">{{'VISITOR.FREQUENTVISITORLIST.NORESULTS' | translate}}</h6>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of visitorList | simpleSearch: searchData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"visitor-item\">\n                    <div class=\"d-flex\">\n                        <div class=\"media\">\n                            <div class=\"icon\">\n                                <mat-icon svgIcon=\"heroicons_outline:user-circle\"></mat-icon>\n                            </div>\n                            <div class=\"media-body\">\n                                <h5 class=\"mb-2\">{{item.expectedVisitorName}}</h5>\n                                <p class=\"pb-1 text-secondary others\">\n                                    <span class=\"mr-4\"><mat-icon svgIcon=\"heroicons_outline:phone\"></mat-icon>{{item.expectedVisitorPhone}}</span>\n                                    <span class=\"d-md-inline-block d-none link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\"><mat-icon svgIcon=\"dripicons:user-id\"></mat-icon>{{item.visitorPassId}}</span>\n                                </p>\n                            </div>\n                        </div>\n                        \n                        <div class=\"ml-auto check d-flex flex-column align-items-center\">\n                            <div class=\"icon\" (click)=\"checkIn(item)\" *ngIf=\"isAdmin\">\n                                <img width=\"35\" class=\"svg\" src=\"assets/images/checkin-icon.svg\" />\n                            </div>\n                            <div class=\"actions d-flex mt-3\">\n                                <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editVisitor(item.expectedVisitorId)\"></mat-icon>\n                                <mat-icon class=\"delete\" svgIcon=\"feather:trash\" (click)=\"deleteVisitor(item.expectedVisitorId, i)\"></mat-icon>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"border-top visitor-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-3 item d-block d-md-none\">\n                                <p class=\"font-medium\">{{'VISITOR.FREQUENTVISITORLIST.PASSID' | translate}}</p>\n                                <p class=\"right link text-primary\" (click)=\"viewPass(item.expectedVisitorId)\">{{item.visitorPassId}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\" *ngIf=\"urlType == 'vendor-pass-list'\">\n                                <p class=\"font-medium\">{{'VISITOR.FREQUENTVISITORLIST.EXPECTEDIN' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorInTime)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-3 item\" *ngIf=\"urlType == 'vendor-pass-list'\">\n                                <p class=\"font-medium\">{{'VISITOR.FREQUENTVISITORLIST.EXPECTEDOUT' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.expectedVisitorOutTime)}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.FREQUENTVISITORLIST.VISITTYPE' | translate}}</p>\n                                <p class=\"right\">{{item.visitType_Label}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-3 item\">\n                                <p class=\"font-medium\">{{'VISITOR.FREQUENTVISITORLIST.TOWERUNIT' | translate}}</p>\n                                <p class=\"right\">{{item.block_Unit}}</p>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"visitorList.length > 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n            </app-pagination>\n            </div>\n\n        </ng-container>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -4076,7 +4076,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"user-visitor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <condo-card *ngIf=\"isVisitorDataLoaded\">\n            <div CondoCardHeader>\n                <div class=\"d-sm-flex table-header\">\n                    <div>\n                        <h4>\n                            <span *ngIf=\"urlType == 'expected-visitor-user-checked-in'\">Currently Checked In</span>\n                            <span *ngIf=\"urlType == 'expected-visitor-user-history'\">Visitor History</span>\n                       </h4>\n                        <p>{{totalItems}} results</p>\n                    </div>\n                    <div class=\"d-flex ml-auto\">\n                        <div class=\"mr-3\">\n                            <app-table-search [input]=\"visitorSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                        </div>\n                        <div class=\"mr-3\">\n                            <app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                                <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Expected Visitor</span>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div CondoCardBody>\n                <jqxGrid  [theme]=\"'material'\"  [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\"\n                    [pageable]=\"true\" [filterable]=\"true\" [sortable]=\"true\" [source]=\"visitorList\"\n                    [columns]=\"columnData\" [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n                </jqxGrid> \n            </div>\n        </condo-card>\n    </div>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"user-visitor-list-wrapper\">\n    <app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n    <div class=\"main\">\n        <condo-card *ngIf=\"isVisitorDataLoaded\">\n            <div CondoCardHeader>\n                <div class=\"d-sm-flex table-header\">\n                    <div>\n                        <h4>\n                            <span *ngIf=\"urlType == 'expected-visitor-user-checked-in'\">{{'VISITOR.EXPECTEDVISITORUSER.CHECKEDINTITLE' | translate}}</span>\n                            <span *ngIf=\"urlType == 'expected-visitor-user-history'\">{{'VISITOR.EXPECTEDVISITORUSER.HISTORYTITLE' | translate}}</span>\n                       </h4>\n                        <p>{{totalItems}} results</p>\n                    </div>\n                    <div class=\"d-flex ml-auto\">\n                        <div class=\"mr-3\">\n                            <app-table-search [input]=\"visitorSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                        </div>\n                        <div class=\"mr-3\">\n                            <app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n                        </div>\n                        <div class=\"ml-auto\">\n                            <button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n                                <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">{{'BUTTONS.EXPECTEDVISITOR' | translate}}</span>\n                            </button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div CondoCardBody>\n                <jqxGrid  [theme]=\"'material'\"  [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\"\n                    [pageable]=\"true\" [filterable]=\"true\" [sortable]=\"true\" [source]=\"visitorList\"\n                    [columns]=\"columnData\" [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n                </jqxGrid> \n            </div>\n        </condo-card>\n    </div>\n</div>\n");
 
 /***/ }),
 
@@ -4102,7 +4102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"visitor-history-wrapper\">\n\t<app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n   <div class=\"main\">\n\t\t<condo-card *ngIf=\"isVisitorDataLoaded\">\n\t\t\t<div CondoCardHeader>\n\t\t\t\t<div class=\"d-sm-flex table-header\">\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h4>Visitors History</h4>\n\t\t\t\t\t\t<p>{{totalItems}} results</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"d-flex ml-auto\">\n\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t<app-table-search [input]=\"visitorSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Visitor</span>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div CondoCardBody>\n\t\t\t\t<jqxGrid [theme]=\"'material'\" [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\"\n\t\t\t\t\t[pageable]=\"true\" [filterable]=\"true\" [sortable]=\"true\" [source]=\"visitorList\"\n\t\t\t\t\t[columns]=\"columnData\" [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n\t\t\t\t</jqxGrid> \n\t\t\t</div>\n\t\t</condo-card>\n\t</div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"visitor-history-wrapper\">\n\t<app-loader *ngIf=\"!isVisitorDataLoaded\"></app-loader>\n   <div class=\"main\">\n\t\t<condo-card *ngIf=\"isVisitorDataLoaded\">\n\t\t\t<div CondoCardHeader>\n\t\t\t\t<div class=\"d-sm-flex table-header\">\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h4>{{'VISITOR.VISITORSHISTORY.TITLE' | translate}}</h4>\n\t\t\t\t\t\t<p>{{totalItems}} {{'VISITOR.VISITORSHISTORY.TITLE' | translate}}</p>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"d-flex ml-auto\">\n\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t<app-table-search [input]=\"visitorSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"navigateToCreate()\">\n\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">{{'BUTTONS.VISITOR' | translate}}</span>\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div CondoCardBody>\n\t\t\t\t<jqxGrid [theme]=\"'material'\" [width]=\"'100%'\" [rowsheight]=\"48\" [autoheight]=\"true\"\n\t\t\t\t\t[pageable]=\"true\" [filterable]=\"true\" [sortable]=\"true\" [source]=\"visitorList\"\n\t\t\t\t\t[columns]=\"columnData\" [columnsresize]=\"true\" [enablehover]=\"false\" #datagrid>\n\t\t\t\t</jqxGrid> \n\t\t\t</div>\n\t\t</condo-card>\n\t</div>\n</div>");
 
 /***/ }),
 
@@ -4115,7 +4115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"visitor-setup-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer  #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"visitor-setup-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4 class= \"mb-4\" *ngIf=\"clickMode == 'add'\">Add Visitor Category</h4>\n\t\t\t\t\t<h4 class= \"mb-4\" *ngIf=\"clickMode == 'edit'\">Edit Visitor Category</h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"closeDrawer()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<app-loader *ngIf=\"!isDrawerLoader\"></app-loader>\n\t\t\t\t<div *ngIf=\"isDrawerLoader\">\n\t\t\t\t\t<form #addVisitorCategoryForm = \"ngForm\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t<label>Category*</label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Type\" name=\"name\" [(ngModel)]=\"visitor.lookupValueName\" [maxlength]=\"27\" required>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t<label>Description</label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"  placeholder=\"Description\" name=\"description\" [(ngModel)]=\"visitor.description\">\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"float-right\">\n\t\t\t\t\t\t\t\t\t<button  class=\"mr-2\" mat-flat-button [color]=\"'primary'\" (click)=\"submitVisitorCategoryForm()\">{{clickMode=='add' ? 'Submit' : 'Update'}}</button>\n\t\t\t\t\t\t\t\t\t<button mat-button (click)=\"closeDrawer()\">Cancel</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</form>\n\t\t\t\t</div>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n\t\t\t<div class=\"main\">\n\t\t\t\t<!-- Loader -->\n\t\t\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\t\t\t\t<div *ngIf=\"isDataLoaded\">\n\t\t\t\t\t\t<!-- Visitor Header -->\n\t\t\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<h4>Visitor Categories</h4>\n\t\t\t\t\t\t\t<p class=\"text-secondary\">{{totalItems}} Items</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"d-flex ml-auto\">\n\t\t\t\t\t\t\t<div class=\"d-none d-md-block mr-3\">\n\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"categorySearch\">\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"addVisitorCategory()\">Add New Type</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Visitor List -->\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12 col-md-6 col-lg-4 col-xl-3\" *ngFor=\"let item of visitorCategoryList | columnSearch : 'lookupValueName': categorySearch; let i = index\">\n\t\t\t\t\t\t\t<div class=\"bg-card shadow overflow-hidden text-nowrap\">\n\t\t\t\t\t\t\t\t<h6 class=\"mt-2\">{{item.lookupValueName}}</h6>\n\t\t\t\t\t\t\t\t<div class=\"d-flex mt-4 button-wrapper\">\n\t\t\t\t\t\t\t\t\t<button class=\"px-3\" mat-button [color]=\"'primary'\" (click)=\"editVisitorCategory(item)\">\n\t\t\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'feather:edit'\"></mat-icon> Edit\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t\t<button class=\"px-3\" mat-button (click)=\"deleteVisitorCategory(item,i)\">\n\t\t\t\t\t\t\t\t\t\t<mat-icon class=\"delete\" [svgIcon]=\"'feather:trash'\"></mat-icon> Delete\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"visitor-setup-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer  #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"visitor-setup-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4 class= \"mb-4\" *ngIf=\"clickMode == 'add'\">Add Visitor Category</h4>\n\t\t\t\t\t<h4 class= \"mb-4\" *ngIf=\"clickMode == 'edit'\">Edit Visitor Category</h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"closeDrawer()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<app-loader *ngIf=\"!isDrawerLoader\"></app-loader>\n\t\t\t\t<div *ngIf=\"isDrawerLoader\">\n\t\t\t\t\t<form #addVisitorCategoryForm = \"ngForm\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t<label>Category*</label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"Type\" name=\"name\" [(ngModel)]=\"visitor.lookupValueName\" [maxlength]=\"27\" required>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t\t\t<label>Description</label>\n\t\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"  placeholder=\"Description\" name=\"description\" [(ngModel)]=\"visitor.description\">\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t\t<div class=\"float-right\">\n\t\t\t\t\t\t\t\t\t<button  class=\"mr-2\" mat-flat-button [color]=\"'primary'\" (click)=\"submitVisitorCategoryForm()\">{{clickMode=='add' ? 'Submit' : 'Update'}}</button>\n\t\t\t\t\t\t\t\t\t<button mat-button (click)=\"closeDrawer()\">Cancel</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</form>\n\t\t\t\t</div>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n\t\t\t<div class=\"main\">\n\t\t\t\t<!-- Loader -->\n\t\t\t\t<app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\t\t\t\t<div *ngIf=\"isDataLoaded\">\n\t\t\t\t\t\t<!-- Visitor Header -->\n\t\t\t\t\t<div class=\"d-flex mb-4\">\n\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t<h4>Visitor Categories</h4>\n\t\t\t\t\t\t\t<p class=\"text-secondary\">{{totalItems}} Items</p> \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"d-flex ml-auto\">\n\t\t\t\t\t\t\t<div class=\"d-none d-md-block mr-3\">\n\t\t\t\t\t\t\t\t<app-table-search [input]=\"groupData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"addVisitorCategory()\">Add New Type</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Visitor List -->\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12 col-md-6 col-lg-4 col-xl-3\" *ngFor=\"let item of visitorCategoryList | columnSearch : 'lookupValueName': categorySearch | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\t\t\t\t\t\t\t<div class=\"bg-card shadow overflow-hidden text-nowrap\">\n\t\t\t\t\t\t\t\t<h6 class=\"mt-2\">{{item.lookupValueName}}</h6>\n\t\t\t\t\t\t\t\t<div class=\"d-flex mt-4 button-wrapper\">\n\t\t\t\t\t\t\t\t\t<button class=\"px-3\" mat-button [color]=\"'primary'\" (click)=\"editVisitorCategory(item)\">\n\t\t\t\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'feather:edit'\"></mat-icon> Edit\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t\t<button class=\"px-3\" mat-button (click)=\"deleteVisitorCategory(item,i)\">\n\t\t\t\t\t\t\t\t\t\t<mat-icon class=\"delete\" [svgIcon]=\"'feather:trash'\"></mat-icon> Delete\n\t\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"bg-card shadow\" *ngIf=\"visitorCategoryList.length == 0\">\n\t\t\t\t\t\t<h6 class=\"text-secondary\">No Results found</h6>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"bg-card shadow p-0\" *ngIf=\"visitorCategoryList.length > 0\">\n\t\t\t\t\t\t<app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\" [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\"\n\t\t\t\t\t\t (outputParams)=\"getIndexParams($event)\">\n\t\t\t\t\t\t</app-pagination>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n");
 
 /***/ }),
 
@@ -4211,8 +4211,8 @@ let CreateVendorFrquentVisitorComponent = class CreateVendorFrquentVisitorCompon
         this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["SearchCountryField"];
         this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"];
         this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].UnitedStates, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].UnitedKingdom];
+        this.selectedCountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].Philippines;
         this.currentDate = new Date();
-        this.selectedCountryISO = "";
         this.activateRouter.url.subscribe((data) => {
             this.urlType = data[0].path;
             if (this.urlType == 'vendor-pass-create' || this.urlType == 'vendor-pass') {
@@ -4587,6 +4587,8 @@ let CurrentlyCheckedinListComponent = class CurrentlyCheckedinListComponent {
         this.ItemStartIndex = 0;
         this.totalItems = 0;
         this.itemLimit = 10;
+        this.allList = [];
+        this.groupData = "";
         this.modalService = this.injector.get(src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_3__["ModalService"]);
     }
     getDateTime(date) {
@@ -4622,6 +4624,7 @@ let CurrentlyCheckedinListComponent = class CurrentlyCheckedinListComponent {
         this.visitorService.getYetToCheckoutVisitorsByApartmentId(apartmentParams).subscribe((res) => {
             if (res.length > 0) {
                 this.visitorList = res.reverse();
+                this.allList = res.reverse();
                 this.totalItems = this.visitorList.length;
                 if (this.totalItems > this.itemLimit) {
                     this.ItemEndIndex = this.itemLimit;
@@ -4642,6 +4645,33 @@ let CurrentlyCheckedinListComponent = class CurrentlyCheckedinListComponent {
     ngOnInit() {
         this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
         this.getVisitorList();
+    }
+    onGlSearchFilter(event) {
+        if (event != "") {
+            let newData = this.allList.filter(item => {
+                for (let field in item) {
+                    if (item[field] === null || item[field] === undefined) {
+                        continue;
+                    }
+                    if (item[field].toString().toLowerCase().includes(event.toString().toLowerCase())) {
+                        return item;
+                    }
+                }
+            });
+            this.visitorList = newData.reverse();
+        }
+        else {
+            this.visitorList = this.allList.reverse();
+            ;
+        }
+        this.totalItems = this.visitorList.length;
+        this.ItemStartIndex = 0;
+        if (this.totalItems > this.itemLimit) {
+            this.ItemEndIndex = this.itemLimit;
+        }
+        else {
+            this.ItemEndIndex = this.totalItems;
+        }
     }
 };
 CurrentlyCheckedinListComponent.ctorParameters = () => [
@@ -4878,6 +4908,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -4888,12 +4920,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExpVisitorConfirmComponent = class ExpVisitorConfirmComponent {
-    constructor(router, activateRoute, visitorService, sharedService, sessionService) {
+    constructor(router, activateRoute, visitorService, sharedService, sessionService, translateService) {
         this.router = router;
         this.activateRoute = activateRoute;
         this.visitorService = visitorService;
         this.sharedService = sharedService;
         this.sessionService = sessionService;
+        this.translateService = translateService;
         this.isDataLoaded = false;
         this.message = null;
         this.visitorStructure = {};
@@ -4931,51 +4964,53 @@ let ExpVisitorConfirmComponent = class ExpVisitorConfirmComponent {
             this.visitor = res[0];
             let type = this.activateRoute.params['value'].type;
             this.pageType = type;
-            if (type == 'frequent' && this.sessionService.isAdmin()) {
-                this.visitorStructure = {
-                    name: 'Frequent Visitor',
-                    createBtnName: 'Create another frequent visitor',
-                    createBtnUrl: '/ams/visitor/frequent-visitor-create',
-                    viewBtnName: 'View list of frequent visitor',
-                    viewBtnUrl: '/ams/visitor/frequent-visitor-list'
-                };
-            }
-            else if (type == 'frequent' && !this.sessionService.isAdmin()) {
-                this.visitorStructure = {
-                    name: 'Frequent Visitor',
-                    createBtnName: 'Create another frequent visitor',
-                    createBtnUrl: '/user/visitor/frequent-visitor-create',
-                    viewBtnName: 'View list of frequent visitor',
-                    viewBtnUrl: '/user/visitor/frequent-visitor-list'
-                };
-            }
-            else if (type == 'vendor') {
-                this.visitorStructure = {
-                    name: 'Vendor Pass',
-                    createBtnName: 'Create another vendor pass',
-                    createBtnUrl: '/ams/visitor/vendor-pass-create',
-                    viewBtnName: 'View list of vendor pass',
-                    viewBtnUrl: '/ams/visitor/vendor-pass-list'
-                };
-            }
-            else if (type == 'expected' && this.sessionService.isAdmin()) {
-                this.visitorStructure = {
-                    name: 'Expected Visitor',
-                    createBtnName: 'Create another expected visitor',
-                    createBtnUrl: '/ams/visitor/create-expected-visitor',
-                    viewBtnName: 'View list of expected visitor',
-                    viewBtnUrl: '/ams/visitor/expected-visitor-list'
-                };
-            }
-            else if (type == 'expected' && !this.sessionService.isAdmin()) {
-                this.visitorStructure = {
-                    name: 'Expected Visitor',
-                    createBtnName: 'Create another expected visitor',
-                    createBtnUrl: '/user/visitor/create-expected-visitor',
-                    viewBtnName: 'View list of expected visitor',
-                    viewBtnUrl: '/user/visitor/expected-visitor-user-list'
-                };
-            }
+            this.translateService.get('VISITOR.FREQUENTVISITOR').subscribe((data) => {
+                if (type == 'frequent' && this.sessionService.isAdmin()) {
+                    this.visitorStructure = {
+                        name: `${data.FREQUENTVISITOR}`,
+                        createBtnName: `${data.CREATEBTNNAME}`,
+                        createBtnUrl: '/ams/visitor/frequent-visitor-create',
+                        viewBtnName: `${data.VIEWBTNNAME}`,
+                        viewBtnUrl: '/ams/visitor/frequent-visitor-list'
+                    };
+                }
+                else if (type == 'frequent' && !this.sessionService.isAdmin()) {
+                    this.visitorStructure = {
+                        name: `${data.FREQUENTVISITOR}`,
+                        createBtnName: `${data.CREATEBTNNAME}`,
+                        createBtnUrl: '/user/visitor/frequent-visitor-create',
+                        viewBtnName: `${data.VIEWBTNNAME}`,
+                        viewBtnUrl: '/user/visitor/frequent-visitor-list'
+                    };
+                }
+                else if (type == 'vendor') {
+                    this.visitorStructure = {
+                        name: `${data.VENDORPASS}`,
+                        createBtnName: `${data.CREATEVENDORBTN}`,
+                        createBtnUrl: '/ams/visitor/vendor-pass-create',
+                        viewBtnName: `${data.VIEWVENDORBTN}`,
+                        viewBtnUrl: '/ams/visitor/vendor-pass-list'
+                    };
+                }
+                else if (type == 'expected' && this.sessionService.isAdmin()) {
+                    this.visitorStructure = {
+                        name: `${data.EXPECTEDVISITORNAME}`,
+                        createBtnName: `${data.CREATEANOTHEREXPECTEDVISITOR}`,
+                        createBtnUrl: '/ams/visitor/create-expected-visitor',
+                        viewBtnName: `${data.VIEWEXPECTEDVISITOR}`,
+                        viewBtnUrl: '/ams/visitor/expected-visitor-list'
+                    };
+                }
+                else if (type == 'expected' && !this.sessionService.isAdmin()) {
+                    this.visitorStructure = {
+                        name: `${data.EXPECTEDVISITORNAME}`,
+                        createBtnName: `${data.CREATEANOTHEREXPECTEDVISITOR}`,
+                        createBtnUrl: '/user/visitor/create-expected-visitor',
+                        viewBtnName: `${data.VIEWEXPECTEDVISITOR}`,
+                        viewBtnUrl: '/user/visitor/expected-visitor-user-list'
+                    };
+                }
+            });
             let message;
             if (this.method) {
                 message = `${this.visitorStructure.name} ${this.method}. Please share the below details to your visitor`;
@@ -5001,7 +5036,8 @@ ExpVisitorConfirmComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
     { type: src_app_api_controllers_Visitor__WEBPACK_IMPORTED_MODULE_3__["VisitorService"] },
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"] }
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslateService"] }
 ];
 ExpVisitorConfirmComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -5015,7 +5051,8 @@ ExpVisitorConfirmComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decora
         _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
         src_app_api_controllers_Visitor__WEBPACK_IMPORTED_MODULE_3__["VisitorService"],
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]])
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslateService"]])
 ], ExpVisitorConfirmComponent);
 
 
@@ -5063,6 +5100,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/shared/components/common-confirm-modal/common-confirm-modal.component */ "./src/app/shared/components/common-confirm-modal/common-confirm-modal.component.ts");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -5080,7 +5119,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ExpVisitorCreateChekinComponent = class ExpVisitorCreateChekinComponent {
-    constructor(router, activateRouter, apartmentService, visitorService, lookupService, sessionService, staffService, sharedService, dialog, dateTimeAdapter) {
+    constructor(router, activateRouter, apartmentService, visitorService, lookupService, sessionService, staffService, sharedService, dialog, dateTimeAdapter, _changeDetectorRef, translateService) {
         this.router = router;
         this.activateRouter = activateRouter;
         this.apartmentService = apartmentService;
@@ -5090,6 +5129,8 @@ let ExpVisitorCreateChekinComponent = class ExpVisitorCreateChekinComponent {
         this.staffService = staffService;
         this.sharedService = sharedService;
         this.dialog = dialog;
+        this._changeDetectorRef = _changeDetectorRef;
+        this.translateService = translateService;
         this.visitor = {};
         this.expectedDurationInfo = '';
         this.visitTypeList = [];
@@ -5100,13 +5141,13 @@ let ExpVisitorCreateChekinComponent = class ExpVisitorCreateChekinComponent {
         this.block = {};
         this.isDataLoaded = true;
         this.urlType = 'create';
+        this.message = null;
+        this.isEdit = false;
         this.separateDialCode = true;
         this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["SearchCountryField"];
         this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"];
-        this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].Philippines, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].India];
-        this.message = null;
-        this.isEdit = false;
-        this.selectedCountryISO = "";
+        this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].UnitedStates, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].UnitedKingdom];
+        this.selectedCountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_9__["CountryISO"].Philippines;
         //dateTimeAdapter.setLocale('ja-JP'); // change locale to Japanese
     }
     isAdmin() {
@@ -5378,7 +5419,9 @@ ExpVisitorCreateChekinComponent.ctorParameters = () => [
     { type: src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_6__["StaffService"] },
     { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_8__["SharedService"] },
     { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_15__["MatDialog"] },
-    { type: _busacca_ng_pick_datetime__WEBPACK_IMPORTED_MODULE_11__["DateTimeAdapter"] }
+    { type: _busacca_ng_pick_datetime__WEBPACK_IMPORTED_MODULE_11__["DateTimeAdapter"] },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__["TranslateService"] }
 ];
 ExpVisitorCreateChekinComponent.propDecorators = {
     form: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['expectedVisitorForm',] }]
@@ -5400,7 +5443,9 @@ ExpVisitorCreateChekinComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__d
         src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_6__["StaffService"],
         src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_8__["SharedService"],
         _angular_material_dialog__WEBPACK_IMPORTED_MODULE_15__["MatDialog"],
-        _busacca_ng_pick_datetime__WEBPACK_IMPORTED_MODULE_11__["DateTimeAdapter"]])
+        _busacca_ng_pick_datetime__WEBPACK_IMPORTED_MODULE_11__["DateTimeAdapter"],
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__["TranslateService"]])
 ], ExpVisitorCreateChekinComponent);
 
 
@@ -5481,10 +5526,15 @@ let ExpVisitorListComponent = class ExpVisitorListComponent {
             fromDate: moment__WEBPACK_IMPORTED_MODULE_14__(new Date()).subtract(30, 'days').format(),
             toDate: moment_timezone__WEBPACK_IMPORTED_MODULE_15___default()().toISOString(),
         };
+        this.search = '';
+        this.groupData = "";
         this.modalService = this.injector.get(src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_3__["ModalService"]);
         this._visitorList = new rxjs__WEBPACK_IMPORTED_MODULE_10__["BehaviorSubject"](null);
-        this.searchData = new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]();
+        this.searchData = new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]('');
     }
+    // onGlSearchFilter(event) {
+    //   this.searchData.setValue(event);
+    // }
     get visitorList$() {
         return this._visitorList.asObservable();
     }
@@ -5561,6 +5611,7 @@ let ExpVisitorListComponent = class ExpVisitorListComponent {
         this.visitorService.getAllYetToComeExpectedVisitorsByApartmentIdDate(params).subscribe((res) => {
             if (Array.isArray(res)) {
                 this.fullVisitorList = res;
+                this.allData = res;
                 this._visitorList.next(this.fullVisitorList.reverse());
             }
             this.isVisitorDataLoaded = true;
@@ -5613,6 +5664,7 @@ let ExpVisitorListComponent = class ExpVisitorListComponent {
                         });
                         this._visitorList.next(this.fullVisitorList.reverse());
                         this.searchData.setValue('');
+                        this.search = '';
                         this.sharedService.openSnackBar(res.message, 'success');
                     }
                     else {
@@ -5627,6 +5679,25 @@ let ExpVisitorListComponent = class ExpVisitorListComponent {
     }
     ngOnDestroy() {
         this.apiSubscribe.unsubscribe();
+    }
+    onGlSearchFilter(event) {
+        if (event != "") {
+            let newData = this.allData.filter(item => {
+                for (let field in item) {
+                    if (item[field] === null || item[field] === undefined) {
+                        continue;
+                    }
+                    if (item[field].toString().toLowerCase().indexOf(event.toString().toLowerCase()) !== -1) {
+                        return item;
+                    }
+                }
+            });
+            this._visitorList.next(newData.reverse());
+        }
+        else {
+            this.fullVisitorList = this.allData;
+            this._visitorList.next(this.fullVisitorList.reverse());
+        }
     }
 };
 ExpVisitorListComponent.ctorParameters = () => [
@@ -5722,6 +5793,7 @@ let FrequentVendorListComponent = class FrequentVendorListComponent {
         this.ItemStartIndex = 0;
         this.totalItems = 0;
         this.itemLimit = 10;
+        this.groupData = "";
         this.modalService = this.injector.get(src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_3__["ModalService"]);
         this.activeRouter.url.subscribe((data) => {
             this.urlType = data[0].path;
@@ -5816,6 +5888,7 @@ let FrequentVendorListComponent = class FrequentVendorListComponent {
         visitorList.subscribe((res) => {
             if (res.length > 0) {
                 this.visitorList = res.reverse();
+                this.allData = res.reverse();
                 this.totalItems = this.visitorList.length;
                 if (this.totalItems > this.itemLimit) {
                     this.ItemEndIndex = this.itemLimit;
@@ -5869,6 +5942,31 @@ let FrequentVendorListComponent = class FrequentVendorListComponent {
     }
     ngOnDestroy() {
         this.apiSubscribe.unsubscribe();
+    }
+    onGlSearchFilter(event) {
+        if (event != "") {
+            let newData = this.allData.filter(item => {
+                for (let field in item) {
+                    if (item[field] === null || item[field] === undefined) {
+                        continue;
+                    }
+                    if (item[field].toString().toLowerCase().includes(event.toString().toLowerCase())) {
+                        return item;
+                    }
+                }
+            });
+            this.visitorList = newData.reverse();
+        }
+        else {
+            this.visitorList = this.allData.reverse();
+        }
+        this.totalItems = this.visitorList.length;
+        if (this.totalItems > this.itemLimit) {
+            this.ItemEndIndex = this.itemLimit;
+        }
+        else {
+            this.ItemEndIndex = this.totalItems;
+        }
     }
 };
 FrequentVendorListComponent.ctorParameters = () => [
@@ -6228,12 +6326,12 @@ let VisitorCreateCheckinComponent = class VisitorCreateCheckinComponent {
         this.block = {};
         this.isDataLoaded = true;
         this.urlType = 'create';
+        this.message = null;
         this.separateDialCode = true;
         this.SearchCountryField = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["SearchCountryField"];
         this.CountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"];
         this.preferredCountries = [ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"].UnitedStates, ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"].UnitedKingdom];
-        this.message = null;
-        this.selectedCountryISO = "";
+        this.selectedCountryISO = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_10__["CountryISO"].Philippines;
         //check in and checkout edit
         this.activateRouter.params.subscribe((param) => {
             if (param.id && param.type) {
@@ -6540,7 +6638,7 @@ let VisitorCreateCheckinComponent = class VisitorCreateCheckinComponent {
         this.isDataLoaded = true;
         let visitorDetails = {
             "visitorId": this.visitor.visitorId,
-            "checkOutTime": this.visitor.visitorOutTime,
+            "checkOutTime": moment__WEBPACK_IMPORTED_MODULE_6__(this.visitor.visitorOutTime).toISOString(),
             "updatedBy": this.sessionService.userId,
         };
         this.visitorService.checkOutVisitor(visitorDetails).subscribe((res) => {
@@ -6910,6 +7008,9 @@ let VisitorSetupComponent = class VisitorSetupComponent {
         this.isDataLoaded = false;
         this.isDrawerLoader = true;
         this.visitorCategoryList = [];
+        this.groupData = "";
+        this.ItemStartIndex = 0;
+        this.itemLimit = 10;
         this.modalService = this.injector.get(src_app_shared_services_modal_service__WEBPACK_IMPORTED_MODULE_4__["ModalService"]);
     }
     addVisitorCategory() {
@@ -7012,7 +7113,14 @@ let VisitorSetupComponent = class VisitorSetupComponent {
         this.lookupService.getLookupValueByLookupTypeId(params).subscribe((res) => {
             this.isDataLoaded = true;
             this.visitorCategoryList = res;
+            this.allData = res;
             this.totalItems = res.length;
+            if (this.totalItems > this.itemLimit) {
+                this.ItemEndIndex = this.itemLimit;
+            }
+            else {
+                this.ItemEndIndex = this.totalItems;
+            }
         });
     }
     ngOnInit() {
@@ -7042,6 +7150,26 @@ let VisitorSetupComponent = class VisitorSetupComponent {
     }
     ngOnDestroy() {
         this.apiSubscibe.unsubscribe();
+    }
+    onGlSearchFilter(event) {
+        if (event != "") {
+            this.visitorCategoryList = this.allData.filter(item => String(item.lookupValueName).toLowerCase().includes(event.toLowerCase()));
+        }
+        else {
+            this.visitorCategoryList = this.allData;
+        }
+        this.totalItems = this.visitorCategoryList.length;
+        if (this.totalItems > this.itemLimit) {
+            this.ItemEndIndex = this.itemLimit;
+        }
+        else {
+            this.ItemEndIndex = this.totalItems;
+        }
+    }
+    getIndexParams(event) {
+        this.ItemStartIndex = event.ItemStartIndex;
+        this.ItemEndIndex = event.ItemEndIndex;
+        this.itemLimit = event.itemLimit;
     }
 };
 VisitorSetupComponent.ctorParameters = () => [
@@ -7226,6 +7354,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_frequent_vendor_list_frequent_vendor_list_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/frequent-vendor-list/frequent-vendor-list.component */ "./src/app/modules/common/visitor/components/frequent-vendor-list/frequent-vendor-list.component.ts");
 /* harmony import */ var _components_currently_checkedin_list_currently_checkedin_list_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/currently-checkedin-list/currently-checkedin-list.component */ "./src/app/modules/common/visitor/components/currently-checkedin-list/currently-checkedin-list.component.ts");
 /* harmony import */ var _components_visitor_history_visitor_history_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/visitor-history/visitor-history.component */ "./src/app/modules/common/visitor/components/visitor-history/visitor-history.component.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -7278,7 +7408,8 @@ VisitorModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_13__["ListModule"],
             src_app_modules_ui_datepicker_datepicker_module__WEBPACK_IMPORTED_MODULE_15__["DatepickerModule"].forRoot(),
             ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_16__["NgxIntlTelInputModule"],
-            src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_18__["CondoMessageModule"]
+            src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_18__["CondoMessageModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_24__["TranslateModule"]
         ],
         bootstrap: [_visitor_component__WEBPACK_IMPORTED_MODULE_6__["VisitorComponent"]]
     })

@@ -150,7 +150,6 @@ let ApartmentsComponent = class ApartmentsComponent {
         };
         this.isRouting = true;
         this.staffService.getStaffByUserId(params).subscribe((res) => {
-            //console.log(res);
             if (!isNaN(this.sessionService.secLevelId)) {
                 this.sessionService.secLevelId = res[0].secLevelId;
                 // Hide the message
@@ -231,6 +230,7 @@ let ApartmentsComponent = class ApartmentsComponent {
         this.sessionService.roleName = block.roleName;
         this.sessionService.roleTypeId = block.roleTypeId;
         this.sessionService.roleTypeName = block.roleTypeName;
+        this.sessionService.layout = 'dense';
         this.sessionService.apartmentBlockID = block.apartmentBlockId;
         this.sessionService.apartmentBlockUnitID = block.apartmentBlockUnitId;
         this.sessionService.apartmentBlockUnitUserId = block.apartmentBlockUnitUserId;

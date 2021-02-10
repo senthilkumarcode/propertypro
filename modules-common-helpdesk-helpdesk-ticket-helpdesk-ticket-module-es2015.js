@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"help-desk-create-wrapper\">\n    <div class=\"main\">\n        <h4 class=\"mb-4\">\n            <span *ngIf=\"viewMode != 'edit'\">Create Ticket</span>\n            <span *ngIf=\"viewMode == 'edit'\">Edit Ticket</span>\n        </h4>\n        <condo-message class=\"mb-3\" *ngIf=\"message\"\n            [appearance]=\"message.appearance\"\n            [showIcon]=\"message.showIcon\"\n            [type]=\"message.type\"\n            [@shake]=\"message.shake\">\n        {{message.content}}\n        </condo-message>\n        <app-loader *ngIf=\"!isTrackerSubmitted\"></app-loader>\n        \n        <form #createHelpDeskForm=\"ngForm\" name=\"createHelpDeskForm\">\n            <!-- radio button in create Mode-->\n            <div class=\"bg-card shadow mb-3\" *ngIf=\"isTrackerSubmitted && isAdmin() && viewMode != 'edit'\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12 text-center\">\n                        <div class=\"input-box radio-box mb-0\">\n                            <h5 class=\"mt-3 mb-3\">Create Ticket For</h5>\n                            <div class=\"form-group\">\n                                <input  name=\"self\" id=\"Self\" [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"self\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Self\">Self</label>\n                                </div>\n                            <div class=\"form-group\">\n                                <input  name=\"user\" id=\"User\"  [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"owner\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"User\">Owner</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"user\" id=\"tenant\"  [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"tenant\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"tenant\">Tenant</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"staff\" id=\"Staff\" [(ngModel)]=\"createdBY\"  (change)=\"createdByChange()\" value=\"staff\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Staff\">Staff</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"admin\" id=\"Admin\" [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\" value=\"admin\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Admin\">Admin</label>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"bg-card shadow\" *ngIf=\"isTrackerSubmitted\">\n                <!-- Tower Information in Edit mode -->\n                <div class=\"row\" *ngIf=\"ticket.apartmentBlockUnitUserId && viewMode == 'edit'\">\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-5 text-center text-primary\">{{blockunitprimeName}}</h6>\n                    </div>\n                </div>\n                <!-- Ticket Id,Date and CreatedBy in Edit Mode-->\n                <div class=\"row\" *ngIf=\"viewMode == 'edit'\">\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>Ticket ID</label>\n                            <p>{{ticket.ticketId}}</p>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>Date Of Creation</label>\n                            <p>{{getTimeFormat(ticket.insertedOn)}}</p>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>Created By</label>\n                            <p>{{ticket.insertedby_Label}}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-4\">\n                        <condo-select \n                            labelText=\"Ticket Type\"\n                            fieldPlaceholder=\"Select Ticket Type\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"ticketTypeList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketTypeId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setTicketType($event)\" \n                         ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"ticket.ticketTypeId\">\n                        <condo-select \n                            labelText=\"Category\"\n                            fieldPlaceholder=\"Select Category\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"ticketCategoryList | orderBy : 'lookupValueName'\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketCategoryId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setTicketCategory($event)\" \n                        ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <condo-select \n                            labelText=\"Priority\"\n                            fieldPlaceholder=\"Select Priority\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"priortyTypeList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketPriorityId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setPriority($event)\" \n                        ></condo-select>\n                    </div>\n                </div>\n                 <!-- supervisor in edit Mode-->\n                <div class=\"row\" *ngIf=\"viewMode == 'edit'\">\n                    <div class=\"col-sm-6\">\n                        <condo-select \n                            labelText=\"Supervisor\"\n                            fieldPlaceholder=\"Select Supervisor\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"staffsList  | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticket.supervisorId\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"setSupervisor($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                        ></condo-select>\n                    </div>\n                </div>\n                <!-- staff and status  -->\n                <div class=\"row\">\n                    <div class=\"col-sm-6\" *ngIf=\"createdBY == 'staff'|| createdBY == 'admin' || viewMode == 'edit'\">\n                        <condo-select \n                            [labelText]=\"stafflabel\"\n                            fieldPlaceholder=\"Select Label\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"getStaffList()  | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"ticket.staffId\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"setStaff($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                        ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\" viewMode == 'edit'\">\n                        <condo-select \n                            labelText=\"Status\"\n                            fieldPlaceholder=\"Select Status\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"statusTypeList  | orderBy : 'lookupValueName'\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketStatusId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setStatus($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                        ></condo-select>\n                    </div>\n                </div>\n                <!-- block and unit in create Mode-->\n                <div class=\"row\" *ngIf=\"(createdBY == 'tenant' || createdBY == 'owner') && (viewMode != 'edit' && this.isAdmin())\">\n                    <div class=\"col-sm-4\">\n                        <condo-select \n\t\t\t\t\t\t\tlabelText=\"Tower No\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Tower\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"blockList\"\n\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\tfieldId=\"block_Id\"\n                            (fieldParams)=\"setBlock($event)\" \n\t\t\t\t\t\t></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"block.blockId\">\n                        <condo-select \n\t\t\t\t\t\t\tlabelText=\"Unit No\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"Select Unit\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"blockUnitList\"\n\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.apartmentBlockUnitId\"\n\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setBlockUnit($event)\" \n\t\t\t\t\t\t></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"block.apartmentBlockUnitId\">\n                        <div class=\"input-box\">\n                            <label>Primary Name</label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"primaryName\" [value]=\"block.primaryName\" disabled>\n                        </div>\n                    </div>\n                </div>\n                <!-- Description and upload File -->\n                <div class=\"row\">\n                    <div class=\"col-sm-8\">\n                        <div class=\"input-box\">\n                            <label>Subject<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"Enter text\" name=\"ticketSubject\" [(ngModel)]=\"ticket.title\" [disabled]=\"viewMode == 'edit' && isAdmin()\" required>\n                            <help-tooltip title=\"ticketSubject\"></help-tooltip>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>Description<span class=\"required\">*</span></label>\n                            <textarea placeholder=\"Enter value\" name=\"ticketDescription\" [(ngModel)]=\"ticket.description\" required></textarea>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\t\n                        <div class=\"mb-5\">\n                            <app-upload [fileIds]=\"ticket.fileDetailsIds\" [isEdit]=\"viewMode == 'edit'\" (outputParams)=\"getFileIds($event)\"\n                                [multiple]=\"true\"\n                            ></app-upload>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"text-right\">\n                            <ng-container *ngIf=\"this.viewMode != 'edit'\">\n                                <button mat-flat-button  [color]=\"'primary'\" (click)=\"createTicket()\">Create</button>\n                                <button class=\"ml-2\" mat-button (click)=\"createdByChange()\">Clear</button>\n                            </ng-container>\n                            <ng-container *ngIf=\"this.viewMode == 'edit'\">\n                                <button *ngIf=\"this.viewMode == 'edit'\" mat-flat-button  [color]=\"'primary'\" (click)=\"updateTicket()\">Update</button>\n                                <button *ngIf=\"this.viewMode == 'edit'\" class=\"ml-2\" mat-button (click)=\"back()\">Back</button>\n                            </ng-container>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n        <!-- create comment box -->\n        <div class=\"bg-card shadow\" *ngIf=\"viewMode == 'edit' && isTrackerSubmitted\">\n            <form>\n                <div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>Add Comment</label>\n\t\t\t\t\t\t\t<textarea placeholder=\"some text here\" name=\"ticketComment\" [(ngModel)]=\"ticketComment\"\n\t\t\t\t\t\t\t\trequired></textarea>\n\t\t\t\t\t\t</div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <button class=\"float-right\"  mat-flat-button  [color]=\"'accent'\" [disabled]=\"ticketComment && ticketComment.length == 0\" (click)=\"createComment('comment')\">Add Comment</button>\n                    </div>\n\t\t\t\t</div>\n            </form>\n        </div>\n        <!-- comment List -->\n        <div class=\"timeline\" *ngIf=\"viewMode == 'edit' && isTrackerSubmitted\">\n            <ul>\n                <li  *ngFor=\"let data of ticketCommentList; let i=index\">\n                    <div class=\"content\">\n                        <div class=\"bg-card shadow\" [ngClass]=\"{'log-border': data.isLog}\">\n                            <div class=\"d-sm-flex\">\n                                <h6>{{data.insertedByName}}</h6>\n                                <span class=\"mt-2 mt-sm-0 ml-sm-3 text-secondary\">{{getTimeFormat(data.insertedOn)}}</span>\n                                <div class=\"mt-2 mt-sm-0 d-inline-block ml-3 status-badge bg-status-green-700 status-curve\">\n                                    <span class=\"font-bold text-status-green-900 text-uppercase\">{{data.insertedByRole}}</span>\n                                </div>\n                            </div>\n                            <p [innerHTML]=\"data.comments\" class=\"desp mt-2\"></p>\n                        </div>\n                    </div>\n                    <div class=\"initial-letter font-medium\" [ngClass]=\"i%2==0 ? 'bg-highlight-base' : 'bg-highlight-light'\">{{data.insertedByName | slice:0:2  | uppercase}}</div>        \n                    <!-- <div class=\"image\">\n                        <img src=\"assets/images/user-icon.svg\" width=\"32\"  height=\"32\"> \n                    </div> -->\n                </li>\n                <div class=\"clear\"></div>\n            </ul>\n        </div>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"help-desk-create-wrapper\">\n    <div class=\"main\">\n        <h4 class=\"mb-4\">\n            <span *ngIf=\"viewMode != 'edit'\">{{'SERVICE.HELPDESK.CREATETICKET.CREATETITLE' | translate}}</span>\n            <span *ngIf=\"viewMode == 'edit'\">{{'SERVICE.HELPDESK.CREATETICKET.EDITTITLE' | translate}}</span>\n        </h4>\n        <condo-message class=\"mb-3\" *ngIf=\"message\"\n            [appearance]=\"message.appearance\"\n            [showIcon]=\"message.showIcon\"\n            [type]=\"message.type\"\n            [@shake]=\"message.shake\">\n        {{message.content}}\n        </condo-message>\n        <app-loader *ngIf=\"!isTrackerSubmitted\"></app-loader>\n        \n        <form #createHelpDeskForm=\"ngForm\" name=\"createHelpDeskForm\">\n            <!-- radio button in create Mode-->\n            <div class=\"bg-card shadow mb-3\" *ngIf=\"isTrackerSubmitted && isAdmin() && viewMode != 'edit'\">\n                <div class=\"row\">\n                    <div class=\"col-sm-12 text-center\">\n                        <div class=\"input-box radio-box mb-0\">\n                            <h5 class=\"mt-3 mb-3\">{{'SERVICE.HELPDESK.CREATETICKET.TICKETFOR' | translate}}</h5>\n                            <div class=\"form-group\">\n                                <input  name=\"self\" id=\"Self\" [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"self\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Self\">{{'SERVICE.HELPDESK.CREATETICKET.FORSELF' | translate}}</label>\n                                </div>\n                            <div class=\"form-group\">\n                                <input  name=\"user\" id=\"User\"  [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"owner\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"User\">{{'SERVICE.HELPDESK.CREATETICKET.FOROWNER' | translate}}</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"user\" id=\"tenant\"  [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\"  value=\"tenant\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"tenant\">{{'SERVICE.HELPDESK.CREATETICKET.FORTENANT' | translate}}</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"staff\" id=\"Staff\" [(ngModel)]=\"createdBY\"  (change)=\"createdByChange()\" value=\"staff\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Staff\">{{'SERVICE.HELPDESK.CREATETICKET.FORSTAFF' | translate}}</label>\n                            </div>\n                            <div class=\"form-group\">\n                                <input  name=\"admin\" id=\"Admin\" [(ngModel)]=\"createdBY\" (change)=\"createdByChange()\" value=\"admin\" type=\"radio\" >\n                                <label class=\"radio-inline\" for=\"Admin\">{{'SERVICE.HELPDESK.CREATETICKET.FORADMIN' | translate}}</label>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            \n            <div class=\"bg-card shadow\" *ngIf=\"isTrackerSubmitted\">\n                <!-- Tower Information in Edit mode -->\n                <div class=\"row\" *ngIf=\"ticket.apartmentBlockUnitUserId && viewMode == 'edit'\">\n                    <div class=\"col-sm-12\">\n                        <h6 class=\"mb-5 text-center text-primary\">{{blockunitprimeName}}</h6>\n                    </div>\n                </div>\n                <!-- Ticket Id,Date and CreatedBy in Edit Mode-->\n                <div class=\"row\" *ngIf=\"viewMode == 'edit'\">\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>{{'MAIN.UNITUSER.ADDUSER.FIRSTNAME' | translate}}</label>\n                            <p>{{ticket.ticketId}}</p>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>{{'SERVICE.HELPDESK.CREATETICKET.DATEOFCREATION' | translate}}</label>\n                            <p>{{getTimeFormat(ticket.insertedOn)}}</p>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <div  class=\"input-box\">\n                            <label>{{'SERVICE.HELPDESK.CREATETICKET.CREATEDBY' | translate}}</label>\n                            <p>{{ticket.insertedby_Label}}</p>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-4\">\n                        <condo-select \n                            labelText=\"{{'SERVICE.HELPDESK.CREATETICKET.TICKETTYPE' | translate}}\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.TICKETTYPE' | translate}}\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"ticketTypeList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketTypeId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setTicketType($event)\" \n                            [isDisabled]=\"viewMode == 'edit' && isUser()\"\n                            [isClear] = \"isAdmin()\"\n                         ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"ticket.ticketTypeId\">\n                        <condo-select \n                            labelText=\"{{'SERVICE.HELPDESK.CREATETICKET.CATEGORY' | translate}}\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.CATEGORY' | translate}}\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"ticketCategoryList | orderBy : 'lookupValueName'\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketCategoryId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setTicketCategory($event)\" \n                            [isDisabled]=\"viewMode == 'edit' && isUser()\"\n                            [isClear] = \"isAdmin()\"\n                        ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\">\n                        <condo-select \n                            labelText=\"{{'SERVICE.HELPDESK.CREATETICKET.PRIORITY' | translate}}\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.PRIORITY' | translate}}\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"priortyTypeList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketPriorityId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setPriority($event)\" \n                            [isClear] = \"isAdmin()\"\n                        ></condo-select>\n                    </div>\n                </div>\n                 <!-- supervisor in edit Mode-->\n                <div class=\"row\" *ngIf=\"viewMode == 'edit'\">\n                    <div class=\"col-sm-6\">\n                        <condo-select \n                            labelText=\"{{'SERVICE.HELPDESK.CREATETICKET.SUPERVISOR' | translate}}\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.SUPERVISOR' | translate}}\"\n                            [fieldRequired]=\"'null'\"\n                            [fieldList]=\"staffsList  | orderBy : 'staffName'\"\n                            fieldValue=\"staffName\"\n                            [fieldModel]=\"ticket.supervisorId\"\n                            fieldId=\"userId\"\n                            (fieldParams)=\"setSupervisor($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                            [isClear] = \"isAdmin()\"\n                        ></condo-select>\n                    </div>\n                </div>\n                <!-- staff and status  -->\n                <div class=\"row\">\n                    <div class=\"col-sm-6\" *ngIf=\"createdBY == 'staff'|| createdBY == 'admin' || viewMode == 'edit'\">\n                        <condo-select \n                            [labelText]=\"stafflabel\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.STAFFLABEL' | translate}}\"\n                            [fieldRequired]=\" viewMode != 'edit' ?'required' : 'null'\"\n                            [fieldList]=\"getStaffList()  | orderBy : 'staffName'\"\n                            fieldValue=\"staffName\"\n                            [fieldModel]=\"ticket.staffId\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"setStaff($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                            [isClear] = \"isAdmin()\"\n                        ></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\" viewMode == 'edit'\">\n                        <condo-select \n                            labelText=\"{{'SERVICE.HELPDESK.CREATETICKET.STATUS' | translate}}\"\n                            fieldPlaceholder=\"{{'PLACEHOLDER.STATUS' | translate}}\"\n                            [fieldRequired]=\"'required'\"\n                            [fieldList]=\"statusTypeList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"ticket.ticketStatusId\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"setStatus($event)\" \n                            [isDisabled]=\"!isAdmin()\"\n                            [isClear] = \"isAdmin()\"\n                        ></condo-select>\n                    </div>\n                </div>\n                <!-- block and unit in create Mode-->\n                <div class=\"row\" *ngIf=\"(createdBY == 'tenant' || createdBY == 'owner') && (viewMode != 'edit' && this.isAdmin())\">\n                    <div class=\"col-sm-4\">\n                        <condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'SERVICE.HELPDESK.CREATETICKET.TOWERNO' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.TOWER' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"blockList\"\n\t\t\t\t\t\t\tfieldValue=\"block_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.blockId\"\n\t\t\t\t\t\t\tfieldId=\"block_Id\"\n                            (fieldParams)=\"setBlock($event)\" \n\t\t\t\t\t\t></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"block.blockId\">\n                        <condo-select \n\t\t\t\t\t\t\tlabelText=\"{{'SERVICE.HELPDESK.CREATETICKET.UNITNO' | translate}}\"\n\t\t\t\t\t\t\tfieldPlaceholder=\"{{'PLACEHOLDER.UNIT' | translate}}\"\n\t\t\t\t\t\t\t[fieldRequired]=\"'required'\"\n\t\t\t\t\t\t\t[fieldList]=\"blockUnitList\"\n\t\t\t\t\t\t\tfieldValue=\"bu_Label\"\n\t\t\t\t\t\t\t[fieldModel]=\"block.apartmentBlockUnitId\"\n\t\t\t\t\t\t\tfieldId=\"buId\"\n\t\t\t\t\t\t\t(fieldParams)=\"setBlockUnit($event)\" \n\t\t\t\t\t\t></condo-select>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"block.apartmentBlockUnitId\">\n                        <div class=\"input-box\">\n                            <label>{{'SERVICE.HELPDESK.CREATETICKET.PRIMARYNAME' | translate}}</label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.TEXT' | translate}}\" name=\"primaryName\" [value]=\"block.primaryName\" disabled>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-4\" *ngIf=\"block.apartmentBlockUnitId\">\n                        <div class=\"input-box\">\n                            <label>{{createdBY == 'tenant' ? 'Tenant' : 'Owner'}} Name</label>\n                            <input type=\"text\" class=\"form-control\" name=\"tenantName\" [value]=\"primaryTenantName\" disabled>\n                        </div>\n                    </div>\n                </div>\n                <!-- Description and upload File -->\n                <div class=\"row\">\n                    <div class=\"col-sm-8\">\n                        <div class=\"input-box\">\n                            <label>{{'SERVICE.HELPDESK.CREATETICKET.SUBJECT' | translate}}<span class=\"required\">*</span></label>\n                            <input type=\"text\" class=\"form-control\" placeholder=\"{{'PLACEHOLDER.TEXT' | translate}}\" name=\"ticketSubject\" [(ngModel)]=\"ticket.title\" [disabled]=\"viewMode == 'edit' && !isAdmin()\" required>\n                            <help-tooltip title=\"ticketSubject\"></help-tooltip>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <div class=\"input-box\">\n                            <label>{{'SERVICE.HELPDESK.CREATETICKET.DESCRIPTION' | translate}}<span class=\"required\">*</span></label>\n                            <textarea placeholder=\"{{'PLACEHOLDER.DESCRIPTION' | translate}}\" name=\"ticketDescription\" [(ngModel)]=\"ticket.description\" required></textarea>\n                        </div>\n                    </div>\n                    <div class=\"col-sm-12\">\t\n                        <div class=\"mb-5\">\n                            <app-upload [fileIds]=\"ticket.fileDetailsIds\" [isEdit]=\"viewMode == 'edit'\" (outputParams)=\"getFileIds($event)\"\n                                [multiple]=\"true\"\n                            ></app-upload>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"row\">\n                    <div class=\"col-sm-12\">\n                        <div class=\"text-right\">\n                            <ng-container *ngIf=\"this.viewMode != 'edit'\">\n                                <button mat-flat-button  [color]=\"'primary'\" (click)=\"createTicket()\">{{'BUTTONS.CREATEBUTTON' | translate}}</button>\n                                <button class=\"ml-2\" mat-button (click)=\"createdByChange()\">{{'BUTTONS.CLEARBUTTON' | translate}}</button>\n                            </ng-container>\n                            <ng-container *ngIf=\"this.viewMode == 'edit'\">\n                                <button *ngIf=\"this.viewMode == 'edit'\" mat-flat-button  [color]=\"'primary'\" (click)=\"updateTicket()\">{{'BUTTONS.UPDATEBUTTON' | translate}}</button>\n                                <button *ngIf=\"this.viewMode == 'edit'\" class=\"ml-2\" mat-button (click)=\"back()\">{{'BUTTONS.BACKBUTTON' | translate}}</button>\n                            </ng-container>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n        <!-- create comment box -->\n        <div class=\"bg-card shadow\" *ngIf=\"viewMode == 'edit' && isTrackerSubmitted\">\n            <form>\n                <div class=\"row\">\n\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t<div class=\"input-box\">\n\t\t\t\t\t\t\t<label>{{'SERVICE.HELPDESK.CREATETICKET.ADDCOMMENT' | translate}}</label>\n\t\t\t\t\t\t\t<textarea placeholder=\"{{'PLACEHOLDER.SOMETEXT' | translate}}\" name=\"ticketComment\" [(ngModel)]=\"ticketComment\"\n\t\t\t\t\t\t\t\trequired></textarea>\n\t\t\t\t\t\t</div>\n                    </div>\n                    <div class=\"col-sm-12\">\n                        <button class=\"float-right\"  mat-flat-button  [color]=\"'accent'\" [disabled]=\"ticketComment && ticketComment.length == 0\" (click)=\"createComment('comment')\">{{'BUTTONS.ADDCOMMENT' | translate}}</button>\n                    </div>\n\t\t\t\t</div>\n            </form>\n        </div>\n        <!-- comment List -->\n        <div class=\"timeline\" *ngIf=\"viewMode == 'edit' && isTrackerSubmitted\">\n            <ul>\n                <li  *ngFor=\"let data of ticketCommentList; let i=index\">\n                    <div class=\"content\">\n                        <div class=\"bg-card shadow\" [ngClass]=\"{'log-border': data.isLog}\">\n                            <div class=\"d-sm-flex\">\n                                <h6>{{data.insertedByName}}</h6>\n                                <span class=\"mt-2 mt-sm-0 ml-sm-3 text-secondary\">{{getTimeFormat(data.insertedOn)}}</span>\n                                <div class=\"mt-2 mt-sm-0 d-inline-block ml-3 status-badge bg-status-green-700 status-curve\">\n                                    <span class=\"font-bold text-status-green-900 text-uppercase\">{{data.insertedByRole}}</span>\n                                </div>\n                            </div>\n                            <p [innerHTML]=\"data.comments\" class=\"desp mt-2\"></p>\n                        </div>\n                    </div>\n                    <div class=\"initial-letter font-medium\" [ngClass]=\"i%2==0 ? 'bg-highlight-base' : 'bg-highlight-light'\">{{data.insertedByName | slice:0:2  | uppercase}}</div>        \n                    <!-- <div class=\"image\">\n                        <img src=\"assets/images/user-icon.svg\" width=\"32\"  height=\"32\"> \n                    </div> -->\n                </li>\n                <div class=\"clear\"></div>\n            </ul>\n        </div>\n    </div>\n</div>");
 
 /***/ }),
 
@@ -22,7 +22,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-all-tickets-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"helpdesk-filter-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4> Status </h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<form>\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Ticket Status\"\n                            fieldPlaceholder=\"Status\"\n                            [fieldList]=\"ticketStatusList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"filterData.ticketStatus\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"dropDownSelect($event,'status')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Staff\"\n                            fieldPlaceholder=\"Staff\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"filterData.staff\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"dropDownSelect($event,'staff')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Supervisor\"\n                            fieldPlaceholder=\"Supervisor\"\n\t\t\t\t\t\t\t[fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"filterData.supervisor\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"dropDownSelect($event,'supervisor')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Cancel</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n\t\t\t<div class=\"main\">\n\t\t\t\t<!-- Loader -->\n\t\t\t\t<app-loader *ngIf=\"!isTicketDataLoaded\"></app-loader>\n\t\t\t\t<!-- Indicator -->\n\t\t\t\t<div class=\"d-flex justify-content-end\">\n\t\t\t\t\t<ul class=\"legends mb-4 list-inline\" *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t\t<li class=\"list-inline-item\"><img class=\"mb-1 mr-1\" width=\"17\" src=\"assets/images/common-ticket-icon.svg\"><span>Common</span></li>\n\t\t\t\t\t\t<li class=\"list-inline-item\"><img class=\"mb-1 mr-1\" width=\"17\" src=\"assets/images/private-ticket-icon.svg\"><span>Private</span></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t\t<ul class=\"legends mb-4 ml-3 list-inline\" *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t\t<li class=\"list-inline-item\"><span class=\"dots bg-orange-900\"></span><span>High</span></li>\n\t\t\t\t\t\t<li class=\"list-inline-item\"><span class=\"dots bg-green-900\"></span>Medium</li>\n\t\t\t\t\t\t<li class=\"list-inline-item mr-0\"><span class=\"dots bg-purple-900\"></span>Low</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\t<!-- Table -->\n\t\t\t\t<condo-card *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\t\t<div class=\"d-flex\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<h4>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='all-tickets'\">All Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='open-tickets'\">Open, Assigned and On-Hold Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='closed-tickets'\">Closed Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='unassigned'\">Unassigned Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='assigned-to-me'\">My Tickets</span>\n\t\t\t\t\t\t\t\t</h4>\n\t\t\t\t\t\t\t\t<p>{{totalItems}} results</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"ml-auto mr-3\">\n\t\t\t\t\t\t\t\t<app-table-search [input]=\"ticketSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"createTicketNavigate()\">Add Ticket</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"ml-3\" *ngIf=\"urlType=='all-tickets' && isAdmin()\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'accent'\" (click)=\"filter.toggle()\">\n\t\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div CondoCardBody>\n\t\t\t\t\t\t<jqxGrid\n\t\t\t\t\t\t\t[theme]=\"'material'\"\n\t\t\t\t\t\t\t[width]=\"'100%'\"\n\t\t\t\t\t\t\t[rowsheight]=\"48\"\n\t\t\t\t\t\t\t[autoheight]=\"true\"\n\t\t\t\t\t\t\t[pageable]=\"true\"\n\t\t\t\t\t\t\t[filterable]=\"true\"\n\t\t\t\t\t\t\t[sortable]=\"true\"\n\t\t\t\t\t\t\t[source]=\"ticketListData\"\n\t\t\t\t\t\t\t[columns]=\"columnData\"\n\t\t\t\t\t\t\t[columnsresize]=\"true\"\n\t\t\t\t\t\t\t[enablehover]=\"false\"\n\t\t\t\t\t\t\t#datagrid>\n\t\t\t\t\t\t</jqxGrid>\n\t\t\t\t\t</div>\n\t\t\t\t</condo-card>\n\t\t\t</div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-all-tickets-wrapper content-layout right-sidebar-fullheight-basic-inner-scroll\">\n    <mat-drawer-container class=\"example-container\" [hasBackdrop]=\"true\" #matDrawer>\n        <mat-drawer class=\"col-lg-3 col-md-3 col-sm-3 col-xs-3 p-0\" #filter mode=\"over\" position=\"end\">\n\t\t\t<div class=\"helpdesk-filter-drawer\">\n\t\t\t\t<div class=\"title\">\n\t\t\t\t\t<h4> Status </h4>\n\t\t\t\t\t<div class=\"ml-auto\">\n\t\t\t\t\t\t<button mat-icon-button (click)=\"goBack()\">\n\t\t\t\t\t\t\t<mat-icon [svgIcon]=\"'close'\"></mat-icon>\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<form>\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Ticket Status\"\n                            fieldPlaceholder=\"Status\"\n                            [fieldList]=\"ticketStatusList\"\n                            fieldValue=\"lookupValueName\"\n                            [fieldModel]=\"filterData.ticketStatus\"\n                            fieldId=\"lookupValueId\"\n                            (fieldParams)=\"dropDownSelect($event,'status')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Staff\"\n                            fieldPlaceholder=\"Staff\"\n                            [fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"filterData.staff\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"dropDownSelect($event,'staff')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<condo-select \n                            labelText=\"Supervisor\"\n                            fieldPlaceholder=\"Supervisor\"\n\t\t\t\t\t\t\t[fieldList]=\"staffsList | orderBy : 'staffName'\"\n                            fieldValue=\"customLabel\"\n                            [fieldModel]=\"filterData.supervisor\"\n                            fieldId=\"staffId\"\n                            (fieldParams)=\"dropDownSelect($event,'supervisor')\" \n                        \t></condo-select>  \n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-sm-12\">\n\t\t\t\t\t\t\t<div class=\"text-right mt-4\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"filterApply()\">Apply</button>\n\t\t\t\t\t\t\t\t<button mat-button (click)=\"clearFilter()\">Cancel</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</form>\n\t\t\t</div>\n        </mat-drawer>\n        <mat-drawer-content>\n\t\t\t<div class=\"main\">\n\t\t\t\t<!-- Loader -->\n\t\t\t\t<app-loader *ngIf=\"!isTicketDataLoaded\"></app-loader>\n\t\t\t\t<!-- Indicator -->\n\t\t\t\t<div class=\"d-flex justify-content-end\">\n\t\t\t\t\t<ul class=\"legends mb-4 list-inline\" *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t\t<li class=\"list-inline-item\"><img class=\"mb-1 mr-1\" width=\"17\" src=\"assets/images/common-ticket-icon.svg\"><span>Common</span></li>\n\t\t\t\t\t\t<li class=\"list-inline-item\"><img class=\"mb-1 mr-1\" width=\"17\" src=\"assets/images/private-ticket-icon.svg\"><span>Private</span></li>\n\t\t\t\t\t</ul>\n\t\t\t\t\n\t\t\t\t\t<ul class=\"legends mb-4 ml-3 list-inline\" *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t\t<li class=\"list-inline-item\"><span class=\"dots bg-orange-900\"></span><span>High</span></li>\n\t\t\t\t\t\t<li class=\"list-inline-item\"><span class=\"dots bg-green-900\"></span>Medium</li>\n\t\t\t\t\t\t<li class=\"list-inline-item mr-0\"><span class=\"dots bg-purple-900\"></span>Low</li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t\t<!-- Table -->\n\t\t\t\t<condo-card *ngIf=\"isTicketDataLoaded\">\n\t\t\t\t\t<div CondoCardHeader>\n\t\t\t\t\t\t<div class=\"d-flex\">\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<h4>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='all-tickets'\">All Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='open-tickets'\">Open, Assigned Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='on-hold'\">On-Hold Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='resolved-tickets'\">Resolved Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='closed-tickets'\">Closed Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='unassigned'\">Unassigned Tickets</span>\n\t\t\t\t\t\t\t\t\t<span *ngIf=\"urlType=='assigned-to-me'\">My Tickets</span>\n\t\t\t\t\t\t\t\t</h4>\n\t\t\t\t\t\t\t\t<p>{{totalItems}} results</p>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"ml-auto mr-3\">\n\t\t\t\t\t\t\t\t<app-table-search [input]=\"ticketSearch\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"mr-3\">\n\t\t\t\t\t\t\t\t<app-print-dropdown (outputParams) =\"getPrintParams($event)\"></app-print-dropdown>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div>\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'primary'\" (click)=\"createTicketNavigate()\">Add Ticket</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"ml-3\" *ngIf=\"urlType=='all-tickets' && isAdmin()\">\n\t\t\t\t\t\t\t\t<button mat-flat-button [color]=\"'accent'\" (click)=\"filter.toggle()\">\n\t\t\t\t\t\t\t\t\t<mat-icon class=\"mr-2\" svgIcon=\"heroicons_outline:filter\"></mat-icon>Filter\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div CondoCardBody>\n\t\t\t\t\t\t<jqxGrid\n\t\t\t\t\t\t\t[theme]=\"'material'\"\n\t\t\t\t\t\t\t[width]=\"'100%'\"\n\t\t\t\t\t\t\t[rowsheight]=\"48\"\n\t\t\t\t\t\t\t[autoheight]=\"true\"\n\t\t\t\t\t\t\t[pageable]=\"true\"\n\t\t\t\t\t\t\t[filterable]=\"true\"\n\t\t\t\t\t\t\t[sortable]=\"true\"\n\t\t\t\t\t\t\t[source]=\"ticketListData\"\n\t\t\t\t\t\t\t[columns]=\"columnData\"\n\t\t\t\t\t\t\t[columnsresize]=\"true\"\n\t\t\t\t\t\t\t[enablehover]=\"false\"\n\t\t\t\t\t\t\t#datagrid>\n\t\t\t\t\t\t</jqxGrid>\n\t\t\t\t\t</div>\n\t\t\t\t</condo-card>\n\t\t\t</div>\n        </mat-drawer-content>\n    </mat-drawer-container>\n</div>\n\n");
 
 /***/ }),
 
@@ -35,7 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-user-ticket-list-wrapper\">\n    \n    <div class=\"main\">\n\n        <app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n        <ng-container *ngIf=\"isDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">All Tickets</h4>\n                    <p class=\"text-secondary mb-1\" *ngIf=\"ticketListData.length != 0\">{{totalItems}} results</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\" *ngIf=\"ticketListData.length != 0\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <input type=\"text\" class=\"form-control\" placeholder=\"Search...\" [(ngModel)]=\"ticketData\">\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <a class=\"nav-link\" routerLink=\"create-ticket\"  mat-flat-button [color]=\"'primary'\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">Create Ticket</span>\n                        </a>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of ticketListData | simpleSearch: ticketData | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"ticket-item\">\n\n                    <div class=\"d-flex\">\n\n                        <div>\n                            <h5>#{{item.ticketId}}</h5>\n                            <div class=\"ticket-others d-flex pt-3 align-items-center\">\n                                <div class=\"status-badge bg-status-{{getTicketStatus(item.ticketStatusId)}}-700\">\n                                    <span class=\"font-bold text-status-{{getTicketStatus(item.ticketStatusId)}}-900 text-uppercase\">{{getTicketLabel(item.ticketStatusId)}}</span>\n                                </div>\n                                <h6 class=\"text-secondary pl-3 \">{{item.title}}</h6>\n                            </div>\n                            <div class=\"d-flex pt-3\" *ngIf=\"isTicketPriortyLoaded\">\n                                <p class=\"priority\" [ngClass]=\"getPriority(item.ticketPriorityId)\"></p>\n                                <p class=\"text-secondary text-smr font-medium text-capitalize\">{{getPriority(item.ticketPriorityId)}}</p>\n                            </div>\n                        </div>\n\n                        <div class=\"ml-auto actions d-flex align-items-center\">\n                            <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editTicket(item.ticketId)\"></mat-icon>\n                        </div>\n\n                    </div>\n\n                    <div class=\"border-top ticket-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">Ticket Created</p>\n                                <p class=\"right\">{{getDateTime(item.insertedOn)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">Assigned to</p>\n                                <p class=\"right\">{{item.assignedTo | nill}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\" *ngIf=\"isTicketCategoryLoaded\">\n                                <p class=\"font-medium\">Category</p>\n                                <p class=\"right text-capitalize\">{{getCategory(item.ticketCategoryId)}}</p>\n                            </div>\n                        </div>\n                    </div>\n\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"ticketListData.length != 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n                </app-pagination>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngIf=\"ticketListData.length == 0\">\n                <h6 class=\"text-secondary\">No Results found</h6>\n            </div>\n\n        </ng-container>\n\n\n    </div>\n\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"helpdesk-user-ticket-list-wrapper\">\n    \n    <div class=\"main\">\n\n        <app-loader *ngIf=\"!isDataLoaded\"></app-loader>\n\n        <ng-container *ngIf=\"isDataLoaded\">\n\n            <div class=\"d-flex mb-4\">\n                <div>\n                    <h4 class=\"mb-2\">{{'SERVICE.HELPDESK.VIEWTICKET.TITLE' | translate}}</h4>\n                    <p class=\"text-secondary mb-1\">{{totalItems}} {{'SERVICE.HELPDESK.VIEWTICKET.TOTALRESULTS' | translate}}</p>\n                </div>\n            </div>\n\n            <div class=\"d-flex mb-4\">\n                <div class=\"d-flex ml-auto\">\n                    <div class=\"mr-3\">\n                        <app-table-search [input]=\"ticketData\" (outputParams)=\"onGlSearchFilter($event)\"></app-table-search>\n                    </div>\n                    <div class=\"mr-3 ml-auto\">\n                        <a class=\"nav-link\" routerLink=\"create-ticket\"  mat-flat-button [color]=\"'primary'\">\n                            <mat-icon class=\"mr-2\" svgIcon=\"heroicons_solid:plus\"></mat-icon><span class=\"button-name\">{{'SERVICE.HELPDESK.VIEWTICKET.CREATETICKET' | translate}}</span>\n                        </a>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngFor=\" let item of ticketListData$ | async | slice:ItemStartIndex:ItemEndIndex; let i = index\">\n\n                <div class=\"ticket-item\">\n\n                    <div class=\"d-flex\">\n\n                        <div>\n                            <h5>#{{item.ticketId}}</h5>\n                            <div class=\"ticket-others d-flex pt-3 align-items-center\">\n                                <div class=\"status-badge bg-status-{{getTicketStatus(item.ticketStatusId)}}-700\">\n                                    <span class=\"font-bold text-status-{{getTicketStatus(item.ticketStatusId)}}-900 text-uppercase\">{{getTicketLabel(item.ticketStatusId_Label)}}</span>\n                                </div>\n                                <h6 class=\"text-secondary pl-3 \">{{item.title}}</h6>\n                            </div>\n                            <div class=\"d-flex pt-3\">\n                                <p class=\"priority\" [ngClass]=\"getPriority(item.ticketPriorityId_Label)\"></p>\n                                <p class=\"text-secondary text-smr font-medium text-capitalize\">{{getPriorityTranslate(item.ticketPriorityId_Label)}}</p>\n                            </div>\n                        </div>\n\n                        <div class=\"ml-auto actions d-flex align-items-center\">\n                            <mat-icon class=\"mr-2\" [color]=\"'primary'\" svgIcon=\"feather:edit\" (click)=\"editTicket(item.ticketId)\"></mat-icon>\n                        </div>\n\n                    </div>\n\n                    <div class=\"border-top ticket-extras\">\n                        <div class=\"row\">\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'SERVICE.HELPDESK.VIEWTICKET.TICKETCREATED' | translate}}</p>\n                                <p class=\"right\">{{getDateTime(item.insertedOn)}}</p>\n                            </div>\n                            <div class=\"ccol-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'SERVICE.HELPDESK.VIEWTICKET.ASSIGNEDTO' | translate}}</p>\n                                <p class=\"right\">{{item.staffId_Label | nill}}</p>\n                            </div>\n                            <div class=\"col-sm-12 col-md-4 item\">\n                                <p class=\"font-medium\">{{'SERVICE.HELPDESK.VIEWTICKET.CATEGORY' | translate}}</p>\n                                <p class=\"right text-capitalize\">{{item.ticketCategoryId_Label}}</p>\n                            </div>\n                        </div>\n                    </div>\n\n                </div>\n\n            </div>\n\n            <div class=\"bg-card shadow p-0\" *ngIf=\"totalItems != 0\">\n                <app-pagination [totalItems]=\"totalItems\" [ItemStartIndex]=\"ItemStartIndex\"\n                        [ItemEndIndex]=\"ItemEndIndex\" [itemLimit]=\"itemLimit\" (outputParams)=\"getIndexParams($event)\">\n                </app-pagination>\n            </div>\n\n            <div class=\"bg-card shadow mb-3\" *ngIf=\"totalItems == 0\">\n                <h6 class=\"text-secondary\">{{'SERVICE.HELPDESK.VIEWTICKET.NORESULTSFOUND' | translate}}</h6>\n            </div>\n\n        </ng-container>\n\n\n    </div>\n\n</div>");
 
 /***/ }),
 
@@ -78,6 +78,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment_timezone__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment_timezone__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var src_app_shared_components_common_confirm_modal_common_confirm_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/shared/components/common-confirm-modal/common-confirm-modal.component */ "./src/app/shared/components/common-confirm-modal/common-confirm-modal.component.ts");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -93,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
-    constructor(router, acticateRoute, ticketService, lookupService, sharedService, sessionService, apartmentService, staffService, _changeDetectorRef, dialog) {
+    constructor(router, acticateRoute, ticketService, lookupService, sharedService, sessionService, apartmentService, staffService, _changeDetectorRef, dialog, translateService) {
         this.router = router;
         this.acticateRoute = acticateRoute;
         this.ticketService = ticketService;
@@ -104,6 +106,7 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
         this.staffService = staffService;
         this._changeDetectorRef = _changeDetectorRef;
         this.dialog = dialog;
+        this.translateService = translateService;
         this.isTrackerSubmitted = true;
         this.ticket = {
             ticketTypeId: '',
@@ -131,6 +134,8 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
         this.ticketComment = '';
         this.ticketCommentList = [];
         this.oldData = {};
+        this.ticketOldCategoryList = [];
+        this.ticketOldTypeId = '';
         this.acticateRoute.params.subscribe((data) => {
             if (data.id) {
                 this.ticketId = parseInt(data.id);
@@ -145,6 +150,9 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
     }
     isAdmin() {
         return this.sessionService.isAdmin();
+    }
+    isUser() {
+        return this.sessionService.isUser();
     }
     getTimeFormat(date) {
         return moment__WEBPACK_IMPORTED_MODULE_10__(date).add(this.timeZone.offset, 'hours').format(this.timeZone.time);
@@ -188,6 +196,9 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
             ApartmentId: this.sessionService.apartmentId,
             LookupTypeId: this.ticket.ticketTypeId == 24 ? 17 : 16,
         };
+        if (this.ticketOldTypeId != this.ticket.ticketTypeId) {
+            this.ticketOldCategoryList = this.ticketCategoryList;
+        }
         this.lookupService.getLookupValueByLookupTypeId(params).subscribe((res) => {
             this.ticketCategoryList = res;
         });
@@ -219,21 +230,21 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
         ;
         this.getBlockUnit();
     }
-    setBlockUnit(event) {
-        this.block.apartmentBlockUnitId = event[0].buId;
-        ;
-        this.getPrimaryName();
-    }
     getBlockUnit() {
         this.block.apartmentBlockUnitId = null;
         this.ticket.apartmentBlockUnitUserId = null;
         for (let data of this.blockList) {
             if (this.block.blockId == data.block_Id) {
                 this.blockUnitList = data.blockUnit;
-                this.getPrimaryName();
                 break;
             }
         }
+    }
+    setBlockUnit(event) {
+        this.block.apartmentBlockUnitId = event[0].buId;
+        ;
+        this.getPrimaryName();
+        this.getTenantOrTower();
     }
     getPrimaryName() {
         for (let data of this.blockUnitList) {
@@ -244,13 +255,39 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
             }
         }
     }
+    getTenantOrTower() {
+        let tower = {
+            apartmentId: this.sessionService.apartmentId,
+            blockUnitId: this.block.apartmentBlockUnitId,
+        };
+        this.apartmentService.getUnitOwnerTenantByBlockUnitId(tower).subscribe((res) => {
+            if (this.createdBY == 'owner') {
+                let ownerInfo = res[0].owner;
+                if (ownerInfo && ownerInfo.length > 0)
+                    this.primaryTenantName = ownerInfo[0].owner_name;
+                else
+                    this.primaryTenantName = '';
+            }
+            else if (this.createdBY == 'tenant') {
+                let tenantInfo = res[0].tenant;
+                if (tenantInfo && tenantInfo.length > 0)
+                    this.primaryTenantName = tenantInfo[0].tenant_name;
+                else
+                    this.primaryTenantName = '';
+            }
+        });
+    }
     get stafflabel() {
-        if (this.viewMode != 'edit' && this.createdBY == 'staff')
-            return 'Ticket For Staff';
-        else if (this.viewMode != 'edit' && this.createdBY == 'admin')
-            return 'Ticket For Admin';
-        else if (this.viewMode == 'edit')
-            return 'Assigned To Staff';
+        let retlabel = "";
+        this.translateService.get('SERVICE.HELPDESK.CREATETICKET').subscribe((data) => {
+            if (this.viewMode != 'edit' && this.createdBY == 'staff')
+                retlabel = `${data.TICKETFORSTAFF}`;
+            else if (this.viewMode != 'edit' && this.createdBY == 'admin')
+                retlabel = `${data.TICKETFORADMIN}`;
+            else if (this.viewMode == 'edit')
+                retlabel = `${data.ASSIGNEDSTAFF}`;
+        });
+        return retlabel;
     }
     getFileIds(event) {
         this.ticket.fileDetailsIds = event.join();
@@ -302,7 +339,7 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
             };
             this.ticketService.addTicket(params).subscribe((res) => {
                 if (res.message) {
-                    if (this.sessionService.isAdmin()) {
+                    if (this.isAdmin()) {
                         this.router.navigate(['open-tickets'], { relativeTo: this.acticateRoute.parent });
                     }
                     else {
@@ -370,13 +407,41 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
                     for (let key in params.ticket) {
                         if (params.ticket[key] != this.oldData[key]) {
                             if (key == 'ticketPriorityId')
-                                this.ticketComment += `User has changed the Priority from ${this.getLabel(this.oldData[key], this.priortyTypeList)} to ${this.getLabel(params.ticket[key], this.priortyTypeList)}<br>`;
+                                this.ticketComment += `Priority has been changed from ${this.getLabel(this.oldData[key], this.priortyTypeList)} to ${this.getLabel(params.ticket[key], this.priortyTypeList)}<br>`;
                             else if (key == 'ticketTypeId')
-                                this.ticketComment += `User has changed the Ticket Type from ${this.getLabel(this.oldData[key], this.ticketTypeList)} to ${this.getLabel(params.ticket[key], this.ticketTypeList)} and Category also changed<br>`;
+                                this.ticketComment += `Ticket Type has been changed from ${this.getLabel(this.oldData[key], this.ticketTypeList)} to ${this.getLabel(params.ticket[key], this.ticketTypeList)}<br>`;
+                            else if (key == 'ticketCategoryId') {
+                                if (`${this.getLabel(this.oldData[key], this.ticketCategoryList)} === ''`) {
+                                    this.ticketComment += `Category has been changed from ${this.getLabel(this.oldData[key], this.ticketOldCategoryList)} to ${this.getLabel(params.ticket[key], this.ticketCategoryList)}<br>`;
+                                }
+                                else {
+                                    this.ticketComment += `Category has been changed from ${this.getLabel(this.oldData[key], this.ticketCategoryList)} to ${this.getLabel(params.ticket[key], this.ticketCategoryList)}<br>`;
+                                }
+                            }
+                            else if (key == 'title')
+                                this.ticketComment += `Subject has been updated<br>`;
+                            else if (key == 'fileDetailsIds')
+                                this.ticketComment += `New Image/Document has been attached <br>`;
                             else if (key == 'description')
-                                this.ticketComment += `User has changed the Description ${(params.ticket[key])}<br>`;
+                                this.ticketComment += `Description has been updated<br>`;
                             else if (key == 'ticketStatusId') {
-                                this.ticketComment += `User has changed the Status from ${this.getLabel(this.oldData[key], this.statusTypeList)} to ${this.getLabel(params.ticket[key], this.statusTypeList)}<br>`;
+                                this.ticketComment += `Status has been changed from ${this.getLabel(this.oldData[key], this.statusTypeList)} to ${this.getLabel(params.ticket[key], this.statusTypeList)}<br>`;
+                            }
+                            else if (key == 'supervisorId') {
+                                if (`${this.getLabelSupervisor(this.oldData[key], this.staffsList)}` === '') {
+                                    this.ticketComment += `Supervisor has been assigned to ${this.getLabelSupervisor(params.ticket[key], this.staffsList)}<br>`;
+                                }
+                                else {
+                                    this.ticketComment += `Supervisor has been changed from ${this.getLabelSupervisor(this.oldData[key], this.staffsList)} to ${this.getLabelSupervisor(params.ticket[key], this.staffsList)}<br>`;
+                                }
+                            }
+                            else if (key == 'staffId') {
+                                if (`${this.getLabelStaff(this.oldData[key], this.staffsList)}` === '') {
+                                    this.ticketComment += `Ticket Staff has been assigned to ${this.getLabelStaff(params.ticket[key], this.staffsList)}<br>`;
+                                }
+                                else {
+                                    this.ticketComment += `Ticket Staff has been changed from ${this.getLabelStaff(this.oldData[key], this.staffsList)} to ${this.getLabelStaff(params.ticket[key], this.staffsList)}<br>`;
+                                }
                             }
                         }
                     }
@@ -386,6 +451,26 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
                     }
                     if (this.ticket.ticketStatusId != 32) {
                         this.statusTypeList = this.statusTypeList.filter((status) => status.lookupValueId != 32);
+                    }
+                    if (this.isAdmin()) {
+                        if (this.ticket.ticketStatusId === 33) {
+                            this.router.navigate(['open-tickets'], { relativeTo: this.acticateRoute.parent });
+                        }
+                        else if (this.ticket.ticketStatusId === 46) {
+                            this.router.navigate(['closed-tickets'], { relativeTo: this.acticateRoute.parent });
+                        }
+                        else if (this.ticket.ticketStatusId === 45) {
+                            this.router.navigate(['resolved-tickets'], { relativeTo: this.acticateRoute.parent });
+                        }
+                        else if (this.ticket.ticketStatusId === 34) {
+                            this.router.navigate(['on-hold'], { relativeTo: this.acticateRoute.parent });
+                        }
+                        else {
+                            this.router.navigate(['open-tickets'], { relativeTo: this.acticateRoute.parent });
+                        }
+                    }
+                    else {
+                        this.router.navigate(['my-tickets'], { relativeTo: this.acticateRoute.parent });
                     }
                 }
                 else
@@ -401,6 +486,20 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
         let label = list.filter((data) => data.lookupValueId == id);
         if (label.length > 0)
             return label[0].lookupValueName;
+        else
+            return '';
+    }
+    getLabelStaff(id, list) {
+        let label = list.filter((data) => data.staffId == id);
+        if (label.length > 0)
+            return label[0].staffName;
+        else
+            return '';
+    }
+    getLabelSupervisor(id, list) {
+        let label = list.filter((data) => data.userId == id);
+        if (label.length > 0)
+            return label[0].staffName;
         else
             return '';
     }
@@ -487,7 +586,10 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
         });
     }
     ngOnInit() {
-        this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
+        this.sharedService.timezonecast.subscribe(timeZone => {
+            this.timeZone = timeZone;
+            console.log(this.timeZone);
+        });
         // Login Based View for admin or owner
         if (!this.isAdmin()) {
             this.createdBY = 'owner';
@@ -517,6 +619,7 @@ let HelpdeskCreateTicketComponent = class HelpdeskCreateTicketComponent {
             this.ticketService.getTicketById(ticketId).subscribe(res => {
                 let _a = res[0], { fileDetailsPath } = _a, response = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__rest"])(_a, ["fileDetailsPath"]);
                 this.ticket = response;
+                this.ticketOldTypeId = response.ticketTypeId;
                 this.getStatus();
                 //Get File Information
                 if (fileDetailsPath && fileDetailsPath.length > 0) {
@@ -567,7 +670,8 @@ HelpdeskCreateTicketComponent.ctorParameters = () => [
     { type: src_app_api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_4__["ApartmentService"] },
     { type: src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_8__["StaffService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
-    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__["MatDialog"] }
+    { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__["MatDialog"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"] }
 ];
 HelpdeskCreateTicketComponent.propDecorators = {
     form: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"], args: ['createHelpDeskForm',] }]
@@ -589,7 +693,8 @@ HelpdeskCreateTicketComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__dec
         src_app_api_controllers_Apartment__WEBPACK_IMPORTED_MODULE_4__["ApartmentService"],
         src_app_api_controllers_Staff__WEBPACK_IMPORTED_MODULE_8__["StaffService"],
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"],
-        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__["MatDialog"]])
+        _angular_material_dialog__WEBPACK_IMPORTED_MODULE_13__["MatDialog"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"]])
 ], HelpdeskCreateTicketComponent);
 
 
@@ -759,10 +864,16 @@ let HelpdeskTicketFilterComponent = class HelpdeskTicketFilterComponent {
             apartmentId: this.sessionService.apartmentId,
         };
         if (this.urlType == 'open-tickets') {
-            params.ticketStatusIds = "32,33,46";
+            params.ticketStatusIds = "32,33";
         }
         else if (this.urlType == 'closed-tickets') {
+            params.ticketStatusIds = "46";
+        }
+        else if (this.urlType == 'on-hold') {
             params.ticketStatusIds = "34";
+        }
+        else if (this.urlType == 'resolved-tickets') {
+            params.ticketStatusIds = "45";
         }
         else if (this.urlType == 'unassigned') {
             params.isStaffassigned = false;
@@ -862,9 +973,9 @@ let HelpdeskTicketFilterComponent = class HelpdeskTicketFilterComponent {
                 renderer: columnrenderer
             }, {
                 text: 'Type',
-                datafield: 'ticketTypeId',
+                datafield: 'ticketTypeId_Label',
                 cellsrenderer: (row, column, value) => {
-                    if (value == 24) {
+                    if (value == 'Common') {
                         return '<div class="jqx-custom-inner-cell"><img src="assets/images/common-ticket-icon.svg"></div>';
                     }
                     else {
@@ -875,32 +986,31 @@ let HelpdeskTicketFilterComponent = class HelpdeskTicketFilterComponent {
                 renderer: columnrenderer
             }, {
                 text: 'Status',
-                datafield: 'ticketStatusId',
+                datafield: 'ticketStatusId_Label',
                 cellsrenderer: (row, column, value) => {
-                    let status, label;
-                    if (value == 32) {
+                    let status;
+                    if (value == 'New') {
                         status = 'purple';
-                        label = 'New';
                     }
-                    else if (value == 33) {
+                    else if (value == 'Assigned - Inprogress') {
                         status = 'orange';
-                        label = 'Assigned';
                     }
-                    else if (value == 34) {
+                    else if (value == 'Closed') {
                         status = 'green';
-                        label = 'Resolved';
                     }
-                    else if (value == 46) {
+                    else if (value == 'Resolved ') {
+                        status = 'green';
+                    }
+                    else if (value == 'On Hold') {
                         status = 'red';
-                        label = 'On Hold';
                     }
                     return `<div class="jqx-custom-inner-cell">
             <div class="status-badge bg-status-${status}-700">
-              <span class="font-bold text-status-${status}-900 text-uppercase">${label ? label : ''}</span>
+              <span class="font-bold text-status-${status}-900 text-uppercase">${value ? value : ''}</span>
             </div>
         </div>`;
                 },
-                minwidth: 170,
+                width: 180,
                 renderer: columnrenderer
             }, {
                 text: 'Category',
@@ -910,17 +1020,17 @@ let HelpdeskTicketFilterComponent = class HelpdeskTicketFilterComponent {
                 renderer: columnrenderer
             }, {
                 text: 'Priority',
-                datafield: 'ticketPriorityId',
+                datafield: 'ticketPriorityId_Label',
                 cellsrenderer: (row, column, value) => {
                     //47==High 48==Medium 49==Low
                     let priority;
-                    if (value == 47) {
+                    if (value == 'High') {
                         priority = 'bg-orange-900';
                     }
-                    else if (value == 48) {
+                    else if (value == 'Medium') {
                         priority = 'bg-green-900';
                     }
-                    else if (value == 49) {
+                    else if (value == 'Low') {
                         priority = 'bg-purple-900';
                     }
                     return `<div class="simple-actions"><span class="dots ${priority}"></span></div>`;
@@ -1090,6 +1200,8 @@ const routes = [
     { path: 'assigned-to-me', component: _helpdesk_ticket_filter_helpdesk_ticket_filter_component__WEBPACK_IMPORTED_MODULE_4__["HelpdeskTicketFilterComponent"], canActivate: [src_app_core_auth_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]] },
     { path: 'all-tickets', component: _helpdesk_ticket_filter_helpdesk_ticket_filter_component__WEBPACK_IMPORTED_MODULE_4__["HelpdeskTicketFilterComponent"], canActivate: [src_app_core_auth_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]] },
     { path: 'my-tickets', component: _helpdesk_user_ticket_list_helpdesk_user_ticket_list_component__WEBPACK_IMPORTED_MODULE_5__["HelpdeskUserTicketListComponent"], canActivate: [src_app_core_auth_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]] },
+    { path: 'resolved-tickets', component: _helpdesk_ticket_filter_helpdesk_ticket_filter_component__WEBPACK_IMPORTED_MODULE_4__["HelpdeskTicketFilterComponent"], canActivate: [src_app_core_auth_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]] },
+    { path: 'on-hold', component: _helpdesk_ticket_filter_helpdesk_ticket_filter_component__WEBPACK_IMPORTED_MODULE_4__["HelpdeskTicketFilterComponent"], canActivate: [src_app_core_auth_guards_auth_guard__WEBPACK_IMPORTED_MODULE_6__["AuthGuard"]] },
     { path: '**', redirectTo: 'create-ticket', pathMatch: 'full' }
 ];
 let HelpdeskTicketRoutingModule = class HelpdeskTicketRoutingModule {
@@ -1129,6 +1241,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/modules/ui/list/list.module */ "./src/app/modules/ui/list/list.module.ts");
 /* harmony import */ var _helpdesk_user_ticket_list_helpdesk_user_ticket_list_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./helpdesk-user-ticket-list/helpdesk-user-ticket-list.component */ "./src/app/modules/common/helpdesk/helpdesk-ticket/helpdesk-user-ticket-list/helpdesk-user-ticket-list.component.ts");
 /* harmony import */ var src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/modules/ui/help-tooltip/help-tooltip.module */ "./src/app/modules/ui/help-tooltip/help-tooltip.module.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -1161,7 +1275,8 @@ HelpdeskTicketModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])(
             src_app_modules_ui_message_message_module__WEBPACK_IMPORTED_MODULE_10__["CondoMessageModule"],
             src_app_modules_ui_list_list_module__WEBPACK_IMPORTED_MODULE_11__["ListModule"],
             _helpdesk_ticket_routing_module__WEBPACK_IMPORTED_MODULE_3__["HelpdeskTicketRoutingModule"],
-            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_13__["HelpTooltipModule"]
+            src_app_modules_ui_help_tooltip_help_tooltip_module__WEBPACK_IMPORTED_MODULE_13__["HelpTooltipModule"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateModule"]
         ]
     })
 ], HelpdeskTicketModule);
@@ -1198,10 +1313,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api/controllers/Ticket */ "./src/app/api/controllers/Ticket.ts");
 /* harmony import */ var src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/core/session/session.service */ "./src/app/core/session/session.service.ts");
-/* harmony import */ var src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api/controllers/Lookup */ "./src/app/api/controllers/Lookup.ts");
-/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+/* harmony import */ var src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/shared.service */ "./src/app/shared/services/shared.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/__ivy_ngcc__/fesm2015/ngx-translate-core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/__ivy_ngcc__/fesm2015/forms.js");
+
+
+
 
 
 
@@ -1211,20 +1332,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HelpdeskUserTicketListComponent = class HelpdeskUserTicketListComponent {
-    constructor(router, activeRoute, lookupService, ticketService, sharedService, sessionService) {
+    constructor(router, ticketService, sharedService, sessionService, translateService) {
         this.router = router;
-        this.activeRoute = activeRoute;
-        this.lookupService = lookupService;
         this.ticketService = ticketService;
         this.sharedService = sharedService;
         this.sessionService = sessionService;
+        this.translateService = translateService;
         this.isDataLoaded = false;
-        this.ticketListData = [];
         this.ticketData = '';
-        this.isTicketCategoryLoaded = false;
-        this.isTicketPriortyLoaded = false;
         this.ItemStartIndex = 0;
+        this.totalItems = 0;
         this.itemLimit = 10;
+        this.fullticketDataList = [];
+        this.ticketDataList = new rxjs__WEBPACK_IMPORTED_MODULE_9__["BehaviorSubject"](null);
+        this.searchData = new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]('');
+    }
+    get ticketListData$() {
+        return this.ticketDataList.asObservable();
+    }
+    onGlSearchFilter(event) {
+        this.searchData.setValue(event);
     }
     getIndexParams(event) {
         this.ItemStartIndex = event.ItemStartIndex;
@@ -1251,107 +1378,105 @@ let HelpdeskUserTicketListComponent = class HelpdeskUserTicketListComponent {
             return 'red';
         }
     }
-    getTicketLabel(id) {
-        if (id == 32) {
-            return 'new';
-        }
-        else if (id == 33) {
-            return 'Assigned';
-        }
-        else if (id == 34) {
-            return 'Resolved';
-        }
-        else if (id == 46) {
-            return 'On Hold';
-        }
-    }
-    getPriority(id) {
-        var data = this.priortyTypeList.filter(item => {
-            return item.lookupValueId == id;
-        });
-        if (data == undefined || data.length == 0) {
+    getPriority(data) {
+        if (data)
+            return data.toLowerCase();
+        else
             return '';
-        }
-        else {
-            return data[0].lookupValueName.toLowerCase();
-        }
     }
-    getCategory(id) {
-        var data = this.ticketCategoryList.filter(item => {
-            return item.lookupValueId == id;
-        });
-        if (data == undefined || data.length == 0) {
-            return '';
-        }
-        else {
-            return data[0].lookupValueName;
-        }
-    }
-    ngOnInit() {
-        this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
-        //24 is common type so we passed 17
-        //27 is private type so we passed 16
-        let categoryCommonParams = {
-            ApartmentId: this.sessionService.apartmentId,
-            LookupTypeId: 17,
-        };
-        this.lookupService.getLookupValueByLookupTypeId(categoryCommonParams).subscribe((res) => {
-            this.ticketCommonCategoryList = res;
-            let categoryPrivateParams = {
-                ApartmentId: this.sessionService.apartmentId,
-                LookupTypeId: 16,
-            };
-            this.lookupService.getLookupValueByLookupTypeId(categoryPrivateParams).subscribe((res) => {
-                this.ticketPrivateCategoryList = res;
-                this.ticketCategoryList = this.ticketPrivateCategoryList.concat(this.ticketCommonCategoryList);
-                this.isTicketCategoryLoaded = true;
+    getPriorityTranslate(label) {
+        if (label) {
+            let retLabel = "";
+            this.translateService.get('SERVICE.HELPDESK.VIEWTICKET.PRIORITY').subscribe((data) => {
+                if (label == "High")
+                    retLabel = `${data.HIGH}`;
+                else if (label == "Low")
+                    retLabel = `${data.LOW}`;
+                else if (label == "Medium")
+                    retLabel = `${data.MEDIUM}`;
             });
+            return retLabel;
+        }
+        else
+            return '';
+    }
+    getTicketLabel(label) {
+        let retLabel = "";
+        this.translateService.get('SERVICE.HELPDESK.VIEWTICKET.STATUS').subscribe((data) => {
+            if (label == 'New') {
+                retLabel = `${data.NEW}`;
+            }
+            else if (label == 'Assigned - Inprogress') {
+                retLabel = `${data.ASSIGNED}`;
+            }
+            else if (label == 'Resolved') {
+                retLabel = `${data.RESOLVED}`;
+            }
+            else if (label == 'On Hold') {
+                retLabel = `${data.ONHOLD}`;
+            }
+            else if (label == 'Closed') {
+                retLabel = `${data.CLOSED}`;
+            }
         });
+        return retLabel;
+    }
+    getTicketList() {
         let params = {
             apartmentId: this.sessionService.apartmentId,
             blockunituserId: this.sessionService.apartmentBlockUnitUserId
         };
         this.ticketService.getTicketscreatedByblockunitUserId(params).subscribe((res) => {
-            if (res.length > 0) {
+            if (Array.isArray(res)) {
                 res.sort((a, b) => {
                     return b.serialNo - a.serialNo;
                 });
-                this.ticketListData = res;
-                console.log(res);
-                if (this.totalItems > this.itemLimit) {
-                    this.ItemEndIndex = this.itemLimit;
-                }
-                else {
-                    this.ItemEndIndex = this.totalItems;
-                }
-                this.totalItems = this.ticketListData.length;
-                this.isDataLoaded = true;
+                this.fullticketDataList = res;
+                this.ticketDataList.next(this.fullticketDataList);
             }
-            else {
-                this.isDataLoaded = true;
-            }
+            this.isDataLoaded = true;
         }, (error) => {
             this.isDataLoaded = true;
             this.sharedService.openSnackBar('Server Error', 'error');
         });
-        //priorityList
-        let priority = {
-            LookupTypeId: 14,
-            ApartmentId: this.sessionService.apartmentId
-        };
-        this.lookupService.getLookupValueByLookupTypeId(priority).subscribe((res) => {
-            this.priortyTypeList = res;
-            this.isTicketPriortyLoaded = true;
+    }
+    ngOnInit() {
+        this.sharedService.timezonecast.subscribe(timeZone => this.timeZone = timeZone);
+        this.getTicketList();
+        this.ticketListData$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["filter"])(res => res != null)).subscribe((res) => {
+            this.totalItems = res.length;
+            this.ItemStartIndex = 0;
+            if (this.totalItems > this.itemLimit) {
+                this.ItemEndIndex = this.itemLimit;
+            }
+            else {
+                this.ItemEndIndex = this.totalItems;
+            }
         });
+        // Subscribe to search input field value changes
+        this.searchData.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])((val) => {
+            let newData = this.fullticketDataList.filter(item => {
+                for (let field in item) {
+                    if (item[field] === null || item[field] === undefined) {
+                        continue;
+                    }
+                    if (item[field].toString().toLowerCase().indexOf(val.toString().toLowerCase()) !== -1) {
+                        return item;
+                    }
+                }
+            });
+            this.ticketDataList.next(newData.reverse());
+        }))
+            .subscribe();
     }
 };
 HelpdeskUserTicketListComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__["LookupService"] },
     { type: src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_3__["TicketService"] },
-    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__["SharedService"] },
-    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"] }
+    { type: src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"] },
+    { type: src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__["TranslateService"] }
 ];
 HelpdeskUserTicketListComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1361,11 +1486,10 @@ HelpdeskUserTicketListComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__d
         styles: [Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"])(__webpack_require__(/*! ./helpdesk-user-ticket-list.component.scss */ "./src/app/modules/common/helpdesk/helpdesk-ticket/helpdesk-user-ticket-list/helpdesk-user-ticket-list.component.scss")).default]
     }),
     Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"])("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-        _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-        src_app_api_controllers_Lookup__WEBPACK_IMPORTED_MODULE_5__["LookupService"],
         src_app_api_controllers_Ticket__WEBPACK_IMPORTED_MODULE_3__["TicketService"],
-        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_6__["SharedService"],
-        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"]])
+        src_app_shared_services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"],
+        src_app_core_session_session_service__WEBPACK_IMPORTED_MODULE_4__["SessionService"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__["TranslateService"]])
 ], HelpdeskUserTicketListComponent);
 
 
